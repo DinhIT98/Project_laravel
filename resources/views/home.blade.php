@@ -31,17 +31,18 @@
 				<div class="col-xs-12 col-sm-8 col-md-9">
 					<div class="slider-wrapper theme-default">
 			            <div id="slider" class="nivoSlider">
-			                <a href=""><img src="images/slide1.jpg" alt="" /></a>
-			                <a href=""><img src="images/slide2.jpg" alt="" /></a>
+			                <a href=""><img src="images/slide3.png" alt="" /></a>
+			                <a href=""><img src="images/slide4.png" alt="" /></a>
+                            <a href=""><img src="images/slide5.png" alt="" /></a>
 			            </div>
 			        </div>
 				</div>
 				<div class="banner clearfix">
 					<div class="col-xs-12 col-sm-6">
-						<img src="images/banner1.png" alt="">
+						<img src="" alt="">
 					</div>
 					<div class="col-xs-12 col-sm-6">
-						<img src="images/banner2.png" alt="">
+						<img src="" alt="">
 					</div>
 				</div>
 			</section>
@@ -196,19 +197,19 @@
 									<div class="item">
 					                	<div class="boxsp">
 					                		<div class="imgsp">
-					                			<a href=""><img class="imgproduct" src="images/img1.jpg"></a>
+					                			<a href="{{route('product.detail',['id'=>$product->id])}}"><img class="imgproduct" src="images/{{$product->path}}"></a>
 					                			<div class="img-label">
 					                				<img src="images/hot.png">
 					                			</div>
 					                		</div>
 					                		<div class="namesp">
-					                			<a href="">{{$product->product_name}}</a>
+					                			<a href="{{route('product.detail',['id'=>$product->id])}}">{{$product->product_name}}</a>
 					                		</div>
 					                		<div class="pricesp">{{$product->price}}</div>
                                             <div class="pricesp">{{$product->status}}</div>
 					                		<div class="button-hd">
 						                		<a href=""><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
-						                		<a href=""><i class="fa fa-eye" aria-hidden="true"></i></a>
+						                		<a href="{{route('product.detail',['id'=>$product->id])}}"><i class="fa fa-eye" aria-hidden="true"></i></a>
 						                	</div>
 					                	</div>
 					                </div>
@@ -218,162 +219,61 @@
 							</div>
 						</div>
 					</div>
+
 					<div class="boxmain">
 						<div class="tit-boxmain">
 							<h3><span>Điện thoại</span></h3>
 						</div>
+
 						<div class="ct-boxmain row m0">
+                        @foreach($smartphone as $phone)
 							<div class="col-xs-6 col-sm-4 col-md-3 p5">
 								<div class="boxsp">
 			                		<div class="imgsp">
-			                			<a href=""><img class="imgproduct" src="images/img1.jpg"></a>
+			                			<a href="{{route('product.detail',['id'=>$phone->id])}}"><img class="imgproduct" src="images/{{$phone->path}}"></a>
 			                			<div class="img-label">
 			                				<img src="images/hot.png">
 			                			</div>
 			                		</div>
 			                		<div class="namesp">
-			                			<a href="">SoundMAGIC PL30+</a>
+			                			<a href="{{route('product.detail',['id'=>$phone->id])}}">{{$phone->product_name}}</a>
 			                		</div>
-			                		<div class="pricesp">499.000 Đ</div>
+			                		<div class="pricesp">{{$phone->price}}</div>
 			                		<div class="button-hd">
 				                		<a href=""><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
-				                		<a href=""><i class="fa fa-eye" aria-hidden="true"></i></a>
+				                		<a href="{{route('product.detail',['id'=>$phone->id])}}"><i class="fa fa-eye" aria-hidden="true"></i></a>
 				                	</div>
 			                	</div>
 							</div>
-							<div class="col-xs-6 col-sm-4 col-md-3 p5">
-								<div class="boxsp">
-			                		<div class="imgsp">
-			                			<a href=""><img class="imgproduct" src="images/img1.jpg"></a>
-			                			<div class="img-label">
-			                				<img src="images/hot.png">
-			                			</div>
-			                		</div>
-			                		<div class="namesp">
-			                			<a href="">SoundMAGIC PL30+</a>
-			                		</div>
-			                		<div class="pricesp">499.000 Đ</div>
-			                		<div class="button-hd">
-				                		<a href=""><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
-				                		<a href=""><i class="fa fa-eye" aria-hidden="true"></i></a>
-				                	</div>
-			                	</div>
-							</div>
-							<div class="col-xs-6 col-sm-4 col-md-3 p5">
-								<div class="boxsp">
-			                		<div class="imgsp">
-			                			<a href=""><img class="imgproduct" src="images/img1.jpg"></a>
-			                			<div class="img-label">
-			                				<img src="images/hot.png">
-			                			</div>
-			                		</div>
-			                		<div class="namesp">
-			                			<a href="">SoundMAGIC PL30+</a>
-			                		</div>
-			                		<div class="pricesp">499.000 Đ</div>
-			                		<div class="button-hd">
-				                		<a href=""><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
-				                		<a href=""><i class="fa fa-eye" aria-hidden="true"></i></a>
-				                	</div>
-			                	</div>
-							</div>
-							<div class="col-xs-6 col-sm-4 col-md-3 p5">
-								<div class="boxsp">
-			                		<div class="imgsp">
-			                			<a href=""><img class="imgproduct" src="images/img1.jpg"></a>
-			                			<div class="img-label">
-			                				<img src="images/hot.png">
-			                			</div>
-			                		</div>
-			                		<div class="namesp">
-			                			<a href="">SoundMAGIC PL30+</a>
-			                		</div>
-			                		<div class="pricesp">499.000 Đ</div>
-			                		<div class="button-hd">
-				                		<a href=""><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
-				                		<a href=""><i class="fa fa-eye" aria-hidden="true"></i></a>
-				                	</div>
-			                	</div>
-							</div>
+                        @endforeach
 						</div>
+
 					</div>
 					<div class="boxmain">
 						<div class="tit-boxmain">
 							<h3><span>Laptop</span></h3>
 						</div>
 						<div class="ct-boxmain row m0">
+                        @foreach($laptop as $lap)
 							<div class="col-xs-6 col-sm-4 col-md-3 p5">
 								<div class="boxsp">
 			                		<div class="imgsp">
-			                			<a href=""><img class="imgproduct" src="images/img1.jpg"></a>
+			                			<a href="{{route('product.detail',['id'=>$lap->id])}}"><img class="imgproduct" src="images/{{$lap->path}}"></a>
 			                			<div class="img-label">
 			                				<img src="images/hot.png">
 			                			</div>
 			                		</div>
 			                		<div class="namesp">
-			                			<a href="">SoundMAGIC PL30+</a>
+			                			<a href="{{route('product.detail',['id'=>$lap->id])}}">{{$lap->product_name}}</a>
 			                		</div>
-			                		<div class="pricesp">499.000 Đ</div>
+			                		<div class="pricesp">{{$lap->price}}</div>
 			                		<div class="button-hd">
 				                		<a href=""><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
-				                		<a href=""><i class="fa fa-eye" aria-hidden="true"></i></a>
+				                		<a href="{{route('product.detail',['id'=>$lap->id])}}"><i class="fa fa-eye" aria-hidden="true"></i></a>
 				                	</div>
 			                	</div>
-							</div>
-							<div class="col-xs-6 col-sm-4 col-md-3 p5">
-								<div class="boxsp">
-			                		<div class="imgsp">
-			                			<a href=""><img class="imgproduct" src="images/img1.jpg"></a>
-			                			<div class="img-label">
-			                				<img src="images/hot.png">
-			                			</div>
-			                		</div>
-			                		<div class="namesp">
-			                			<a href="">SoundMAGIC PL30+</a>
-			                		</div>
-			                		<div class="pricesp">499.000 Đ</div>
-			                		<div class="button-hd">
-				                		<a href=""><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
-				                		<a href=""><i class="fa fa-eye" aria-hidden="true"></i></a>
-				                	</div>
-			                	</div>
-							</div>
-							<div class="col-xs-6 col-sm-4 col-md-3 p5">
-								<div class="boxsp">
-			                		<div class="imgsp">
-			                			<a href=""><img class="imgproduct" src="images/img1.jpg"></a>
-			                			<div class="img-label">
-			                				<img src="images/hot.png">
-			                			</div>
-			                		</div>
-			                		<div class="namesp">
-			                			<a href="">SoundMAGIC PL30+</a>
-			                		</div>
-			                		<div class="pricesp">499.000 Đ</div>
-			                		<div class="button-hd">
-				                		<a href=""><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
-				                		<a href=""><i class="fa fa-eye" aria-hidden="true"></i></a>
-				                	</div>
-			                	</div>
-							</div>
-							<div class="col-xs-6 col-sm-4 col-md-3 p5">
-								<div class="boxsp">
-			                		<div class="imgsp">
-			                			<a href=""><img class="imgproduct" src="images/img1.jpg"></a>
-			                			<div class="img-label">
-			                				<img src="images/hot.png">
-			                			</div>
-			                		</div>
-			                		<div class="namesp">
-			                			<a href="">SoundMAGIC PL30+</a>
-			                		</div>
-			                		<div class="pricesp">499.000 Đ</div>
-			                		<div class="button-hd">
-				                		<a href=""><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
-				                		<a href=""><i class="fa fa-eye" aria-hidden="true"></i></a>
-				                	</div>
-			                	</div>
-							</div>
+                            </div>
+                        @endforeach
 						</div>
 					</div>
 					<div class="boxmain">

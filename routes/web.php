@@ -20,9 +20,12 @@ Route::get('/', function () {
 Route::get('/index',function(){
     return view('index');
 });
-Route::get('/home',[PageController::class,'show_product']);
+Route::get('/home',[PageController::class,'show_product'])->name('home');
 Route::get('/category/{cate}',[PageController::class,'showProductByCategory'])->name('show.category');
 Route::get('/admin/signIn',function(){
     return view('sign_in');
 });
+// Route::get('/detail',[PageController::class,'show_detail']);
+Route::get('/product/detail/{id}',[PageController::class,'show_detail'])->name('product.detail');
+
 

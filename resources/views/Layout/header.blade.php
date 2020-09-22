@@ -2,7 +2,7 @@
 		<div class="topbar">
 			<div class="container">
 				<div class="col-xs-12 col-sm-6 p0 hotline-top">
-					<img src="images/phone-24.png" alt="hotline" />
+					<img src="{{URL::asset('images/phone-24.png')}}" alt="hotline" />
 					<p>Điện thoại: <a href="tel:01649.629.629">01649.629.629</a></p>
 				</div>
 			</div>
@@ -11,7 +11,7 @@
 			<div class="container">
 				<div class="col-xs-12 col-md-4">
 					<div id="logo">
-						<a href=""><img src="images/logo.png" alt=""></a>
+						<a href=""><img src="{{URL::asset('images/logo.png')}}" alt=""></a>
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-6 col-md-4">
@@ -38,7 +38,7 @@
 		<nav id="mainmenu" class="hidden-xs hidden-sm ">
 			<div class="container">
 				<ul class="x1">
-					<li><a href="">Trang chủ</a></li>
+					<li><a href="{{route('home')}}">Trang chủ</a></li>
 					<li>
 						<a href="">Sản phẩm</a>
 						<i class="fa fa-caret-down" aria-hidden="true"></i>

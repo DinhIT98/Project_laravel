@@ -25,8 +25,8 @@
 
 	<link href="{{ URL::asset('css/style.css')}}" rel="stylesheet">
     <!-- SLIDE CSS -->
-    <link rel="stylesheet" href="lib/slider/default.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="lib/slider/nivo-slider.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="{{URL::asset('lib/slider/default.css')}}" type="text/css" media="screen" />
+    <link rel="stylesheet" href="{{URL::asset('lib/slider/nivo-slider.css')}}" type="text/css" media="screen" />
     <!-- Owl Carousel Assets -->
     <link href="{{URL::asset('lib/owlcarousel/owl.carousel.css')}}" rel="stylesheet">
     <link href="{{URL::asset('lib/owlcarousel/owl.theme.css')}}" rel="stylesheet">
@@ -43,7 +43,7 @@
 			$(".top-cart-content").css("display","none");
 		});
 	</script>
-	<script src="lib/slider/jquery.nivo.slider.pack.js" type="text/javascript"></script>
+	<script src="{{URL::asset('lib/slider/jquery.nivo.slider.pack.js')}}" type="text/javascript"></script>
 	<script type="text/javascript">
 		$(window).load(function() {
 		    $('#slider').nivoSlider();
@@ -51,7 +51,7 @@
 	</script>
 
 	<!-- Owl Carousel Assets -->
-	<script src="lib/owlcarousel/owl.carousel.js"></script>
+	<script src="{{URL::asset('lib/owlcarousel/owl.carousel.js')}}"></script>
 	<script>
     $(document).ready(function() {
       	$("#slider-tintuc").owlCarousel({
