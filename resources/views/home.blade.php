@@ -194,10 +194,11 @@
 							<div class="row">
 								<div id="spmoi" class="owl-carousel">
                                 @foreach($products as $product)
+                                   <?php $image=explode(",", $product->path);?>
 									<div class="item">
 					                	<div class="boxsp">
 					                		<div class="imgsp">
-					                			<a href="{{route('product.detail',['id'=>$product->id])}}"><img class="imgproduct" src="images/{{$product->path}}"></a>
+					                			<a href="{{route('product.detail',['id'=>$product->id])}}"><img class="imgproduct" src="images/{{$image[0]}}"></a>
 					                			<div class="img-label">
 					                				<img src="images/hot.png">
 					                			</div>
@@ -205,7 +206,7 @@
 					                		<div class="namesp">
 					                			<a href="{{route('product.detail',['id'=>$product->id])}}">{{$product->product_name}}</a>
 					                		</div>
-					                		<div class="pricesp">{{$product->price}}</div>
+					                		<div class="pricesp">{{number_format($product->price)}} đ</div>
                                             <div class="pricesp">{{$product->status}}</div>
 					                		<div class="button-hd">
 						                		<a href=""><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
@@ -227,10 +228,11 @@
 
 						<div class="ct-boxmain row m0">
                         @foreach($smartphone as $phone)
+                        <?php $image_smart=explode(",", $phone->path);?>
 							<div class="col-xs-6 col-sm-4 col-md-3 p5">
 								<div class="boxsp">
 			                		<div class="imgsp">
-			                			<a href="{{route('product.detail',['id'=>$phone->id])}}"><img class="imgproduct" src="images/{{$phone->path}}"></a>
+			                			<a href="{{route('product.detail',['id'=>$phone->id])}}"><img class="imgproduct" src="images/{{$image_smart[0]}}"></a>
 			                			<div class="img-label">
 			                				<img src="images/hot.png">
 			                			</div>
@@ -238,7 +240,7 @@
 			                		<div class="namesp">
 			                			<a href="{{route('product.detail',['id'=>$phone->id])}}">{{$phone->product_name}}</a>
 			                		</div>
-			                		<div class="pricesp">{{$phone->price}}</div>
+			                		<div class="pricesp">{{number_format($phone->price)}} đ</div>
 			                		<div class="button-hd">
 				                		<a href=""><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
 				                		<a href="{{route('product.detail',['id'=>$phone->id])}}"><i class="fa fa-eye" aria-hidden="true"></i></a>
@@ -266,7 +268,7 @@
 			                		<div class="namesp">
 			                			<a href="{{route('product.detail',['id'=>$lap->id])}}">{{$lap->product_name}}</a>
 			                		</div>
-			                		<div class="pricesp">{{$lap->price}}</div>
+			                		<div class="pricesp">{{number_format($lap->price)}} đ</div>
 			                		<div class="button-hd">
 				                		<a href=""><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
 				                		<a href="{{route('product.detail',['id'=>$lap->id])}}"><i class="fa fa-eye" aria-hidden="true"></i></a>

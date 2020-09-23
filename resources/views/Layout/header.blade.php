@@ -25,7 +25,7 @@
 				<div class="col-xs-12 col-sm-6 col-md-4">
 					<div class="cart">
 						<div class="discart">
-							<span class="mycart">Giỏ hàng:</span>
+							<a href="/cart"><span class="mycart">Giỏ hàng:</span></a>
 							<span class="count_products_cart">0 sản phẩm</span>
 						</div>
 						<div class="top-cart-content">

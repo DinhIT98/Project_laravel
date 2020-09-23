@@ -27,5 +27,7 @@ Route::get('/admin/signIn',function(){
 });
 // Route::get('/detail',[PageController::class,'show_detail']);
 Route::get('/product/detail/{id}',[PageController::class,'show_detail'])->name('product.detail');
+Route::get('/checkout/{id}',[PageController::class,'checkout'])->name('product.checkout');
+Route::get('/cart',[PageController::class,'cart']);
 
 

@@ -656,3 +656,16 @@ ul.ulspmobi ul li a{
     border-radius: 4px;
     cursor: zoom-in;
 }
+.checkout{
+	margin-top: 15px;
+	background-color:#eee;
+	padding:20px;
+	border-radius: 10px;
+
+}
+.Product-img img{
+	width: 100%;
+}
+.main_detail{
+    margin-top: 16px;
+}

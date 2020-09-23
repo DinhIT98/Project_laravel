@@ -9,19 +9,21 @@
         </ol>
     </nav>
 </div> -->
-<div class="container main">
+<div class="container main_detail mt-5">
     <div class="card">
         <div class="row">
             <aside class="col-sm-5 border-right">
                 <article class="gallery-wrap">
                     <div class="img-big-wrap">
-                        <div> <a href="#"><img src="{{URL::asset('images/'.$product[0]->path)}}"></a></div>
+                    <?php $image=explode(",", $product[0]->path);?>
+                        <div> <a href="#"><img src="{{URL::asset('images/'.$image[0])}}"></a></div>
                     </div> <!-- slider-product.// -->
                     <div class="img-small-wrap">
-                    <div class="item-gallery"> <img src=""> </div>
-                    <div class="item-gallery"> <img src="images/apple.png"> </div>
-                    <div class="item-gallery"> <img src="images/apple.png"> </div>
-                    <div class="item-gallery"> <img src="images/apple.png"> </div>
+                    @for($x=0;$x<count($image);$x++)
+                    <div class="item-gallery"> <img src="{{URL::asset('images/'.$image[$x])}}"> </div>
+                    @endfor
+
+
                 </article> <!-- gallery-wrap .end// -->
             </aside>
             <aside class="col-sm-7">
@@ -29,7 +31,7 @@
                     <h3 class="title mb-3">{{$product[0]->product_name}}</h3>
                     <p class="price-detail-wrap">
                         <span class="price h3 text-warning">
-                            <span class="currency">US $</span><span class="num">{{$product[0]->price}}</span>
+                            <span class="currency"></span><span class="num">{{number_format($product[0]->price)}} đ</span>
                         </span>
                     </p> <!-- price-detail-wrap .// -->
                     <dl class="item-property">
@@ -62,8 +64,8 @@
 
                     </div> <!-- row.// -->
                     <hr>
-                    <a href="#" class="btn btn-lg btn-primary text-uppercase"> Buy now </a>
-                    <a href="#" class="btn btn-lg  text-uppercase pl-1"><i class="fa fa-shopping-cart"></i> Add to cart </a>
+                    <a href="{{route('product.checkout',['id'=>$product[0]->id])}}" class="btn btn-lg btn-primary text-uppercase"> Buy now </a>
+                    <a href="/cart" class="btn btn-lg  text-uppercase pl-1"><i class="fa fa-shopping-cart"></i> Add to cart </a>
                 </article> <!-- card-body.// -->
             </aside> <!-- col.// -->
         </div> <!-- row.// -->
