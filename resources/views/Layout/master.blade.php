@@ -92,5 +92,31 @@
 		    });
 		});
     </script>
+     <script type="text/javascript">
+   $("input[type=number]").bind('keyup input', function(){
+        // alert($("#price").text());
+        var id=$(this).attr('id');
+        var id_price='price'+id;
+        var id_total_price='total_price'+id;
+        var quantity=$(this).val();
+        var price=$("#"+id_price).val();
+        var total_price=price*quantity;
+        document.getElementById(id_total_price).innerHTML=total_price;
+        var arr_price=$(".price").text();
+        var total=0;
+        for(var i=0;i<arr_price.length();i++){
+            total+=parseInt(arr_price[i]);
+        }
+        alert(total);
+        // document.getElementById("total").innerHTML="nguyen huu dinh ";
+
+        // alert(total_price);
+        // alert("xxxxxxx " +id_price);
+        // var data=$("#price").val();
+        // var number=parseInt(data);
+        // alert(number);
+    });
+
+    </script>
 </body>
 </html>

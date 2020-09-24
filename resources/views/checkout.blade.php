@@ -6,7 +6,7 @@
 				  <div class="col-md-4 order-md-2 mb-4">
 					<h4 class="d-flex justify-content-between align-items-center mb-3">
 					  <span class="text-muted">Giỏ hàng</span>
-					  <span class="badge badge-secondary badge-pill">3</span>
+					  <span class="badge badge-secondary badge-pill">1</span>
 					</h4>
 					<ul class="list-group mb-3">
                     @foreach($product as $pro)
@@ -24,37 +24,40 @@
 					  </li>
 					</ul>
 				  </div>
+
 				  <div class="col-md-8 order-md-1">
 					<h4 class="mb-3">Thông tin </h4>
-					<form class="needs-validation" >
+					<form class="needs-validation" method="POST" action="{{route('checkout.store')}}" >
+                    @csrf
+                    <input type="text" name="product_id" value="{{$pro->id}}" hidden>
 					  <div class="row">
 						<div class="col-md-6 mb-3">
 						  <label for="firstName">Họ & tên</label>
-						  <input type="text" class="form-control" id="firstName" placeholder="Nguyễn Văn A" value="" required>
+						  <input type="text" class="form-control" id="name" name="name" placeholder="Nguyễn Văn A" value="" required>
 						</div>
 						<div class="col-md-6 mb-3">
-						  <label for="lastName">Số điện thoại</label>
-						  <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
+						  <label for="phone">Số điện thoại</label>
+						  <input type="text" class="form-control" id="phone" name="phone" placeholder="" value="" required>
 						</div>
 					  </div>
 					  <br>
 
-						<div class=" mb-3">
+						<!-- <div class=" mb-3">
 							<label for="username">Username</label>
 							<div class="input-group">
 							  <input type="text" class="form-control" id="username" placeholder="" required>
 							</div>
-						  </div>
+						</div> -->
 
 					  <br>
 					  <div class="mb-3">
 						<label for="email">Email</label>
-						<input type="email" class="form-control" id="email" placeholder="you@example.com">
+						<input type="email" class="form-control" id="email" name="email" placeholder="you@example.com">
 					  </div>
 					  <br>
 					  <div class="mb-3">
 						<label for="address">Address</label>
-						<input type="text" class="form-control" id="address" placeholder="" required>
+						<input type="text" class="form-control" id="address" name="address" placeholder="" required>
 					  </div>
 
 					  <hr class="mb-4">

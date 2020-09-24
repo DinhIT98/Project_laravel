@@ -17,61 +17,53 @@
 				      	</tr>
 				    </thead>
 				    <tbody>
+                    <?php $total=0; $x=0; $y=0; $z=0;?>
+                        @foreach(session('cart') as $id=>$val)
+                        <?php $total+=($val['price']*$val['quantity']);
+                              $path=explode(",", $val['image']);
+                        ?>
+
 				      	<tr>
 					        <td>
 					        	<div class="row">
 									<div class="col-lg-2 Product-img">
-										<img src="http://nicesnippets.com/demo/sc-images.jpg" alt="..." class="img-responsive"/>
+										<img src="{{URL::asset('images/'.$path[0])}}" alt="..." class="img-responsive"/>
 									</div>
 									<div class="col-lg-10">
-										<h4 class="nomargin">Lenovo K6 Power</h4>
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-										tempor incididunt ut labore et dolore magna aliqua.</p>
+										<h4 class="nomargin">{{$val['name']}}</h4>
+										<p>{{$val['status']}}</p>
+                                        <p>{{$val['warranty']}}</p>
 									</div>
 								</div>
 					        </td>
-					        <td> 12,000 </td>
+                            <input type="text" id="price{{$x++}}" hidden value="{{$val['price']}}">
+					        <td> {{number_format($val['price'])}}đ</td>
 					        <td data-th="Quantity">
-								<input type="number" class="form-control text-center" value="1">
+								<input type="number" id="{{$y++}}" class="form-control text-center" value="{{$val['quantity']}}">
 							</td>
-							<td>12,000</td>
+							<td id="total_price{{$z++}}" class="price">{{($val['price'])}}</td>
 					        <td class="actions" data-th="" style="width:10%;">
+                            <form action="{{route('removeCart',['id'=>$id])}}" method="POST">
+                            @method('delete')
+                            @csrf
 								<button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
+                            </form>
 							</td>
 				      	</tr>
-				      	<tr>
-					        <td>
-					        	<div class="row">
-									<div class="col-lg-2 Product-img">
-										<img src="http://nicesnippets.com/demo/sc-KHIP6xxGLD-webres.jpg" alt="..." class="img-responsive"/>
-									</div>
-									<div class="col-lg-10">
-										<h4 class="nomargin">Iphone 6s</h4>
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-										tempor incididunt ut labore et dolore magna aliqua.</p>
-									</div>
-								</div>
-					        </td>
-					        <td> 35,000 </td>
-					        <td data-th="Quantity">
-								<input type="number" class="form-control text-center" value="1">
-							</td>
-							<td> 35,000 </td>
-					        <td class="actions" data-th="" style="width:10%;">
-								<button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
-							</td>
-				      	</tr>
+				    @endforeach
 				    </tbody>
 				    <tfoot>
 						<tr>
 							<td><a href="/home" class="btn btn-warning text-white"><i class="fa fa-angle-left"></i>Tiếp tục mua sắm</a></td>
 							<td colspan="2" class="hidden-xs"></td>
-							<td class="hidden-xs text-center" style="width:10%;"><strong>Tổng : 47,000</strong></td>
+							<td class="hidden-xs text-center" style="width:10%;" id="total"><strong>Tổng:{{number_format($total)}}đ</strong></td>
 							<td><a href="/checkout" class="btn btn-success btn-block">Đặt hàng <i class="fa fa-angle-right"></i></a></td>
+                            <td id="demo"></td>
 						</tr>
 					</tfoot>
 				</table>
 			</div>
 		</div>
 	</div>
+
 @endsection('content')

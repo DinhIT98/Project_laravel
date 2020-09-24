@@ -107,9 +107,68 @@ class PageController extends Controller
         ->where('level',2)
         ->select('parent_id','name')
         ->get();
+        // dd(session('cart'));
         return view('cart',['category_1'=>$category_1,'category_2'=>$category_2]);
 
     }
+    public function checkout_store(request $request){
+
+        $data=[$request->product_id,$request->name,$request->phone,$request->email,$request->address];
+        dd($data);
+    }
+    public function addToCart($id){
+        $data=DB::table('dt_products')
+        ->join('imageupload','imageupload.content_id','=','dt_products.id')
+        ->where('dt_products.id',$id)
+        ->select(DB::raw('dt_products.id,product_name,price,status,warranty,description,GROUP_CONCAT(path) as path'))
+        ->groupBy('imageupload.content_id')
+        ->get();
+        $data=json_decode($data,true);
+        $cart=session()->get('cart');
+        if(!$cart){
+            $cart=[
+                $id=>[
+                    'name'=>$data[0]['product_name'],
+                    'price'=>$data[0]['price'],
+                    'status'=>$data[0]['status'],
+                    'warranty'=>$data[0]['warranty'],
+                    'image'=>$data[0]['path'],
+                    'quantity'=>1
+
+                ]
+                ];
+            session()->put('cart',$cart);
+            return redirect()->back();
+        }
+        if(isset($cart[$id])) {
+
+            $cart[$id]['quantity']++;
+
+            session()->put('cart', $cart);
+
+            return redirect()->back()->with('success', 'Product added to cart successfully!');
+
+        }
+        $cart[$id] = [
+            'name'=>$data[0]['product_name'],
+            'price'=>$data[0]['price'],
+            'status'=>$data[0]['status'],
+            'warranty'=>$data[0]['warranty'],
+            'image'=>$data[0]['path'],
+            'quantity'=>1
+        ];
+
+        session()->put('cart', $cart);
+        return redirect()->back();
+    }
+    public function removeCart($id){
+
+        $cart=session('cart');
+        unset($cart[$id]);
+        session()->put('cart',$cart);
+        return redirect()->back();
+    }
+
 
 
 }

@@ -26,11 +26,11 @@
 					<div class="cart">
 						<div class="discart">
 							<a href="/cart"><span class="mycart">Giỏ hàng:</span></a>
-							<span class="count_products_cart">0 sản phẩm</span>
+							<span class="count_products_cart">{{count(session('cart'))}} sản phẩm</span>
 						</div>
-						<div class="top-cart-content">
-							xxx
-						</div>
+						<!-- <div class="top-cart-content">
+
+						</div> -->
 					</div>
 				</div>
 			</div>
