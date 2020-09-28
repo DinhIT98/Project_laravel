@@ -32,9 +32,9 @@
     <link href="{{URL::asset('lib/owlcarousel/owl.theme.css')}}" rel="stylesheet">
 </head>
 <body>
-	@include('Layout\header')
+	@include('Layout/header')
     @yield('content')
-    @include('Layout\footer')
+    @include('Layout/footer')
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script type="text/javascript">
 		$(".discart").hover(function(){
@@ -93,6 +93,7 @@
 		});
     </script>
      <script type="text/javascript">
+     	$(document).ready(function () {
    $("input[type=number]").bind('keyup input', function(){
         // alert($("#price").text());
         var id=$(this).attr('id');
@@ -104,11 +105,15 @@
         document.getElementById(id_total_price).innerHTML=total_price;
         var arr_price=$(".price").text();
         var total=0;
-        for(var i=0;i<arr_price.length();i++){
-            total+=parseInt(arr_price[i]);
-        }
-        alert(total);
-        // document.getElementById("total").innerHTML="nguyen huu dinh ";
+        Array.from($(".price")).forEach(function(item){
+                 total+=parseInt(item.textContent);
+        });
+
+        // for(var i=0;i<arr_price.length();i++){
+        //     total+=parseInt(arr_price[i]);
+        // }
+        // // alert(total);
+        document.getElementById("total").innerHTML=total;
 
         // alert(total_price);
         // alert("xxxxxxx " +id_price);
@@ -116,6 +121,7 @@
         // var number=parseInt(data);
         // alert(number);
     });
+         });
 
     </script>
 </body>

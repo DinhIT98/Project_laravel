@@ -1,20 +1,32 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>Sign In</title>
+    <title>Login</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-
+    <style>
+        .form-group{
+            margin-top: 16px;
+            margin-bottom: 0;
+        }
+        .form-check{
+            margin-top:16px;
+            margin-bottom: 0;
+        }
+        .form_style{
+            max-width:350px!important;
+        }
+    </style>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   </head>
   <body>
       <div class="container-fluid bg-primary vh-100 d-flex flex-column justify-content-center">
-          <div class="container form_style bg-white h-50 rounded shadow vw-100 ">
-              <h1 class="display-5 text-center pt-3">Sign In</h1>
-              <form action="{{url('signIn')}}" method="POST" class="d-flex align-content-between flex-column ">
+          <div class="container form_style bg-white h-50 rounded shadow vw-100 " >
+              <h1 class="display-5 text-center pt-3">Login</h1>
+              <form action="{{route('login')}}" method="POST" class="d-flex align-content-between flex-column ">
                 @csrf
                   <div class="form-group">
                     <input type="email" class="form-control rounded" name="email" id="email"  placeholder="Email address">
@@ -32,12 +44,12 @@
                       </label>
                   </div>
                   <div class="form-group">
-                      <button type="submit" class="btn btn-success w-100 rounded ">Sign in</button>
+                      <button type="submit" class="btn btn-success w-100 rounded ">Login</button>
                   </div>
               </form>
           </>
           <div class="container text-center text-white mb-5 pt-1">
-              <p class="">Don't have a account?<a href="" class="text-white"> Sign up here!</a></p>
+              <p class="">Don't have a account? <a href="/register" class="text-white">Register here!</a></p>
           </div>
           <!-- @if ($errors->any())
             <div class="alert alert-danger mt-0">

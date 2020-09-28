@@ -162,7 +162,6 @@ class PageController extends Controller
         return redirect()->back();
     }
     public function removeCart($id){
-
         $cart=session('cart');
         unset($cart[$id]);
         session()->put('cart',$cart);

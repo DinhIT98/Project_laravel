@@ -65,7 +65,7 @@
                     </div> <!-- row.// -->
                     <hr>
                     <a href="{{route('product.checkout',['id'=>$product[0]->id])}}" class="btn btn-lg btn-primary text-uppercase"> Buy now </a>
-                    <a href="/cart" class="btn btn-lg  text-uppercase pl-1"><i class="fa fa-shopping-cart"></i> Add to cart </a>
+                    <a href="{{url('/add-to-cart',['id'=>$product[0]->id])}}" class="btn btn-lg  text-uppercase pl-1"><i class="fa fa-shopping-cart"></i> Add to cart </a>
                 </article> <!-- card-body.// -->
             </aside> <!-- col.// -->
         </div> <!-- row.// -->

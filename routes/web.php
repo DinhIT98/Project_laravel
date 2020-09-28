@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,4 +35,7 @@ Route::post('checkout',[PageController::class,'checkout_store'])->name('checkout
 Route::get('/add-to-cart/{id}',[PageController::class, 'addToCart']);
 Route::get('/test-cart',[PageController::class,'testCart']);
 Route::delete('/remove/{id}',[PageController::class,'removeCart'])->name('removeCart');
-
+Route::get('/login',[LoginController::class,'index']);
+Route::get('/register',[RegisterController::class,'index']);
+Route::post('login',[LoginController::class,'handleLogin'])->name('login');
+Route::post('register',[RegisterController::class,'handleRegister'])->name('register');

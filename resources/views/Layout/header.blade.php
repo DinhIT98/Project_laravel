@@ -26,12 +26,15 @@
 					<div class="cart">
 						<div class="discart">
 							<a href="/cart"><span class="mycart">Giỏ hàng:</span></a>
-							<span class="count_products_cart">{{count(session('cart'))}} sản phẩm</span>
+							<span class="count_products_cart"> sản phẩm</span>
 						</div>
-						<!-- <div class="top-cart-content">
-
-						</div> -->
-					</div>
+                    </div>
+                    <div class="cart" style="padding-right:10px" >
+                        <div class="discart ">
+                            <a href="/login">Login</a>
+                            <span>/ <a href="/register">Register</a> </span>
+                        </div>
+                    </div>
 				</div>
 			</div>
 		</div>
