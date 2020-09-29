@@ -57,7 +57,7 @@
 							<td><a href="/home" class="btn btn-warning text-white"><i class="fa fa-angle-left"></i>Tiếp tục mua sắm</a></td>
 							<td colspan="2" class="hidden-xs"></td>
 							<td class="hidden-xs text-center" style="width:10%;" id="total"><strong>Tổng:{{number_format($total)}}đ</strong></td>
-							<td><a href="/checkout" class="btn btn-success btn-block">Đặt hàng <i class="fa fa-angle-right"></i></a></td>
+							<td><a href="/checkout-cart" class="btn btn-success btn-block">Đặt hàng <i class="fa fa-angle-right"></i></a></td>
                             <td id="demo"></td>
 						</tr>
 					</tfoot>

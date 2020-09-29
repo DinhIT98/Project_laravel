@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\dt_products;
 use App\Models\users;
 use Illuminate\Support\Facades\Hash;
+use Auth;
 
 
 
@@ -42,4 +43,20 @@ class LoginController extends Controller
        }
 
     }
+    public function authLogin(request $request){
+
+
+            if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
+                $user=users::where('email',$request->email)->get();
+                return redirect()->to('/home');
+            }else{
+                echo "<script>alert('dang nhap that bai! ')</script>";
+                return redirect()->to('/login');
+            }
+    }
+    public function logout(){
+        Auth::logout();
+        return redirect()->back();
+    }
+
 }

@@ -29,10 +29,10 @@
               <form action="{{route('login')}}" method="POST" class="d-flex align-content-between flex-column ">
                 @csrf
                   <div class="form-group">
-                    <input type="email" class="form-control rounded" name="email" id="email"  placeholder="Email address">
+                    <input type="email" class="form-control rounded" name="email" id="email"  placeholder="Email address" required>
                   </div>
                   <div class="form-group">
-                    <input type="password" class="form-control rounded" name="pass" id="pass"  placeholder="Password">
+                    <input type="password" class="form-control rounded" name="password" id="password"  placeholder="Password" required>
                   </div>
                   <div class="form-check">
                     <label class="form-check-label">

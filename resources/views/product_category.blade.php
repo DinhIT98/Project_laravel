@@ -31,9 +31,9 @@
 				<div class="col-xs-12 col-sm-8 col-md-9">
 					<div class="slider-wrapper theme-default">
 			            <div id="slider" class="nivoSlider">
-			                <a href=""><img src="images/slide3.png" alt="" /></a>
-			                <a href=""><img src="images/slide4.png" alt="" /></a>
-                            <a href=""><img src="images/slide5.png" alt="" /></a>
+			                <a href=""><img src="{{URL::asset('images/slide3.png')}}" alt="" /></a>
+			                <a href=""><img src="{{URL::asset('images/slide4.png')}}" alt="" /></a>
+                            <a href=""><img src="{{URL::asset('images/slide5.png')}}" alt="" /></a>
 			            </div>
 			        </div>
 				</div>
@@ -87,7 +87,7 @@
                             @foreach($hots as $hot)
 							<div class="boxspl">
 								<div class="col-xs-4 p0">
-									<a href=""><img src="images/{{$hot->product_image}}" alt=""></a>
+									<a href=""><img src="{{URL::asset('images/'.$hot->product_image)}}" alt=""></a>
 								</div>
 								<div class="col-xs-8 p5">
 									<div class="tit-boxspl">
@@ -109,7 +109,7 @@
                             @foreach($tops as $top)
 							<div class="boxspl">
 								<div class="col-xs-4 p0">
-									<a href=""><img src="images/{{$top->product_image}}" alt=""></a>
+									<a href=""><img src="{{URL::asset('images/'.$top->product_image)}}" alt=""></a>
 								</div>
 								<div class="col-xs-8 p5">
 									<div class="tit-boxspl">
@@ -129,22 +129,22 @@
 						<div class="ctboxleft">
 							<div id="slider-tintuc" class="owl-carousel">
 				                <div class="item tintucl">
-				                	<a href=""><img src="images/img-tin.jpg"></a>
+				                	<a href=""><img src="{{URL::asset('images/img-tin.jpg')}}"></a>
 				                	<h3><a href="">5 loa di động đáng chú ý có giá dưới 1 triệu đồng</a></h3>
 				                	<p>Không ai muốn nghe nhạc qua chiếc loa nhỏ và rè của smartphone, đó là lý do ngày càng nhiều người bỏ tiền mua loa di động. Loa di...</p>
 				                </div>
 				                <div class="item tintucl">
-				                	<a href=""><img src="images/img-tin.jpg"></a>
+				                	<a href=""><img src="{{URL::asset('images/img-tin.jpg')}}"></a>
 				                	<h3><a href="">5 loa di động đáng chú ý có giá dưới 1 triệu đồng</a></h3>
 				                	<p>Không ai muốn nghe nhạc qua chiếc loa nhỏ và rè của smartphone, đó là lý do ngày càng nhiều người bỏ tiền mua loa di động. Loa di...</p>
 				                </div>
 				                <div class="item tintucl">
-				                	<a href=""><img src="images/img-tin.jpg"></a>
+				                	<a href=""><img src="{{URL::asset('images/img-tin.jpg')}}"></a>
 				                	<h3><a href="">5 loa di động đáng chú ý có giá dưới 1 triệu đồng</a></h3>
 				                	<p>Không ai muốn nghe nhạc qua chiếc loa nhỏ và rè của smartphone, đó là lý do ngày càng nhiều người bỏ tiền mua loa di động. Loa di...</p>
 				                </div>
 				                <div class="item tintucl">
-				                	<a href=""><img src="images/img-tin.jpg"></a>
+				                	<a href=""><img src="{{URL::asset('images/img-tin.jpg')}}"></a>
 				                	<h3><a href="">5 loa di động đáng chú ý có giá dưới 1 triệu đồng</a></h3>
 				                	<p>Không ai muốn nghe nhạc qua chiếc loa nhỏ và rè của smartphone, đó là lý do ngày càng nhiều người bỏ tiền mua loa di động. Loa di...</p>
 				                </div>
@@ -153,69 +153,34 @@
 					</div>
 					<div class="boxleft hidden-xs">
 						<div class="ctboxleft qc">
-							<a href=""><img src="images/cach-thuc-mua-hang.gif"></a>
+							<a href=""><img src="{{URL::asset('images/cach-thuc-mua-hang.gif')}}"></a>
 						</div>
 					</div>
 				</div>
 				<div id="maincontent" class="col-xs-12 col-sm-8 col-md-9">
-					<div class="boxmain spmoi">
-						<div class="tit-boxmain">
-							<h3><span>Sản phẩm mới</span></h3>
-						</div>
-						<div class="ct-boxmain">
-							<div class="row">
-								<div id="spmoi" class="owl-carousel">
-                                @foreach($products as $product)
-                                   <?php $image=explode(",", $product->path);?>
-									<div class="item">
-					                	<div class="boxsp">
-					                		<div class="imgsp">
-					                			<a href="{{route('product.detail',['id'=>$product->id])}}"><img class="imgproduct" src="images/{{$image[0]}}"></a>
-					                			<div class="img-label">
-					                				<img src="images/hot.png">
-					                			</div>
-					                		</div>
-					                		<div class="namesp">
-					                			<a href="{{route('product.detail',['id'=>$product->id])}}">{{$product->product_name}}</a>
-					                		</div>
-					                		<div class="pricesp">{{number_format($product->price)}} đ</div>
-                                            <div class="pricesp">{{$product->status}}</div>
-					                		<div class="button-hd">
-						                		<a href="{{url('/add-to-cart',['id'=>$product->id])}}"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
-						                		<a href="{{route('product.detail',['id'=>$product->id])}}"><i class="fa fa-eye" aria-hidden="true"></i></a>
-						                	</div>
-					                	</div>
-					                </div>
-                                @endforeach
-
-				              	</div>
-							</div>
-						</div>
-					</div>
-
 					<div class="boxmain">
 						<div class="tit-boxmain">
-							<h3><span>Điện thoại</span></h3>
+							<h3><span>{{$cate_name[0]['name']}}</span></h3>
 						</div>
 
-						<div class="ct-boxmain row m0">
-                        @foreach($smartphone as $phone)
-                        <?php $image_smart=explode(",", $phone->path);?>
+						<div class="ct-boxmain row m0 ">
+                        @foreach($products as $product)
+                        <?php $image_product=explode(",", $product->path);?>
 							<div class="col-xs-6 col-sm-4 col-md-3 p5">
 								<div class="boxsp">
 			                		<div class="imgsp">
-			                			<a href="{{route('product.detail',['id'=>$phone->id])}}"><img class="imgproduct" src="images/{{$image_smart[0]}}"></a>
-			                			<div class="img-label">
+			                			<a href="{{route('product.detail',['id'=>$product->id])}}">@if($image_product)<img class="imgproduct" src="{{URL::asset('images/'.$image_product[0])}}">@endif</a>
+			                			<!-- <div class="img-label">
 			                				<img src="images/hot.png">
-			                			</div>
+			                			</div> -->
 			                		</div>
 			                		<div class="namesp">
-			                			<a href="{{route('product.detail',['id'=>$phone->id])}}">{{$phone->product_name}}</a>
+			                			<a href="{{route('product.detail',['id'=>$product->id])}}">{{$product->product_name}}</a>
 			                		</div>
-			                		<div class="pricesp">{{number_format($phone->price)}} đ</div>
+			                		<div class="pricesp">{{number_format($product->price)}} đ</div>
 			                		<div class="button-hd">
-				                		<a href="{{url('/add-to-cart',['id'=>$phone->id])}}"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
-				                		<a href="{{route('product.detail',['id'=>$phone->id])}}"><i class="fa fa-eye" aria-hidden="true"></i></a>
+				                		<a href="{{url('/add-to-cart',['id'=>$product->id])}}"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+				                		<a href="{{route('product.detail',['id'=>$product->id])}}"><i class="fa fa-eye" aria-hidden="true"></i></a>
 				                	</div>
 			                	</div>
 							</div>
@@ -223,62 +188,8 @@
 						</div>
 
 					</div>
-					<div class="boxmain">
-						<div class="tit-boxmain">
-							<h3><span>Laptop</span></h3>
-						</div>
-						<div class="ct-boxmain row m0">
-                        @foreach($laptop as $lap)
-                        <?php $image_lap=explode(",", $lap->path);?>
-							<div class="col-xs-6 col-sm-4 col-md-3 p5">
-								<div class="boxsp">
-			                		<div class="imgsp">
-			                			<a href="{{route('product.detail',['id'=>$lap->id])}}"><img class="imgproduct" src="images/{{$image_lap[0]}}"></a>
-			                			<div class="img-label">
-			                				<img src="images/hot.png">
-			                			</div>
-			                		</div>
-			                		<div class="namesp">
-			                			<a href="{{route('product.detail',['id'=>$lap->id])}}">{{$lap->product_name}}</a>
-			                		</div>
-			                		<div class="pricesp">{{number_format($lap->price)}} đ</div>
-			                		<div class="button-hd">
-				                		<a href="{{url('/add-to-cart',['id'=>$lap->id])}}"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
-				                		<a href="{{route('product.detail',['id'=>$lap->id])}}"><i class="fa fa-eye" aria-hidden="true"></i></a>
-				                	</div>
-			                	</div>
-                            </div>
-                        @endforeach
-						</div>
-					</div>
-					<div class="boxmain">
-						<div class="tit-boxmain">
-							<h3><span>Đồng hồ</span></h3>
-						</div>
-						<div class="ct-boxmain row m0">
-                        @foreach($watchs as $watch)
-                        <?php $image_watch=explode(",", $watch->path);?>
-							<div class="col-xs-6 col-sm-4 col-md-3 p5">
-								<div class="boxsp">
-			                		<div class="imgsp">
-			                			<a href="{{route('product.detail',['id'=>$watch->id])}}"><img class="imgproduct" src="images/{{$image_watch[0]}}"></a>
-			                			<div class="img-label">
-			                				<img src="images/hot.png">
-			                			</div>
-			                		</div>
-			                		<div class="namesp">
-			                			<a href="{{route('product.detail',['id'=>$watch->id])}}">{{$watch->product_name}}</a>
-			                		</div>
-			                		<div class="pricesp">{{number_format($watch->price)}} đ</div>
-			                		<div class="button-hd">
-				                		<a href="{{url('/add-to-cart',['id'=>$watch->id])}}"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
-				                		<a href="{{route('product.detail',['id'=>$watch->id])}}"><i class="fa fa-eye" aria-hidden="true"></i></a>
-				                	</div>
-			                	</div>
-                            </div>
-                        @endforeach
-						</div>
-					</div>
+
+
 				</div>
 			</section>
 		</div>

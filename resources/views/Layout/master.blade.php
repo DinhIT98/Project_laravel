@@ -8,7 +8,7 @@
 	<!-- BOOTSTRAP CSS -->
 	<link href="{{ URL::asset('css/bootstrap.min.css')}}" rel="stylesheet">
 	<link href="{{ URL::asset('css/bootstrap-theme.min.css')}}" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<!-- AWESOME ICON FONT -->
 	<link href="{{URL::asset('lib/awesome/css/font-awesome.min.css')}}" rel="stylesheet">
 
@@ -30,6 +30,7 @@
     <!-- Owl Carousel Assets -->
     <link href="{{URL::asset('lib/owlcarousel/owl.carousel.css')}}" rel="stylesheet">
     <link href="{{URL::asset('lib/owlcarousel/owl.theme.css')}}" rel="stylesheet">
+
 </head>
 <body>
 	@include('Layout/header')

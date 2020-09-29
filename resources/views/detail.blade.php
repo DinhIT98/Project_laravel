@@ -47,8 +47,8 @@
                         <dd>{{$product[0]->warranty}}</dd>
                     </dl>  <!-- item-property-hor .// -->
 
-                     <hr>
-                    <div class="row">
+                     <!-- <hr> -->
+                    <!-- <div class="row">
                         <div class="col-sm-5">
                         <dl class="param param-inline">
                             <dt>Số lượng: </dt>
@@ -59,10 +59,10 @@
                                     <option> 3 </option>
                                 </select>
                             </dd>
-                        </dl>  <!-- item-property .// -->
-                        </div> <!-- col.// -->
+                        </dl>
+                        </div>
 
-                    </div> <!-- row.// -->
+                    </div>  -->
                     <hr>
                     <a href="{{route('product.checkout',['id'=>$product[0]->id])}}" class="btn btn-lg btn-primary text-uppercase"> Buy now </a>
                     <a href="{{url('/add-to-cart',['id'=>$product[0]->id])}}" class="btn btn-lg  text-uppercase pl-1"><i class="fa fa-shopping-cart"></i> Add to cart </a>

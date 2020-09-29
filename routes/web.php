@@ -30,6 +30,7 @@ Route::get('/admin/signIn',function(){
 // Route::get('/detail',[PageController::class,'show_detail']);
 Route::get('/product/detail/{id}',[PageController::class,'show_detail'])->name('product.detail');
 Route::get('/checkout/{id}',[PageController::class,'checkout'])->name('product.checkout');
+Route::get('/checkout-cart',[PageController::class,'checkoutCart']);
 Route::get('/cart',[PageController::class,'cart']);
 Route::post('checkout',[PageController::class,'checkout_store'])->name('checkout.store');
 Route::get('/add-to-cart/{id}',[PageController::class, 'addToCart']);
@@ -37,5 +38,8 @@ Route::get('/test-cart',[PageController::class,'testCart']);
 Route::delete('/remove/{id}',[PageController::class,'removeCart'])->name('removeCart');
 Route::get('/login',[LoginController::class,'index']);
 Route::get('/register',[RegisterController::class,'index']);
-Route::post('login',[LoginController::class,'handleLogin'])->name('login');
+Route::post('login',[LoginController::class,'authLogin'])->name('login');
 Route::post('register',[RegisterController::class,'handleRegister'])->name('register');
+Route::get('logout',[LoginController::class,'logout'])->name('logout');
+Route::get('/test',[PageController::class,'sanPhamBanChay']);
+

@@ -1,7 +1,8 @@
 @extends('Layout/master')
 @section('content')
         <div class="container checkout">
-			<a href="/home">Mua thêm sản phẩm khác</a>
+            <a href="/home">Mua thêm sản phẩm khác</a>
+            <form class="needs-validation" method="POST" action="{{route('checkout.store')}}" >
 				<div class="row">
 				  <div class="col-md-4 order-md-2 mb-4">
 					<h4 class="d-flex justify-content-between align-items-center mb-3">
@@ -9,7 +10,9 @@
 					  <span class="badge badge-secondary badge-pill">1</span>
 					</h4>
 					<ul class="list-group mb-3">
+                    <?php $total=0;?>
                     @foreach($product as $pro)
+                    <?php $total+=$pro->price?>
 					  <li class="list-group-item d-flex justify-content-between lh-condensed">
 						<div>
 						  <h6 class="my-0">{{$pro->product_name}}</h6>
@@ -19,17 +22,21 @@
                       </li>
                     @endforeach
 					  <li class="list-group-item d-flex justify-content-between">
-						<span>Total (USD)</span>
-						<strong>$20</strong>
+                        <span>Số lượng:<input type="number" min="1" value="1" style="border:none;" class="text-center" name="quantity" id="quantity"></span>
+                        <br>
+                        <span>Total (VND)</span>
+                        <strong>{{$total}}</strong>
+
 					  </li>
 					</ul>
 				  </div>
 
 				  <div class="col-md-8 order-md-1">
 					<h4 class="mb-3">Thông tin </h4>
-					<form class="needs-validation" method="POST" action="{{route('checkout.store')}}" >
+					<!-- <form class="needs-validation" method="POST" action="{{route('checkout.store')}}" > -->
                     @csrf
                     <input type="text" name="product_id" value="{{$pro->id}}" hidden>
+                    <input type="text" name="total" value="{{$total}}" hidden>
 					  <div class="row">
 						<div class="col-md-6 mb-3">
 						  <label for="firstName">Họ & tên</label>
@@ -86,8 +93,9 @@
 
 					  <hr class="mb-4">
 					  <button class="btn btn-primary btn-lg btn-block" type="submit">ĐẶT HÀNG</button>
-					</form>
+					<!-- </form> -->
 				  </div>
-				</div>
+                </div>
+            </form>
 			  </div>
 @endsection('content')

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
-
+use App\Models\orders;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
@@ -38,13 +38,37 @@ class PageController extends Controller
         $laptop=DB::table('dt_products')
         ->join('products_categories','dt_products.id','=','products_categories.product_id')
         ->join('imageupload','imageupload.content_id','=','dt_products.id')
-        ->select('dt_products.id','product_name','price','status','warranty','path')
+        ->select(DB::raw('dt_products.id,product_name,price,status,warranty,GROUP_CONCAT(path) as path'))
         ->where('category_id',9)
-        ->paginate(4);
+        // ->select('dt_products.id','product_name','price','status','warranty','path')
+        ->groupBy('imageupload.content_id')
+        ->limit(4)
+        ->get();
+        $watchs=DB::table('dt_products')
+        ->join('products_categories','dt_products.id','=','products_categories.product_id')
+        ->join('imageupload','imageupload.content_id','=','dt_products.id')
+        ->select(DB::raw('dt_products.id,product_name,price,status,warranty,GROUP_CONCAT(path) as path'))
+        ->where('category_id',8)
+        // ->select('dt_products.id','product_name','price','status','warranty','path')
+        ->groupBy('imageupload.content_id')
+        ->limit(4)
+        ->get();
+        $tops=DB::table('order_detail')
+        ->select(DB::raw('sum(product_qty) as soluong,product_name,product_price,product_image'))
+        ->groupBy('product_id')
+        ->orderBy('soluong','DESC')
+        ->limit(3)
+        ->get();
+        $hots=DB::table('order_detail')
+        ->select(DB::raw('sum(product_qty) as soluong,product_name,product_price,product_image'))
+        ->groupBy('product_id')
+        ->orderBy('soluong','DESC')
+        ->get()
+        ->random(4);
         // $data=json_decode($images,true);
         // dd($products);
 
-        return view('home',['laptop'=>$laptop,'smartphone'=>$smartphone,'products'=>$products,'category_1'=>$category_1,'category_2'=>$category_2]);
+        return view('home',['hots'=>$hots,'tops'=>$tops,'watchs'=>$watchs,'laptop'=>$laptop,'smartphone'=>$smartphone,'products'=>$products,'category_1'=>$category_1,'category_2'=>$category_2]);
     }
     public function show_detail($id){
         $category_1=DB::table('dt_categories')
@@ -69,13 +93,40 @@ class PageController extends Controller
         return view('detail',['product'=>$product,'category_1'=>$category_1,'category_2'=>$category_2]);
     }
     public function showProductByCategory($cate){
+        $category_1=DB::table('dt_categories')
+        ->where('level',1)
+        ->select('id','name')
+        ->get();
+        $category_2=DB::table('dt_categories')
+        ->where('level',2)
+        ->select('parent_id','name')
+        ->get();
+        $tops=DB::table('order_detail')
+        ->select(DB::raw('sum(product_qty) as soluong,product_name,product_price,product_image'))
+        ->groupBy('product_id')
+        ->orderBy('soluong','DESC')
+        ->limit(3)
+        ->get();
+        $hots=DB::table('order_detail')
+        ->select(DB::raw('sum(product_qty) as soluong,product_name,product_price,product_image'))
+        ->groupBy('product_id')
+        ->orderBy('soluong','DESC')
+        ->get()
+        ->random(4);
         $products=DB::table('dt_products')
         ->join('products_categories','dt_products.id','=','products_categories.product_id')
+        ->join('imageupload','imageupload.content_id','=','dt_products.id')
         ->where('category_id',$cate)
-        ->select('product_name')
+        ->select(DB::raw('dt_products.id,product_name,price,status,warranty,GROUP_CONCAT(path) as path'))
+        ->groupBy('imageupload.content_id')
         ->get();
+        $cate_name=DB::table('dt_categories')
+        ->where('id',$cate)
+        ->select('name')
+        ->get();
+        $cate_name=json_decode($cate_name,true);
         // dd($products);
-        return "san pham thuoc category ${cate}";
+        return view('product_category',['cate_name'=>$cate_name,'hots'=>$hots,'tops'=>$tops,'products'=>$products,'category_1'=>$category_1,'category_2'=>$category_2]);
     }
     public function showProductBySearch(){
         // use ajax
@@ -113,8 +164,18 @@ class PageController extends Controller
     }
     public function checkout_store(request $request){
 
-        $data=[$request->product_id,$request->name,$request->phone,$request->email,$request->address];
-        dd($data);
+        $data=[$request->quantity,$request->total,$request->product_id,$request->name,$request->phone,$request->email,$request->address];
+        if($request){
+            $order=new orders();
+            $order->user_name=$request->name;
+            $order->user_phone=$request->phone;
+            $order->user_email=$request->email;
+            $order->user_address=$request->address;
+            $order->total_price=$request->quantity*$request->total;
+            $order->save();
+            return redirect()->to('/home');
+        }
+
     }
     public function addToCart($id){
         $data=DB::table('dt_products')
@@ -166,6 +227,18 @@ class PageController extends Controller
         unset($cart[$id]);
         session()->put('cart',$cart);
         return redirect()->back();
+    }
+    public function sanPhamBanChay(){
+        $tops=DB::table('order_detail')
+        ->select(DB::raw('sum(product_qty) as soluong,product_name,product_price,product_image'))
+        ->groupBy('product_id')
+        ->orderBy('soluong','DESC')
+        ->get()
+        ->random(4);
+        dd($tops);
+    }
+    public function checkoutCart(){
+        return view('checkout');
     }
 
 

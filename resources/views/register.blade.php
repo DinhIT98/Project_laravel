@@ -29,13 +29,13 @@
               <form action="{{route('register')}}" method="POST" class="d-flex align-content-between flex-column ">
                 @csrf
                   <div class="form-group">
-                    <input type="text" class="form-control rounded" name="name" id="name"  placeholder="Enter the name">
+                    <input type="text" class="form-control rounded" name="name" id="name"  placeholder="Enter the name" required>
                   </div>
                   <div class="form-group">
-                    <input type="email" class="form-control rounded" name="email" id="email"  placeholder="Email address">
+                    <input type="email" class="form-control rounded" name="email" id="email"  placeholder="Email address" required>
                   </div>
                   <div class="form-group">
-                    <input type="text" class="form-control rounded" name="phone" id="phone"  placeholder="Phone number">
+                    <input type="text" class="form-control rounded" name="phone" id="phone"  placeholder="Phone number" required>
                   </div>
                   <div class="form-inline">
                       <label class="mr-4">Gender: </label>
@@ -51,13 +51,13 @@
                       </div>
                   </div>
                   <div class="form-group">
-                    <input type="text" class="form-control rounded" name="address" id="address"  placeholder="Address">
+                    <input type="text" class="form-control rounded" name="address" id="address"  placeholder="Address" required>
                   </div>
                   <div class="form-group">
-                    <input type="password" class="form-control rounded" name="password" id="password"  placeholder="Password">
+                    <input type="password" class="form-control rounded" name="password" id="password"  placeholder="Password" required>
                   </div>
                   <div class="form-group">
-                    <input type="password" class="form-control rounded" name="confirmPass" id="confirmPass"  placeholder="Confirm password">
+                    <input type="password" class="form-control rounded" name="confirmPass" id="confirmPass"  placeholder="Confirm password" required>
                   </div>
                   <div class="form-group">
                       <button type="submit" class="btn btn-success w-100 rounded ">Register</button>
