@@ -12,21 +12,22 @@
 					<ul class="list-group mb-3">
                     <?php $total=0;?>
 
-                    @foreach($product as $pro)
-                    <?php $total+=$pro->price?>
+                    @foreach(session('cart') as $key=>$pro)
+                    <?php $total+=$pro['price']*$pro['quantity']?>
 					  <li class="list-group-item d-flex justify-content-between lh-condensed">
 						<div>
-						  <h6 class="my-0">{{$pro->product_name}}</h6>
-						  <small class="text-muted text-danger">{{$pro->status}}</small>
-						</div>
-						<span class="text-muted">{{number_format($pro->price)}} đ</span>
+						  <h6 class="my-0">{{$pro['name']}}</h6>
+						  <small class="text-muted text-danger">{{$pro['status']}}</small>
+                        </div>
+                        <span class="text-muted">số lượng:{{$pro['quantity']}}</span>
+                        <br>
+						<span class="text-muted">{{number_format($pro['price'])}} đ</span>
                       </li>
                     @endforeach
 
 					  <li class="list-group-item d-flex justify-content-between">
-                        <span>Số lượng:<input type="number" min="1" value="1" style="border:none;" class="text-center" name="quantity" id="quantity"></span>
-                        <br>
-                        <span>Total (VND)</span>
+
+                        <span>Tổng (VND)</span>
                         <strong>{{$total}}</strong>
 
 					  </li>
@@ -37,7 +38,7 @@
 					<h4 class="mb-3">Thông tin </h4>
 					<!-- <form class="needs-validation" method="POST" action="{{route('checkout.store')}}" > -->
                     @csrf
-                    <input type="text" name="product_id" value="{{$pro->id}}" hidden>
+                    <input type="text" name="product_id" value="" hidden>
                     <input type="text" name="total" value="{{$total}}" hidden>
 					  <div class="row">
 						<div class="col-md-6 mb-3">

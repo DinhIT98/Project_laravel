@@ -238,7 +238,18 @@ class PageController extends Controller
         dd($tops);
     }
     public function checkoutCart(){
-        return view('checkout');
+        $category_1=DB::table('dt_categories')
+        ->where('level',1)
+        ->select('id','name')
+        ->get();
+        $category_2=DB::table('dt_categories')
+        ->where('level',2)
+        ->select('parent_id','name')
+        ->get();
+        return view('checkoutCart',['category_1'=>$category_1,'category_2'=>$category_2]);
+    }
+    public function test(){
+        session('cart')['18']['quantity']++;
     }
 
 

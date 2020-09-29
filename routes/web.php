@@ -41,5 +41,5 @@ Route::get('/register',[RegisterController::class,'index']);
 Route::post('login',[LoginController::class,'authLogin'])->name('login');
 Route::post('register',[RegisterController::class,'handleRegister'])->name('register');
 Route::get('logout',[LoginController::class,'logout'])->name('logout');
-Route::get('/test',[PageController::class,'sanPhamBanChay']);
+Route::get('/test',[PageController::class,'test']);
 

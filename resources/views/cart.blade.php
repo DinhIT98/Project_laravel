@@ -39,7 +39,7 @@
                             <input type="text" id="price{{$x++}}" hidden value="{{$val['price']}}">
 					        <td> {{number_format($val['price'])}}đ</td>
 					        <td data-th="Quantity">
-								<input type="number" id="{{$y++}}" class="form-control text-center" value="{{$val['quantity']}}">
+								<input type="number" id="{{$y++}}" class="form-control text-center" value="{{$val['quantity']}}" min="1">
 							</td>
 							<td id="total_price{{$z++}}" class="price">{{($val['price'])}}</td>
 					        <td class="actions" data-th="" style="width:10%;">
