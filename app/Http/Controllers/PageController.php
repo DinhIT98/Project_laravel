@@ -250,6 +250,7 @@ class PageController extends Controller
     }
     public function test(){
         session('cart')['18']['quantity']++;
+        echo session('cart')['18']['quantity'];
     }
 
 

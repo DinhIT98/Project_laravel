@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\AdminController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -42,4 +44,8 @@ Route::post('login',[LoginController::class,'authLogin'])->name('login');
 Route::post('register',[RegisterController::class,'handleRegister'])->name('register');
 Route::get('logout',[LoginController::class,'logout'])->name('logout');
 Route::get('/test',[PageController::class,'test']);
+Route::get('/admin',[AdminController::class,'showUser'])->name('showUser');
+Route::get('/admin/order',[AdminController::class,'showOrder'])->name('showOrder');
+Route::get('/admin/category',[AdminController::class,'showCate'])->name('showCate');
+Route::get('/admin/products',[AdminController::class,'showProducts'])->name('showProducts');
 

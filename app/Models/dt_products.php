@@ -10,4 +10,7 @@ class dt_products extends Model
     use HasFactory;
     protected $table="dt_products";
     protected $primaryKey="id";
+    public function imageupload(){
+        return $this->hasMany('App\Models\imageupload','content_id');
+    }
 }
