@@ -39,6 +39,7 @@
                     <th>Phone</th>
                     <th>Status</th>
                     <th>Warranty</th>
+                    <th colspan="2">Action</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -46,10 +47,15 @@
                   <tr>
                     <td>{{$product->id}}</td>
                     <td>{{$product->product_name}}</td>
-
                     <td>{{$product->price}}</td>
                     <td>{{$product->status}}</td>
                     <td>{{$product->warranty}}</td>
+                    <td><form action="{{route('deleteProduct',['id'=>$product->id])}}" method="POST">
+                    @method('delete')
+                    @csrf
+                    <button class="btn btn-danger" type="submit">delete</button>
+                    </form></td>
+                    <td><a href="" type='button' class='btn btn-success'>Edit</a></td>
                   </tr>
                   @endforeach
 

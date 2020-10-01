@@ -48,4 +48,7 @@ Route::get('/admin',[AdminController::class,'showUser'])->name('showUser');
 Route::get('/admin/order',[AdminController::class,'showOrder'])->name('showOrder');
 Route::get('/admin/category',[AdminController::class,'showCate'])->name('showCate');
 Route::get('/admin/products',[AdminController::class,'showProducts'])->name('showProducts');
-
+Route::get('/admin/insert-product',[AdminController::class,'insertProduct']);
+Route::post('admin/store-product',[AdminController::class,'storeProduct'])->name('storeProduct');
+Route::delete('delete-product/{id}',[AdminController::class,'deleteProduct'])->name('deleteProduct');
+Route::get('/admin/insert-category',[AdminController::class,'insertCategory']);
