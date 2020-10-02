@@ -31,6 +31,7 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
+                <a href="/admin/insert-product" class="btn btn-primary float-right mb-1">insert</a>
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
@@ -55,7 +56,7 @@
                     @csrf
                     <button class="btn btn-danger" type="submit">delete</button>
                     </form></td>
-                    <td><a href="" type='button' class='btn btn-success'>Edit</a></td>
+                    <td><a href="{{route('editProduct',['id'=>$product->id])}}" type='button' class='btn btn-success'>Edit</a></td>
                   </tr>
                   @endforeach
 

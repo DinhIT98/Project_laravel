@@ -28,9 +28,11 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">Category</h3>
+                <a href="/admin/insert-category" class="btn btn-primary float-right mb-1">insert</a>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
+
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>

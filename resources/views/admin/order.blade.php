@@ -41,6 +41,7 @@
                     <th>Address</th>
                     <th>Total_price</th>
                     <th>status</th>
+                    <th>Action</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -53,6 +54,7 @@
                     <td>{{$order->user_address}}</td>
                     <td>{{$order->total_price}}</td>
                     <td>{{$order->status}}</td>
+                    <td> <a href="/admin/update-order" class="btn btn-success">update</a> </td>
                   </tr>
                   @endforeach
 

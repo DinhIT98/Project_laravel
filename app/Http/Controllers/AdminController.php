@@ -62,64 +62,86 @@ class AdminController extends Controller
         $products_categories->product_id=$id;
         $products_categories->category_id=$request->product_categorie;
         $products_categories->save();
-        $image = $request->file('image');
-        $extension = $image->getClientOriginalExtension();
-        Storage::disk('public')->put($image->getClientOriginalName(),  File::get($image));
+        foreach($request->file('image') as $key=> $image){
+            $image_path=new imageupload();
+            $image_path->content_id=$id;
+            $image_path->path=$image->getClientOriginalName();
+            $image_path->save();
+            // $image = $request->file('image');
+            // $extension = $image->getClientOriginalExtension();
+            Storage::disk('public')->put($image->getClientOriginalName(),  File::get($image));
+        }
 
-        $image_path=new imageupload();
-        $image_path->content_id=$id;
-        $image_path->path=$image->getClientOriginalName();
-        $image_path->save();
+
         echo "<script>alert('insert product success!')</script>";
-        return redirect()->to('/home');
+        return redirect()->to('/admin/products');
 
         // return "<script>alert('insert product success!')</script>";
 
 
 
     }
-    public function storeImage (Request $request) {
-
-        // if ($request->hasFile('image')) {
-        //     //  Let's do everything here
-        //     if ($request->file('image')->isValid()) {
-
-        //         $validated = $request->validate([
-        //             'name' => 'string|max:40',
-        //             'image' => 'mimes:jpeg,png|max:1014',
-        //         ]);
-        //         $extension = $request->image->extension();
-        //         dd($extension);
-        //         $request->image->storeAs('/public', $validated['name'].".".$extension);
-        //         $url = Storage::url($validated['name'].".".$extension);
-        //         $file = File::create([
-        //            'name' => $validated['name'],
-        //             'url' => $url,
-        //         ]);
-        //         Session::flash('success', "Success!");
-        //         return \Redirect::back();
-        //     }
-        // }
-        // abort(500, 'Could not upload image :(');
-        // $file =$request->file('image');
-        // // dd($request->image);
-        // $file->move(public_path().'/images/',$request->image);
-        $image = $request->file('image');
-        $extension = $image->getClientOriginalExtension();
-        Storage::disk('public')->put($image->getClientOriginalName(),  File::get($image));
-
-    }
-    public function deleteProduct($id,$image_path){
+    public function deleteProduct($id){
         dt_products::where("id",$id)->delete();
+        $images=imageupload::selectRaw('GROUP_CONCAT(path) as path')
+        ->where('content_id',$id)
+        ->get();
+        $images=json_decode($images,true);
+        $path=explode(",", $images[0]['path']);
+        foreach($path as $val){
+            Storage::disk('public')->delete( $val);
+        }
         imageupload::where("content_id",$id)->delete();
         products_categories::where("product_id",$id)->delete();
-        if(File::exists($image_path)) {
-            File::delete($image_path);
-        }
         return redirect()->to('/admin/products');
 
     }
     public function insertCategory(){
         return view('admin.insert_category');
+    }
+    public function editProduct($id){
+        $products=DB::table('dt_products')
+        ->join('products_categories','dt_products.id','=','products_categories.product_id')
+        ->join('imageupload','imageupload.content_id','=','dt_products.id')
+        ->where('dt_products.id',$id)
+        ->select(DB::raw('dt_products.id,category_id,product_name,product_code,description,price,status,warranty,GROUP_CONCAT(path) as path'))
+        ->groupBy('imageupload.content_id')
+        ->get();
+        $category=dt_categories::select('id','name')
+        ->where('level',1)
+        ->get();
+
+        return view('admin.edit_product',['products'=>$products,'category'=>$category]);
+    }
+    public function storeEditProduct(request $request){
+        // $data=[$request->product_id,$request->product_code,$request->product_name,$request->product_description,$request->price,$request->status,$request->warranty];
+        // dd($data);
+
+
+        dt_products::where('id', $request->product_id)
+        ->update(['product_code' => $request->product_code,'product_name'=>$request->product_name,'description'=>$request->product_description,'price'=>$request->price,'status'=>$request->status,'warranty'=>$request->warranty]);
+
+        products_categories::where('product_id',$request->product_id)
+        ->update(['category_id'=>$request->product_categorie]);
+        // dd($request->file('image'));
+        foreach($request->file('image') as $key=> $image){
+
+            $image_path=new imageupload();
+            $image_path->content_id=$request->product_id;
+            $image_path->path=$image->getClientOriginalName();
+            $image_path->save();
+                // $image = $request->file('image');
+                // $extension = $image->getClientOriginalExtension();
+            Storage::disk('public')->put($image->getClientOriginalName(),  File::get($image));
+        }
+
+
+        return redirect()->to('/admin/products');
+    }
+    public function imageDelete(request $request){
+        $path=$request->path;
+        imageupload::where("path",$path)->delete();
+        Storage::disk('public')->delete($path);
+        return redirect()->back();
     }
 }
