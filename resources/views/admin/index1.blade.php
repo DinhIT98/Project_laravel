@@ -6,7 +6,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>DataTables</h1>
+
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -40,6 +40,7 @@
                     <th>Phone</th>
                     <th>Gender</th>
                     <th>Address</th>
+                    <th>Action</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -51,6 +52,12 @@
                     <td>{{$user->phone}}</td>
                     <td>{{$user->sex}}</td>
                     <td>{{$user->address}}</td>
+                    <td style ="width:20px"><form action="{{route('deleteUser',['id'=>$user->id])}}" method="POST">
+                    @method('delete')
+                    @csrf
+                    <button class="btn btn-danger" type="submit"><i class="fa fa-trash"></i></button>
+                    </form></td>
+                    <td style ="width:20px"><a href="" type='button' class='btn btn-success'><i class="fa fa-edit"></i></a></td>
                   </tr>
                   @endforeach
 

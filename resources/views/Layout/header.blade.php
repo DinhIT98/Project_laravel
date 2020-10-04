@@ -29,15 +29,7 @@
 							<span class="count_products_cart">@if(session('cart')){{count(session('cart'))}}@endif sản phẩm</span>
 						</div>
                     </div>
-                    @if(!Auth::check())
-                    <div class="cart" style="padding-right:10px" >
-                        <div class="discart ">
-                        <!-- <span class="material-icons" style="font-size:36px;">account_circle</span> -->
-                            <a href="/login">Login</a>
-                            <span>/ <a href="/register">Register</a> </span>
-                        </div>
-                    </div>
-                    @else
+                    @if(Auth::check() && Auth::user()->admin!=1)
                     <div class="cart" style="padding-right:10px" >
                         <div class="discart ">
                             <!-- <span class="material-icons" style="font-size:36px;">account_circle</span> -->
@@ -47,6 +39,16 @@
                         </div>
                     </div>
 
+
+                    @else
+
+                    <div class="cart" style="padding-right:10px" >
+                        <div class="discart ">
+                        <!-- <span class="material-icons" style="font-size:36px;">account_circle</span> -->
+                            <a href="/login">Login</a>
+                            <span>/ <a href="/register">Register</a> </span>
+                        </div>
+                    </div>
                     @endif
 
 				</div>

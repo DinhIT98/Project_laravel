@@ -6,7 +6,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>DataTables</h1>
+            <h1></h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -54,7 +54,7 @@
                     <td>{{$order->user_address}}</td>
                     <td>{{$order->total_price}}</td>
                     <td>{{$order->status}}</td>
-                    <td> <a href="/admin/update-order" class="btn btn-success">update</a> </td>
+                    <td> <a href="{{route('updateStatusOrder',['id'=>$order->id])}}" class="btn btn-success">update</a> </td>
                   </tr>
                   @endforeach
 

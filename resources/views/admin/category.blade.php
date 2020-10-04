@@ -28,7 +28,8 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">Category</h3>
-                <a href="/admin/insert-category" class="btn btn-primary float-right mb-1">insert</a>
+                <a href="/admin/insert-category-2" class="btn btn-primary float-right mb-1">insert sub_category</a>
+                <a href="/admin/insert-category-1" class="btn btn-primary float-right mb-1 mr-5">insert </a>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -40,6 +41,7 @@
                     <th>Name</th>
                     <th>Level</th>
                     <th>Parent_id</th>
+                    <th style="colspan:2;">Action</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -49,6 +51,12 @@
                     <td>{{$cate->name}}</td>
                     <td>{{$cate->level}}</td>
                     <td>{{$cate->parent_id}}</td>
+                    <td style ="width:20px"><form action="{{route('deleteCategory',['id'=>$cate->id])}}" method="POST">
+                    @method('delete')
+                    @csrf
+                    <button class="btn btn-danger" type="submit"><i class="fa fa-trash"></i></button>
+                    </form></td>
+                    <td style ="width:20px"><a href="{{route('editCategory',['id'=>$cate->id])}}" type='button' class='btn btn-success'><i class="fa fa-edit"></i></a></td>
                   </tr>
                   @endforeach
 

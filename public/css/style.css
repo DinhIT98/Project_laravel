@@ -431,6 +431,9 @@ ul.mnboxl ul li:hover > ul{
 	top: 0;
 	right: 0;
 }
+.imgsp{
+    height:16em;
+}
 .namesp{
 	display: block;
 	height: 35px;
@@ -456,6 +459,17 @@ ul.mnboxl ul li:hover > ul{
 	font-weight: normal !important;
     color: #CA0000 !important;
     padding: 10px 0;
+    height: 2em;
+}
+.status_sp{
+	display: block;
+	text-align: center;
+	font-size: 20px;
+	font-weight: normal !important;
+    color: #CA0000 !important;
+    padding: 10px 0;
+    height: 4em;
+    overflow: hidden;
 }
 .boxmain{
 	margin-bottom: 20px;

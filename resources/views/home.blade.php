@@ -179,7 +179,7 @@
 					                			<a href="{{route('product.detail',['id'=>$product->id])}}">{{$product->product_name}}</a>
 					                		</div>
 					                		<div class="pricesp">{{number_format($product->price)}} đ</div>
-                                            <div class="pricesp">{{$product->status}}</div>
+                                            <div class="status_sp">{{$product->status}}</div>
 					                		<div class="button-hd">
 						                		<a href="{{url('/add-to-cart',['id'=>$product->id])}}"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
 						                		<a href="{{route('product.detail',['id'=>$product->id])}}"><i class="fa fa-eye" aria-hidden="true"></i></a>
@@ -212,7 +212,8 @@
 			                		<div class="namesp">
 			                			<a href="{{route('product.detail',['id'=>$phone->id])}}">{{$phone->product_name}}</a>
 			                		</div>
-			                		<div class="pricesp">{{number_format($phone->price)}} đ</div>
+                                    <div class="pricesp">{{number_format($phone->price)}} đ</div>
+                                    <div class="status_sp">{{$phone->status}}</div>
 			                		<div class="button-hd">
 				                		<a href="{{url('/add-to-cart',['id'=>$phone->id])}}"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
 				                		<a href="{{route('product.detail',['id'=>$phone->id])}}"><i class="fa fa-eye" aria-hidden="true"></i></a>
@@ -241,7 +242,8 @@
 			                		<div class="namesp">
 			                			<a href="{{route('product.detail',['id'=>$lap->id])}}">{{$lap->product_name}}</a>
 			                		</div>
-			                		<div class="pricesp">{{number_format($lap->price)}} đ</div>
+                                    <div class="pricesp">{{number_format($lap->price)}} đ</div>
+                                    <div class="status_sp">{{$lap->status}}</div>
 			                		<div class="button-hd">
 				                		<a href="{{url('/add-to-cart',['id'=>$lap->id])}}"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
 				                		<a href="{{route('product.detail',['id'=>$lap->id])}}"><i class="fa fa-eye" aria-hidden="true"></i></a>
@@ -269,7 +271,8 @@
 			                		<div class="namesp">
 			                			<a href="{{route('product.detail',['id'=>$watch->id])}}">{{$watch->product_name}}</a>
 			                		</div>
-			                		<div class="pricesp">{{number_format($watch->price)}} đ</div>
+                                    <div class="pricesp">{{number_format($watch->price)}} đ</div>
+                                    <div class="status_sp">{{$watch->status}}</div>
 			                		<div class="button-hd">
 				                		<a href="{{url('/add-to-cart',['id'=>$watch->id])}}"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
 				                		<a href="{{route('product.detail',['id'=>$watch->id])}}"><i class="fa fa-eye" aria-hidden="true"></i></a>

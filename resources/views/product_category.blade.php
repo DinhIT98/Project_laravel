@@ -166,7 +166,7 @@
 						<div class="ct-boxmain row m0 ">
                         @foreach($products as $product)
                         <?php $image_product=explode(",", $product->path);?>
-							<div class="col-xs-6 col-sm-4 col-md-3 p5">
+							<div class="col-xs-6 col-sm-4 col-md-3 p5 mb-4">
 								<div class="boxsp">
 			                		<div class="imgsp">
 			                			<a href="{{route('product.detail',['id'=>$product->id])}}">@if($image_product)<img class="imgproduct" src="{{URL::asset('images/'.$image_product[0])}}">@endif</a>
@@ -178,6 +178,7 @@
 			                			<a href="{{route('product.detail',['id'=>$product->id])}}">{{$product->product_name}}</a>
 			                		</div>
 			                		<div class="pricesp">{{number_format($product->price)}} đ</div>
+                                    <div class="status_sp">{{$product->status}}</div>
 			                		<div class="button-hd">
 				                		<a href="{{url('/add-to-cart',['id'=>$product->id])}}"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
 				                		<a href="{{route('product.detail',['id'=>$product->id])}}"><i class="fa fa-eye" aria-hidden="true"></i></a>

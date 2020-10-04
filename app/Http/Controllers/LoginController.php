@@ -44,11 +44,21 @@ class LoginController extends Controller
 
     }
     public function authLogin(request $request){
-
+        $this->validate($request, [
+            'email'=> 'required|max:32',
+            'password'=> 'required|max:32|min:6',
+          ]);
 
             if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
-                $user=users::where('email',$request->email)->get();
-                return redirect()->to('/home');
+                if(Auth::user()->admin==1)
+                {
+                    return redirect()->to('/admin');
+                }else {
+
+                    return redirect()->to('/home');
+                }
+                // $user=users::where('email',$request->email)->get();
+                // dd(Auth::user()->admin);
             }else{
                 echo "<script>alert('dang nhap that bai! ')</script>";
                 return redirect()->to('/login');

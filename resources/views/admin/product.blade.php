@@ -54,9 +54,9 @@
                     <td><form action="{{route('deleteProduct',['id'=>$product->id])}}" method="POST">
                     @method('delete')
                     @csrf
-                    <button class="btn btn-danger" type="submit">delete</button>
+                    <button class="btn btn-danger" type="submit"> <i class="fa fa-trash"></i></button>
                     </form></td>
-                    <td><a href="{{route('editProduct',['id'=>$product->id])}}" type='button' class='btn btn-success'>Edit</a></td>
+                    <td><a href="{{route('editProduct',['id'=>$product->id])}}" type='button' class='btn btn-success'><i class="fa fa-edit"></i></a></td>
                   </tr>
                   @endforeach
 

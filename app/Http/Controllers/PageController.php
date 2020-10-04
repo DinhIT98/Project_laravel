@@ -125,7 +125,7 @@ class PageController extends Controller
         ->select('name')
         ->get();
         $cate_name=json_decode($cate_name,true);
-        // dd($products);
+        
         return view('product_category',['cate_name'=>$cate_name,'hots'=>$hots,'tops'=>$tops,'products'=>$products,'category_1'=>$category_1,'category_2'=>$category_2]);
     }
     public function showProductBySearch(){

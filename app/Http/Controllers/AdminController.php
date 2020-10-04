@@ -123,16 +123,16 @@ class AdminController extends Controller
 
         products_categories::where('product_id',$request->product_id)
         ->update(['category_id'=>$request->product_categorie]);
-        // dd($request->file('image'));
-        foreach($request->file('image') as $key=> $image){
+        if($request->file('image')){
 
-            $image_path=new imageupload();
-            $image_path->content_id=$request->product_id;
-            $image_path->path=$image->getClientOriginalName();
-            $image_path->save();
-                // $image = $request->file('image');
-                // $extension = $image->getClientOriginalExtension();
-            Storage::disk('public')->put($image->getClientOriginalName(),  File::get($image));
+            foreach($request->file('image') as $key=> $image){
+
+                $image_path=new imageupload();
+                $image_path->content_id=$request->product_id;
+                $image_path->path=$image->getClientOriginalName();
+                $image_path->save();
+                Storage::disk('public')->put($image->getClientOriginalName(),  File::get($image));
+            }
         }
 
 
@@ -143,5 +143,79 @@ class AdminController extends Controller
         imageupload::where("path",$path)->delete();
         Storage::disk('public')->delete($path);
         return redirect()->back();
+    }
+    public function updateStatusOrder($id){
+        $order=orders::where('id',$id)
+        ->select('status','id')
+        ->get();
+        $order=json_decode($order,true);
+        return view('admin.update_order',['order'=>$order]);
+    }
+    public function storeStatusOrder(request $request){
+        orders::where('id',$request->id)
+        ->update(['status'=>$request->status]);
+        return redirect()->to('/admin/order');
+    }
+    public function deleteUser($id){
+        users::where('id',$id)->delete();
+        return redirect()->back();
+    }
+    public function deleteCategory($id){
+        $category=dt_categories::where('id',$id)
+        ->select('level','parent_id')
+        ->get();
+        if($category[0]['level']==2){
+            dt_categories::where('id',$id)->delete();
+            return redirect()->back();
+        }else{
+            dt_categories::where('id',$id)->delete();
+            dt_categories::where('parent_id',$id)->delete();
+            return redirect()->back();
+        }
+    }
+    public function editCategory($id){
+        $category=dt_categories::where('id',$id)->get();
+        $category_1=dt_categories::where('level',"1")->get();
+        return view('admin.edit_category',['category'=>$category,'category_1'=>$category_1]);
+    }
+    public function storeEditCate(request $request){
+        if(!$request->parent_id){
+            dt_categories::where('id',$request->id)
+            ->update(['name'=>$request->name,'level'=>$request->level]);
+            return redirect()->to('/admin/category');
+        }else{
+            dt_categories::where('id',$request->id)
+            ->update(['name'=>$request->name,'level'=>$request->level,'parent_id'=>$request->parent_id]);
+            return redirect()->to('/admin/category');
+        }
+
+    }
+    public function insertCate_2(){
+        $category_1=dt_categories::where('level',"1")->get();
+        return view('admin.insert_category_2',["category_1"=>$category_1]);
+    }
+    public function insertCate_1(){
+        return view('admin.insert_category_1');
+    }
+    public function storeInsertCate_1(request $request){
+        if($request){
+
+            $category=new dt_categories();
+            $category->name=$request->name;
+            $category->level=$request->level;
+            $category->save();
+            return redirect()->to('/admin/category');
+        }
+    }
+    public function storeInsertCate_2(request $request){
+        if($request){
+
+            $category=new dt_categories();
+            $category->name=$request->name;
+            $category->level=$request->level;
+            $category->parent_id=$request->parent_id;
+            $category->save();
+            return redirect()->to('/admin/category');
+        }
     }
 }

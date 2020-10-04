@@ -15,9 +15,12 @@
         <div class="image">
           <img src="{{asset('bower_components/admin-lte/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
         </div>
+        @if(Auth::check() && Auth::user()->admin==1)
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          <a href="" class="d-block">{{Auth::user()->name}}</a>
+          <a href="{{route('logout')}}">logout</a>
         </div>
+        @endif
       </div>
 
       <!-- Sidebar Menu -->
@@ -71,7 +74,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/admin/order" class="nav-link active">
+                <a href="/admin/order" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Order</p>
                 </a>
