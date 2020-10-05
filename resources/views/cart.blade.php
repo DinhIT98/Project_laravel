@@ -17,7 +17,9 @@
 				      	</tr>
 				    </thead>
 				    <tbody>
-                    <?php $total=0; $x=0; $y=0; $z=0;?>
+
+                    <?php $total=0; $x=0; $y=0; $z=0;$check_session=session('cart');?>
+                    @if(isset($check_session))
                         @foreach(session('cart') as $id=>$val)
                         <?php $total+=($val['price']*$val['quantity']);
                               $path=explode(",", $val['image']);
@@ -51,6 +53,7 @@
 							</td>
 				      	</tr>
 				    @endforeach
+                    @endif
 				    </tbody>
 				    <tfoot>
 						<tr>

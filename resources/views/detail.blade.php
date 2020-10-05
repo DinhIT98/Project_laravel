@@ -9,18 +9,21 @@
         </ol>
     </nav>
 </div> -->
+@if(isset($product[0]))
 <div class="container main_detail mt-5">
     <div class="card">
         <div class="row">
             <aside class="col-sm-5 border-right">
                 <article class="gallery-wrap">
                     <div class="img-big-wrap">
-                    <?php $image=explode(",", $product[0]->path);?>
-                        <div> <a href="#"><img src="{{URL::asset('images/'.$image[0])}}"></a></div>
+                    <?php $image=explode(",", $product[0]->path);
+                    $path='images/'.$image[0];?>
+                        <div> <a href="">@if(is_file(public_path($path)))<img src="{{URL::asset('images/'.$image[0])}}">@else <img src="images/image-not-found.png" alt="">@endif </a></div>
                     </div> <!-- slider-product.// -->
                     <div class="img-small-wrap">
                     @for($x=0;$x<count($image);$x++)
-                    <div class="item-gallery"> <img src="{{URL::asset('images/'.$image[$x])}}"> </div>
+                    <?php $path ='images/'.$image[$x];?>
+                    <div class="item-gallery">@if(is_file(public_path($path)))<img src="{{URL::asset('images/'.$image[$x])}}">@else <img src="images/image-not-found.png" alt=""> @endif</div>
                     @endfor
 
 
@@ -71,6 +74,9 @@
         </div> <!-- row.// -->
     </div> <!-- card.// -->
 </div>
+@else
+<h3 class="text-center text-red" m-5>Sản phẩm hiện không còn kinh doanh</h3>
+@endif
 @endsection
 
 

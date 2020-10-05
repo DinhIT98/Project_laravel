@@ -13,13 +13,19 @@
                     <?php $total=0;?>
 
                     @foreach($product as $pro)
-                    <?php $total+=$pro->price?>
+                    <?php $total+=$pro->price;
+                    $image=explode(",", $pro->path)?>
 					  <li class="list-group-item d-flex justify-content-between lh-condensed">
 						<div>
 						  <h6 class="my-0">{{$pro->product_name}}</h6>
+                          <input type="text" value="{{$pro->product_name}}" name="product_name" hidden>
+                          <input type="text" value="{{$pro->product_code}}" name="product_code" hidden>
+                          <input type="text" value="{{$pro->price}}" name="product_price" hidden>
+                          <input type="text" value="{{$image[0]}}"  name="product_image" hidden>
 						  <small class="text-muted text-danger">{{$pro->status}}</small>
 						</div>
 						<span class="text-muted">{{number_format($pro->price)}} đ</span>
+
                       </li>
                     @endforeach
 

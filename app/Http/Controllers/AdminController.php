@@ -87,10 +87,10 @@ class AdminController extends Controller
         ->where('content_id',$id)
         ->get();
         $images=json_decode($images,true);
-        $path=explode(",", $images[0]['path']);
-        foreach($path as $val){
-            Storage::disk('public')->delete( $val);
-        }
+        // $path=explode(",", $images[0]['path']);
+        // foreach($path as $val){
+        //     Storage::disk('public')->delete( $val);
+        // }
         imageupload::where("content_id",$id)->delete();
         products_categories::where("product_id",$id)->delete();
         return redirect()->to('/admin/products');
@@ -141,7 +141,7 @@ class AdminController extends Controller
     public function imageDelete(request $request){
         $path=$request->path;
         imageupload::where("path",$path)->delete();
-        Storage::disk('public')->delete($path);
+        // Storage::disk('public')->delete($path);
         return redirect()->back();
     }
     public function updateStatusOrder($id){

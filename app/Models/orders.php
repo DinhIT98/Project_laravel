@@ -10,4 +10,7 @@ class orders extends Model
     use HasFactory;
     protected $table="orders";
     protected $primaryKey = 'id';
+    protected $attributes = [
+        'status' =>'Mới đặt hàng'
+    ];
 }

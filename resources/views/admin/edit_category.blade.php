@@ -18,8 +18,8 @@
         <div class="form-group">
             <label for="my-select">level</label>
             <select id="my-select" class="form-control" name="level" id="level">
-                <option value="1"<?php echo ($category[0]['level']==1) ? "selected":""?>>1</option>
-                <option value="2" <?php echo ($category[0]['level']==2) ? "selected":""?>>2</option>
+                <option value="1"<?php echo ($category[0]['level']==1) ? "selected":"disabled"?>>1</option>
+                <option value="2" <?php echo ($category[0]['level']==2) ? "selected":"disabled"?>>2</option>
             </select>
         </div>
         @if($category[0]['level']==2)
@@ -28,6 +28,7 @@
             <select id="my-select" class="form-control" name="parent_id">
             @foreach($category_1 as $cate)
                 <option value="{{$cate->id}}" <?php echo($category[0]['parent_id']==$cate->id) ? "selected":""?>>{{$cate->name}}</option>
+
             @endforeach
             </select>
         </div>

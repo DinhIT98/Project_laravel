@@ -85,13 +85,14 @@
 								</div>
                             </div> -->
                             @foreach($hots as $hot)
+                            <?php $path='images/'.$hot->product_image;?>
 							<div class="boxspl">
 								<div class="col-xs-4 p0">
-									<a href=""><img src="{{URL::asset('images/'.$hot->product_image)}}" alt=""></a>
+									<a href="{{route('product.detail',['id'=>$hot->product_id])}}">@if(is_file(public_path($path)))<img src="{{URL::asset('images/'.$hot->product_image)}}" alt="">@else <img src="{{asset('images/image-not-found.png')}}" alt="">@endif</a>
 								</div>
 								<div class="col-xs-8 p5">
 									<div class="tit-boxspl">
-										<a href="">{{$hot->product_name}}</a>
+										<a href="{{route('product.detail',['id'=>$hot->product_id])}}">{{$hot->product_name}}</a>
 									</div>
 									<div class="price-boxspl">{{number_format($hot->product_price)}}đ</div>
 								</div>
@@ -107,13 +108,14 @@
 						</div>
 						<div class="ctboxleft">
                             @foreach($tops as $top)
+                            <?php $path='images/'.$top->product_image;?>
 							<div class="boxspl">
 								<div class="col-xs-4 p0">
-									<a href=""><img src="{{URL::asset('images/'.$top->product_image)}}" alt=""></a>
+									<a href="{{route('product.detail',['id'=>$top->product_id])}}">@if(is_file(public_path($path)))<img src="{{URL::asset('images/'.$top->product_image)}}" alt="">@else <img src="{{asset('images/image-not-found.png')}}" alt="">@endif</a>
 								</div>
 								<div class="col-xs-8 p5">
 									<div class="tit-boxspl">
-										<a href="">{{$top->product_name}}</a>
+										<a href="{{route('product.detail',['id'=>$top->product_id])}}">{{$top->product_name}}</a>
 									</div>
 									<div class="price-boxspl">{{number_format($top->product_price)}}đ</div>
 								</div>
@@ -165,11 +167,12 @@
 
 						<div class="ct-boxmain row m0 ">
                         @foreach($products as $product)
-                        <?php $image_product=explode(",", $product->path);?>
-							<div class="col-xs-6 col-sm-4 col-md-3 p5 mb-4">
+                        <?php $image_product=explode(",", $product->path);
+                        $path='images/'.$image_product[0];?>
+							<div class="col-xs-6 col-sm-4 col-md-3 p5 ">
 								<div class="boxsp">
 			                		<div class="imgsp">
-			                			<a href="{{route('product.detail',['id'=>$product->id])}}">@if($image_product)<img class="imgproduct" src="{{URL::asset('images/'.$image_product[0])}}">@endif</a>
+			                			<a href="{{route('product.detail',['id'=>$product->id])}}">@if(is_file(public_path($path)))<img class="imgproduct" src="{{URL::asset('images/'.$image_product[0])}}">@else <img class="imgproduct" src="{{asset('images/image-not-found.png')}}" alt="">@endif</a>
 			                			<!-- <div class="img-label">
 			                				<img src="images/hot.png">
 			                			</div> -->
