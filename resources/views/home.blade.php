@@ -175,7 +175,7 @@
 					                		<div class="imgsp">
 					                			<a href="{{route('product.detail',['id'=>$product->id])}}">@if(is_file(public_path($path)))<img class="imgproduct" src="images/{{$image[0]}}">@else<img class="imgproduct" src="images/image-not-found.png">@endif</a>
 					                			<div class="img-label">
-					                				<img src="images/hot.png">
+					                				<img src="images/new.png">
 					                			</div>
 					                		</div>
 					                		<div class="namesp">

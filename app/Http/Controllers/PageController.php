@@ -214,6 +214,7 @@ class PageController extends Controller
                 ]
                 ];
             session()->put('cart',$cart);
+            echo '<script>alert("add to cart success!")</script>';
             return redirect()->back();
         }
         if(isset($cart[$id])) {
@@ -221,7 +222,7 @@ class PageController extends Controller
             $cart[$id]['quantity']++;
 
             session()->put('cart', $cart);
-
+            echo '<script>alert("add to cart success!")</script>';
             return redirect()->back()->with('success', 'Product added to cart successfully!');
 
         }
@@ -235,6 +236,7 @@ class PageController extends Controller
         ];
 
         session()->put('cart', $cart);
+        echo "<script>alert('add to cart success!'')</script>";
         return redirect()->back();
     }
     public function removeCart($id){
