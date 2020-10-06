@@ -119,7 +119,7 @@ class AdminController extends Controller
 
 
         dt_products::where('id', $request->product_id)
-        ->update(['product_code' => $request->product_code,'product_name'=>$request->product_name,'description'=>$request->product_description,'price'=>$request->price,'status'=>$request->status,'warranty'=>$request->warranty]);
+        ->update(['product_code' => $request->product_code,'product_name'=>$request->product_name,'description'=>$request->product_description,'price'=>$request->price,'status'=>$request->status,'warranty'=>$request->warranty,'updated_at'=>now()]);
 
         products_categories::where('product_id',$request->product_id)
         ->update(['category_id'=>$request->product_categorie]);

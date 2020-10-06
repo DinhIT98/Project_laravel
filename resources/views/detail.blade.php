@@ -16,15 +16,15 @@
             <aside class="col-sm-5 border-right">
                 <article class="gallery-wrap">
                     <div class="img-big-wrap">
-                    <?php $image=explode(",", $product[0]->path);
-                    $path='images/'.$image[0];?>
-                        <div> <a href="">@if(is_file(public_path($path)))<img src="{{URL::asset('images/'.$image[0])}}">@else <img src="images/image-not-found.png" alt="">@endif </a></div>
+                    <?php $image=$product[0]->imageupload;
+                    $path='images/'.$image[0]->path;?>
+                        <div> <a href="">@if(is_file(public_path($path)))<img src="{{URL::asset('images/'.$image[0]->path)}}">@else <img src="images/image-not-found.png" alt="">@endif </a></div>
                     </div> <!-- slider-product.// -->
                     <div class="img-small-wrap">
-                    @for($x=0;$x<count($image);$x++)
-                    <?php $path ='images/'.$image[$x];?>
-                    <div class="item-gallery">@if(is_file(public_path($path)))<img src="{{URL::asset('images/'.$image[$x])}}">@else <img src="images/image-not-found.png" alt=""> @endif</div>
-                    @endfor
+                    @foreach($image as $img)
+                    <?php $path ='images/'.$img->path;?>
+                    <div class="item-gallery">@if(is_file(public_path($path)))<img src="{{URL::asset('images/'.$img->path)}}">@else <img src="images/image-not-found.png" alt=""> @endif</div>
+                    @endforeach
 
 
                 </article> <!-- gallery-wrap .end// -->

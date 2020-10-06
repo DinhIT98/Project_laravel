@@ -5,114 +5,39 @@ use Illuminate\Support\Facades\DB;
 use App\Models\orders;
 use App\Models\order_detail;
 use App\Models\dt_products;
+use App\Models\dt_categories;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
 
 class PageController extends Controller
 {
     public function show_product(){
-        $products=DB::table('dt_products')
-        ->join('imageupload','imageupload.content_id','=','dt_products.id')
-        ->select(DB::raw('dt_products.id,product_name,price,status,warranty,GROUP_CONCAT(path) as path'))
-        ->groupBy('imageupload.content_id')
-        ->inRandomOrder(10)
-        ->get();
-
-        $category_1=DB::table('dt_categories')
-        ->where('level',1)
-        ->select('id','name')
-        ->get();
-        $category_2=DB::table('dt_categories')
-        ->where('level',2)
-        ->select('parent_id','name')
-        ->get();
-        $smartphone=DB::table('dt_products')
-        ->join('products_categories','dt_products.id','=','products_categories.product_id')
-        ->join('imageupload','imageupload.content_id','=','dt_products.id')
-        ->select(DB::raw('dt_products.id,product_name,price,status,warranty,GROUP_CONCAT(path) as path'))
-        ->where('category_id',10)
-        // ->select('dt_products.id','product_name','price','status','warranty','path')
-        ->groupBy('imageupload.content_id')
-        ->limit(4)
-        ->get();
-        $laptop=DB::table('dt_products')
-        ->join('products_categories','dt_products.id','=','products_categories.product_id')
-        ->join('imageupload','imageupload.content_id','=','dt_products.id')
-        ->select(DB::raw('dt_products.id,product_name,price,status,warranty,GROUP_CONCAT(path) as path'))
-        ->where('category_id',9)
-        // ->select('dt_products.id','product_name','price','status','warranty','path')
-        ->groupBy('imageupload.content_id')
-        ->limit(4)
-        ->get();
-        $watchs=DB::table('dt_products')
-        ->join('products_categories','dt_products.id','=','products_categories.product_id')
-        ->join('imageupload','imageupload.content_id','=','dt_products.id')
-        ->select(DB::raw('dt_products.id,product_name,price,status,warranty,GROUP_CONCAT(path) as path'))
-        ->where('category_id',8)
-        // ->select('dt_products.id','product_name','price','status','warranty','path')
-        ->groupBy('imageupload.content_id')
-        ->limit(4)
-        ->get();
-        $tops=DB::table('order_detail')
-        ->select(DB::raw('sum(product_qty) as soluong,product_id,order_detail.product_name,product_price,product_image'))
-        ->join('dt_products','dt_products.id','=','order_detail.product_id')
-        ->groupBy('product_id')
-        ->orderBy('soluong','DESC')
-        ->limit(3)
-        ->get();
-        $hots=DB::table('order_detail')
-        ->select(DB::raw('sum(product_qty) as soluong,product_id,order_detail.product_name,product_price,product_image'))
-        ->join('dt_products','dt_products.id','=','order_detail.product_id')
-        ->groupBy('product_id')
-        ->orderBy('soluong','DESC')
-        ->get()
-        ->random(4);
+        $products=dt_products::with('imageupload')->paginate(8);
+        $category= new dt_categories();
+        $category_1=$category->getCategory_1();
+        $category_2=$category->getCategory_2();
+        $smartphone=dt_products::with('imageupload','products_categories')->get();
+        $laptop=dt_products::with('imageupload','products_categories')->get();
+        $watchs=dt_products::with('imageupload','products_categories')->get();
+        $order_detail=new order_detail();
+        $tops=$order_detail->getTops();
+        $hots=$order_detail->getHots();
         return view('home',['hots'=>$hots,'tops'=>$tops,'watchs'=>$watchs,'laptop'=>$laptop,'smartphone'=>$smartphone,'products'=>$products,'category_1'=>$category_1,'category_2'=>$category_2]);
     }
     public function show_detail($id){
-        $category_1=DB::table('dt_categories')
-        ->where('level',1)
-        ->select('id','name')
-        ->get();
-        $category_2=DB::table('dt_categories')
-        ->where('level',2)
-        ->select('parent_id','name')
-        ->get();
-        // $product=DB::table('dt_products')
-        // ->join('imageupload','imageupload.content_id','=','dt_products.id')
-        // ->where('dt_products.id',$id)
-        // ->select('dt_products.id','product_name','price','status','warranty','path','description')
-        // ->get();
-        $product=DB::table('dt_products')
-        ->join('imageupload','imageupload.content_id','=','dt_products.id')
-        ->where('dt_products.id',$id)
-        ->select(DB::raw('dt_products.id,product_name,price,status,warranty,description,GROUP_CONCAT(path) as path'))
-        ->groupBy('imageupload.content_id')
-        ->get();
+        $category=new dt_categories();
+        $category_1=$category->getCategory_1();
+        $category_2=$category->getCategory_2();
+        $product=dt_products::with('imageupload')->where('id',$id)->get();
         return view('detail',['product'=>$product,'category_1'=>$category_1,'category_2'=>$category_2]);
     }
     public function showProductByCategory($cate){
-        $category_1=DB::table('dt_categories')
-        ->where('level',1)
-        ->select('id','name')
-        ->get();
-        $category_2=DB::table('dt_categories')
-        ->where('level',2)
-        ->select('parent_id','name')
-        ->get();
-        $tops=DB::table('order_detail')
-        ->select(DB::raw('sum(product_qty) as soluong,product_id,order_detail.product_name,product_price,product_image'))
-        ->join('dt_products','dt_products.id','=','order_detail.product_id')
-        ->groupBy('product_id')
-        ->orderBy('soluong','DESC')
-        ->limit(3)
-        ->get();
-        $hots=DB::table('order_detail')
-        ->select(DB::raw('sum(product_qty) as soluong,product_id,order_detail.product_name,product_price,product_image'))
-        ->join('dt_products','dt_products.id','=','order_detail.product_id')
-        ->groupBy('product_id')
-        ->orderBy('soluong','DESC')
-        ->get()
-        ->random(4);
+        $category= new dt_categories();
+        $category_1=$category->getCategory_1();
+        $category_2=$category->getCategory_2();
+        $order_detail=new order_detail();
+        $tops=$order_detail->getTops();
+        $hots=$order_detail->getHots();
         $products=DB::table('dt_products')
         ->join('products_categories','dt_products.id','=','products_categories.product_id')
         ->join('imageupload','imageupload.content_id','=','dt_products.id')
@@ -120,6 +45,11 @@ class PageController extends Controller
         ->select(DB::raw('dt_products.id,product_name,price,status,warranty,GROUP_CONCAT(path) as path'))
         ->groupBy('imageupload.content_id')
         ->get();
+        // $products=dt_products::with(['imageupload','products_categories'=>function ( Builder $query) {
+        //     return $query->where('category_id ', '=',9);
+        // }]) ;
+        // dd($products);
+        // print_r($products);
         $cate_name=DB::table('dt_categories')
         ->where('id',$cate)
         ->select('name')
@@ -132,48 +62,27 @@ class PageController extends Controller
         // use ajax
     }
     public function checkout($id){
-        $category_1=DB::table('dt_categories')
-        ->where('level',1)
-        ->select('id','name')
-        ->get();
-        $category_2=DB::table('dt_categories')
-        ->where('level',2)
-        ->select('parent_id','name')
-        ->get();
-        $product=DB::table('dt_products')
-        ->join('imageupload','imageupload.content_id','=','dt_products.id')
-        ->where('dt_products.id',$id)
-        ->select(DB::raw('dt_products.id,product_name,product_code,price,status,warranty,description,GROUP_CONCAT(path) as path'))
-        ->groupBy('imageupload.content_id')
-        ->get();
+        $category= new dt_categories();
+        $category_1=$category->getCategory_1();
+        $category_2=$category->getCategory_2();
+        $product=dt_products::with('imageupload')->where('id',$id)->get();
         return view('checkout',['product'=>$product,'category_1'=>$category_1,'category_2'=>$category_2]);
 
     }
     public function cart(){
-        $category_1=DB::table('dt_categories')
-        ->where('level',1)
-        ->select('id','name')
-        ->get();
-        $category_2=DB::table('dt_categories')
-        ->where('level',2)
-        ->select('parent_id','name')
-        ->get();
-        // dd(session('cart'));
+        $category= new dt_categories();
+        $category_1=$category->getCategory_1();
+        $category_2=$category->getCategory_2();
         return view('cart',['category_1'=>$category_1,'category_2'=>$category_2]);
 
     }
     public function checkout_store(request $request){
 
-        $data=[$request->quantity,$request->total,$request->product_id,$request->name,$request->phone,$request->email,$request->address];
+
         if($request){
 
             $order=new orders();
-            $order->user_name=$request->name;
-            $order->user_phone=$request->phone;
-            $order->user_email=$request->email;
-            $order->user_address=$request->address;
-            $order->total_price=$request->quantity*$request->total;
-            $order->save();
+            $order->insert($request->name,$request->phone,$request->email,$request->address,$request->quantity*$request->total);
 
             $order_id=orders::selectRaw('max(id)')->get();
             $id=$order_id[0]['max(id)'];
@@ -188,17 +97,14 @@ class PageController extends Controller
             $order_detail->product_id=$request->product_id;
 
             $order_detail->save();
-            return redirect()->to('/home');
+            return redirect()->to('/');
         }
 
     }
     public function addToCart($id){
-        $data=DB::table('dt_products')
-        ->join('imageupload','imageupload.content_id','=','dt_products.id')
-        ->where('dt_products.id',$id)
-        ->select(DB::raw('dt_products.id,product_name,price,status,warranty,description,GROUP_CONCAT(path) as path'))
-        ->groupBy('imageupload.content_id')
-        ->get();
+        $data=dt_products::with('imageupload')->where('id',$id)->get();
+        $image=$data[0]->imageupload;
+        $path =$image[0]->path;
         $data=json_decode($data,true);
         $cart=session()->get('cart');
         if(!$cart){
@@ -208,7 +114,7 @@ class PageController extends Controller
                     'price'=>$data[0]['price'],
                     'status'=>$data[0]['status'],
                     'warranty'=>$data[0]['warranty'],
-                    'image'=>$data[0]['path'],
+                    'image'=>$path,
                     'quantity'=>1
 
                 ]
@@ -220,7 +126,6 @@ class PageController extends Controller
         if(isset($cart[$id])) {
 
             $cart[$id]['quantity']++;
-
             session()->put('cart', $cart);
             echo '<script>alert("add to cart success!")</script>';
             return redirect()->back()->with('success', 'Product added to cart successfully!');
@@ -231,7 +136,7 @@ class PageController extends Controller
             'price'=>$data[0]['price'],
             'status'=>$data[0]['status'],
             'warranty'=>$data[0]['warranty'],
-            'image'=>$data[0]['path'],
+            'image'=>$path,
             'quantity'=>1
         ];
 
@@ -245,29 +150,28 @@ class PageController extends Controller
         session()->put('cart',$cart);
         return redirect()->back();
     }
-    public function sanPhamBanChay(){
-        $tops=DB::table('order_detail')
-        ->select(DB::raw('sum(product_qty) as soluong,product_name,product_price,product_image'))
-        ->groupBy('product_id')
-        ->orderBy('soluong','DESC')
-        ->get()
-        ->random(4);
-        dd($tops);
-    }
     public function checkoutCart(){
-        $category_1=DB::table('dt_categories')
-        ->where('level',1)
-        ->select('id','name')
-        ->get();
-        $category_2=DB::table('dt_categories')
-        ->where('level',2)
-        ->select('parent_id','name')
-        ->get();
+        $category= new dt_categories();
+        $category_1=$category->getCategory_1();
+        $category_2=$category->getCategory_2();
         return view('checkoutCart',['category_1'=>$category_1,'category_2'=>$category_2]);
     }
     public function test(){
-        $data=dt_products::find(37)->imageupload;
+        // $datas=dt_products::with('Image')->get();
+        // foreach($datas as $data){
+        //     dd($data->imageupload);
+        // }
+        // foreach($data as $img){
+        //     echo $img;
+        // }
+
+        $data=dt_products::with('imageupload','products_categories')->inRandomOrder(10)->get();
+        // dd($data[0]->imageupload);
         dd($data);
+        foreach($data[0]->imageupload as $img){
+            print_r($img);
+        }
+
     }
 
 

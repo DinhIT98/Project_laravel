@@ -159,6 +159,7 @@
 						</div>
 					</div>
 				</div>
+
 				<div id="maincontent" class="col-xs-12 col-sm-8 col-md-9">
 					<div class="boxmain spmoi">
 						<div class="tit-boxmain">
@@ -168,12 +169,15 @@
 							<div class="row">
 								<div id="spmoi" class="owl-carousel">
                                 @foreach($products as $product)
-                                   <?php $image=explode(",", $product->path);
-                                   $path='images/'.$image[0];?>
+                                   <?php $image=$product->imageupload;
+                                   $path='images/'.$image[0]->path;
+
+                                  ?>
+
 									<div class="item">
 					                	<div class="boxsp">
 					                		<div class="imgsp">
-					                			<a href="{{route('product.detail',['id'=>$product->id])}}">@if(is_file(public_path($path)))<img class="imgproduct" src="images/{{$image[0]}}">@else<img class="imgproduct" src="images/image-not-found.png">@endif</a>
+					                			<a href="{{route('product.detail',['id'=>$product->id])}}">@if(is_file(public_path($path)))<img class="imgproduct" src="images/{{$image[0]->path}}">@else<img class="imgproduct" src="images/image-not-found.png">@endif</a>
 					                			<div class="img-label">
 					                				<img src="images/new.png">
 					                			</div>
@@ -200,15 +204,21 @@
 						<div class="tit-boxmain">
 							<h3><span>Điện thoại</span></h3>
 						</div>
-
 						<div class="ct-boxmain row m0">
+                        <?php $i=0; ?>
                         @foreach($smartphone as $phone)
-                        <?php $image_smart=explode(",", $phone->path);
-                        $path='images/'.$image_smart[0];?>
+                        <?php $category=$phone->products_categories;?>
+                        @foreach($category as $cate)
+                        <?php $cate_id=$cate->category_id;?>
+                        @endforeach
+                        @if($cate_id=='10' && $i<4)
+                        <?php $image_smart=$phone->imageupload;
+                        $path='images/'.$image_smart[0]->path;
+                        $i++;?>
 							<div class="col-xs-6 col-sm-4 col-md-3 p5">
 								<div class="boxsp">
 			                		<div class="imgsp">
-			                			<a href="{{route('product.detail',['id'=>$phone->id])}}">@if(is_file(public_path($path)))<img class="imgproduct" src="images/{{$image_smart[0]}}">@else <img class="imgproduct" src="images/image-not-found.png" alt="">@endif</a>
+			                			<a href="{{route('product.detail',['id'=>$phone->id])}}">@if(is_file(public_path($path)))<img class="imgproduct" src="images/{{$image_smart[0]->path}}">@else <img class="imgproduct" src="images/image-not-found.png" alt="">@endif</a>
 			                			<div class="img-label">
 			                				<img src="images/hot.png">
 			                			</div>
@@ -224,6 +234,7 @@
 				                	</div>
 			                	</div>
 							</div>
+                        @endif
                         @endforeach
 						</div>
 
@@ -233,13 +244,20 @@
 							<h3><span>Laptop</span></h3>
 						</div>
 						<div class="ct-boxmain row m0">
+                        <?php $i=0; ?>
                         @foreach($laptop as $lap)
-                        <?php $image_lap=explode(",", $lap->path);
-                        $path='images/'.$image_lap[0];?>
+                        <?php $category=$lap->products_categories;?>
+                        @foreach($category as $cate)
+                        <?php $cate_id=$cate->category_id;?>
+                        @endforeach
+                        @if($cate_id=='9' && $i<4)
+                        <?php $image_lap=$lap->imageupload;
+                        $path='images/'.$image_lap[0]->path;
+                        $i++;?>
 							<div class="col-xs-6 col-sm-4 col-md-3 p5">
 								<div class="boxsp">
 			                		<div class="imgsp">
-			                			<a href="{{route('product.detail',['id'=>$lap->id])}}">@if(is_file(public_path($path)))<img class="imgproduct" src="images/{{$image_lap[0]}}">@else <img class="imgproduct" src="images/image-not-found.png" alt="">@endif </a>
+			                			<a href="{{route('product.detail',['id'=>$lap->id])}}">@if(is_file(public_path($path)))<img class="imgproduct" src="images/{{$image_lap[0]->path}}">@else <img class="imgproduct" src="images/image-not-found.png" alt="">@endif </a>
 			                			<div class="img-label">
 			                				<img src="images/hot.png">
 			                			</div>
@@ -255,6 +273,7 @@
 				                	</div>
 			                	</div>
                             </div>
+                            @endif
                         @endforeach
 						</div>
 					</div>
@@ -263,13 +282,21 @@
 							<h3><span>Đồng hồ</span></h3>
 						</div>
 						<div class="ct-boxmain row m0">
+                        <?php $i=0; ?>
                         @foreach($watchs as $watch)
-                        <?php $image_watch=explode(",", $watch->path);
-                        $path='images/'.$image_watch[0];?>
+                        <?php $category=$watch->products_categories;?>
+                        @foreach($category as $cate)
+                        <?php $cate_id=$cate->category_id;?>
+                        @endforeach
+                        @if($cate_id=='8' && $i<4)
+                        <?php $image_watch=$watch->imageupload;
+                        $path='images/'.$image_watch[0]->path;
+                        $i++;?>
+
 							<div class="col-xs-6 col-sm-4 col-md-3 p5">
 								<div class="boxsp">
 			                		<div class="imgsp">
-			                			<a href="{{route('product.detail',['id'=>$watch->id])}}">@if(is_file(public_path($path)))<img class="imgproduct" src="images/{{$image_watch[0]}}">@else <img class="imgproduct" src="images/image-not-found.png" alt=""> @endif</a>
+			                			<a href="{{route('product.detail',['id'=>$watch->id])}}">@if(is_file(public_path($path)))<img class="imgproduct" src="images/{{$image_watch[0]->path}}">@else <img class="imgproduct" src="images/image-not-found.png" alt=""> @endif</a>
 			                			<div class="img-label">
 			                				<img src="images/hot.png">
 			                			</div>
@@ -285,6 +312,7 @@
 				                	</div>
 			                	</div>
                             </div>
+                            @endif
                         @endforeach
 						</div>
 					</div>

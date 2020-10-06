@@ -106,9 +106,9 @@
   <div class="img-small-wrap d-flex overflow-auto">
                     @for($x=0;$x<count($image);$x++)
                     <div class="item-gallery border shadow mr-2 imagesp"> <img src="{{URL::asset('images/'.$image[$x])}}">
-                    <div class="btn_delete fa-4px">
+                    <div class="btn_delete ">
 
-                        <form action="{{route('image.Delete')}}" method="POST">@csrf <input type="text" value="{{$image[$x]}}" hidden id="path" name="path"> <button onclick="$(this).closest('form').submit()" style="border:none; padding:0;"> <span class="fa fa-window-close fa-4px text-red mt-0"></span></button></form>
+                        <form action="{{route('image.Delete')}}" method="POST">@csrf <input type="text" value="{{$image[$x]}}" hidden id="path" name="path"> <button onclick="$(this).closest('form').submit()" style="border:none; padding:0;"> <span class="fa fa-window-close fa-16px text-red mt-0"></span></button></form>
                     </div>
                      </div>
                     @endfor

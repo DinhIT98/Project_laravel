@@ -19,7 +19,7 @@ use App\Http\Middleware\checkUserAdmin;
 |
 */
 
-Route::get('/home',[PageController::class,'show_product'])->name('home');
+Route::get('/',[PageController::class,'show_product'])->name('home');
 Route::get('/category/{cate}',[PageController::class,'showProductByCategory'])->name('show.category');
 Route::get('/admin/signIn',function(){
     return view('sign_in');
