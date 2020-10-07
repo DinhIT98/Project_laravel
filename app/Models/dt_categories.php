@@ -21,4 +21,16 @@ class dt_categories extends Model
         ->select('id','name')
         ->get();
     }
+    public function insert($name,$level,$parent_id){
+        $this->name=$name;
+        $this->level=$level;
+        $this->parent_id=$parent_id;
+        $this->save();
+
+    }
+    public function getCategoryById($id){
+        return $this->where('id',$id)
+            ->select('name')
+            ->get();
+    }
 }

@@ -73,7 +73,9 @@
 							</ul>
 						</div>
 					</div>
+
 					<div class="boxleft hidden-xs">
+
 						<div class="titboxl">
 							<i class="fa fa-share fa-x2 fa-lg" aria-hidden="true"></i>
 							<span>Sản phẩm hot</span>
@@ -161,6 +163,12 @@
 				</div>
 
 				<div id="maincontent" class="col-xs-12 col-sm-8 col-md-9">
+                @if(session()->get( 'message' ))
+                <div class="alert alert-success alert-dismissible">
+                    <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>{{session()->get( 'message' )}}</strong>
+                 </div>
+                @endif
 					<div class="boxmain spmoi">
 						<div class="tit-boxmain">
 							<h3><span>Sản phẩm mới</span></h3>
@@ -320,4 +328,12 @@
 			</section>
 		</div>
 	</div>
-    @endsection
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+@if(session()->get( 'success' ))
+    <script>
+        alert('Thank you for your order!');
+    </script>
+@endif
+
+@endsection

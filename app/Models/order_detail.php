@@ -32,6 +32,15 @@ class order_detail extends Model
         ->get()
         ->random(4);
     }
-
+    public function insert($order_id,$product_code,$product_name,$product_image,$product_price,$product_qty,$product_id){
+        $this->order_id=$order_id;
+        $this->product_code=$product_code;
+        $this->product_name=$product_name;
+        $this->product_image=$product_image;
+        $this->product_price=$product_price;
+        $this->product_qty=$product_qty;
+        $this->product_id=$product_id;
+        $this->save();
+    }
 
 }

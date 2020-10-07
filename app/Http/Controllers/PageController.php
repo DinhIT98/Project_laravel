@@ -38,24 +38,16 @@ class PageController extends Controller
         $order_detail=new order_detail();
         $tops=$order_detail->getTops();
         $hots=$order_detail->getHots();
-        $products=DB::table('dt_products')
-        ->join('products_categories','dt_products.id','=','products_categories.product_id')
-        ->join('imageupload','imageupload.content_id','=','dt_products.id')
-        ->where('category_id',$cate)
-        ->select(DB::raw('dt_products.id,product_name,price,status,warranty,GROUP_CONCAT(path) as path'))
-        ->groupBy('imageupload.content_id')
-        ->get();
+        $dt_products=new dt_products();
+        $products=$dt_products->getProductsByCategory($cate);
         // $products=dt_products::with(['imageupload','products_categories'=>function ( Builder $query) {
         //     return $query->where('category_id ', '=',9);
         // }]) ;
         // dd($products);
         // print_r($products);
-        $cate_name=DB::table('dt_categories')
-        ->where('id',$cate)
-        ->select('name')
-        ->get();
+        $category=new dt_categories();
+        $cate_name=$category->getCategoryById($cate);
         $cate_name=json_decode($cate_name,true);
-
         return view('product_category',['cate_name'=>$cate_name,'hots'=>$hots,'tops'=>$tops,'products'=>$products,'category_1'=>$category_1,'category_2'=>$category_2]);
     }
     public function showProductBySearch(){
@@ -88,16 +80,9 @@ class PageController extends Controller
             $id=$order_id[0]['max(id)'];
 
             $order_detail=new order_detail();
-            $order_detail->order_id=$id;
-            $order_detail->product_code=$request->product_code;
-            $order_detail->product_name=$request->product_name;
-            $order_detail->product_image=$request->product_image;
-            $order_detail->product_price=$request->product_price;
-            $order_detail->product_qty=$request->quantity;
-            $order_detail->product_id=$request->product_id;
+            $order_detail->insert($id,$request->product_code,$request->product_name,$request->product_image,$request->product_price,$request->quantity,$request->product_id);
 
-            $order_detail->save();
-            return redirect()->to('/');
+            return redirect()->to('/')->with('success','Thank you for your order!');
         }
 
     }
@@ -121,14 +106,14 @@ class PageController extends Controller
                 ];
             session()->put('cart',$cart);
             echo '<script>alert("add to cart success!")</script>';
-            return redirect()->back();
+            return redirect()->back()->with('message', 'Product added to cart successfully!');
         }
         if(isset($cart[$id])) {
 
             $cart[$id]['quantity']++;
             session()->put('cart', $cart);
             echo '<script>alert("add to cart success!")</script>';
-            return redirect()->back()->with('success', 'Product added to cart successfully!');
+            return redirect()->back()->with('message', 'Product added to cart successfully!');
 
         }
         $cart[$id] = [
@@ -142,13 +127,13 @@ class PageController extends Controller
 
         session()->put('cart', $cart);
         echo "<script>alert('add to cart success!'')</script>";
-        return redirect()->back();
+        return redirect()->back()->with('message', 'Product added to cart successfully!');
     }
     public function removeCart($id){
         $cart=session('cart');
         unset($cart[$id]);
         session()->put('cart',$cart);
-        return redirect()->back();
+        return redirect()->back()->with('message', 'Remove product successfully!');
     }
     public function checkoutCart(){
         $category= new dt_categories();
@@ -158,6 +143,7 @@ class PageController extends Controller
     }
     public function test(){
         // $datas=dt_products::with('Image')->get();
+        // dd($data);
         // foreach($datas as $data){
         //     dd($data->imageupload);
         // }

@@ -14,4 +14,9 @@ class imageupload extends Model
     public function dt_products(){
         return $this->belongsTo('App\Models\dt_products', 'id','content_id');
     }
+    public function insert($content_id,$path){
+        $this->content_id=$content_id;
+        $this->path=$path;
+        $this->save();
+    }
 }

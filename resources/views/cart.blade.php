@@ -4,6 +4,12 @@
 		<div class="row">
 			<div class="col-lg-12 pb-2">
 				<h4>Giỏ Hàng</h4>
+                @if(session()->get( 'message' ))
+                <div class="alert alert-success alert-dismissible">
+                    <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>{{session()->get( 'message' )}}</strong>
+                 </div>
+                @endif
 			</div>
 			<div class="col-lg-12 pl-3 pt-3">
 				<table class="table table-hover border bg-white">

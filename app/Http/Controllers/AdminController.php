@@ -17,9 +17,7 @@ class AdminController extends Controller
 {
     public function showUser(){
         $data=users::all();
-        // $data->all();
         return view('admin.index1',['users'=>$data]);
-
     }
     public function showOrder(){
         $data=orders::all();
@@ -30,56 +28,32 @@ class AdminController extends Controller
         return view('admin.category',["category"=>$data]);
     }
     public function showProducts(){
-        $data=dt_products::select(DB::raw('GROUP_CONCAT(path) as path,product_name,price,status,dt_products.id,warranty'))
-        ->join('imageupload','dt_products.id','=','imageupload.content_id')
-        ->groupBy('imageupload.content_id')
-        ->get();
-        // dd($data);
-        // $data=dt_products::all();
+
+        $data=dt_products::with('imageupload','products_categories')->get();
         return view('admin.product',['products'=>$data]);
     }
     public function insertProduct(){
-        $category=dt_categories::select('id','name')
-        ->where('level',1)
-        ->get();
-        return view('admin.insert_product',["category"=>$category]);
+
+        $category=new dt_categories();
+        $data=$category->getCategory_1();
+        return view('admin.insert_product',["category"=>$data]);
     }
     public function storeProduct(request $request){
-        // $data=[$request->file('image'),$request->product_code,$request->product_name,$request->product_categorie,$request->product_description,$request->price,$request->status,$request->warranty,$request->image];
-        // dd($data);
         $product=new dt_products();
-        $product->product_code=$request->product_code;
-        $product->product_name=$request->product_name;
-        $product->description=$request->product_description;
-        $product->price=$request->price;
-        $product->status=$request->status;
-        $product->warranty=$request->warranty;
-        $product->save();
+        $product->insert($request->product_code,$request->product_name,$request->product_description,$request->price,$request->status,$request->warranty);
         $product_id=dt_products::selectRaw('max(id)')->get();
         $id=$product_id[0]['max(id)'];
 
         $products_categories= new products_categories();
-        $products_categories->product_id=$id;
-        $products_categories->category_id=$request->product_categorie;
-        $products_categories->save();
+        $products_categories->insert($id,$request->product_categorie);
+
         foreach($request->file('image') as $key=> $image){
             $image_path=new imageupload();
-            $image_path->content_id=$id;
-            $image_path->path=$image->getClientOriginalName();
-            $image_path->save();
-            // $image = $request->file('image');
-            // $extension = $image->getClientOriginalExtension();
+            $image_path->insert($id,$image->getClientOriginalName());
             Storage::disk('public')->put($image->getClientOriginalName(),  File::get($image));
         }
-
-
         echo "<script>alert('insert product success!')</script>";
         return redirect()->to('/admin/products');
-
-        // return "<script>alert('insert product success!')</script>";
-
-
-
     }
     public function deleteProduct($id){
         dt_products::where("id",$id)->delete();
@@ -100,42 +74,24 @@ class AdminController extends Controller
         return view('admin.insert_category');
     }
     public function editProduct($id){
-        $products=DB::table('dt_products')
-        ->join('products_categories','dt_products.id','=','products_categories.product_id')
-        ->join('imageupload','imageupload.content_id','=','dt_products.id')
-        ->where('dt_products.id',$id)
-        ->select(DB::raw('dt_products.id,category_id,product_name,product_code,description,price,status,warranty,GROUP_CONCAT(path) as path'))
-        ->groupBy('imageupload.content_id')
-        ->get();
-        $category=dt_categories::select('id','name')
-        ->where('level',1)
-        ->get();
 
-        return view('admin.edit_product',['products'=>$products,'category'=>$category]);
+        $products=dt_products::with('imageupload','products_categories')->where('id',$id)->get();
+        $category=new dt_categories();
+        $cate=$category->getCategory_1();
+        return view('admin.edit_product',['products'=>$products,'category'=>$cate]);
     }
     public function storeEditProduct(request $request){
-        // $data=[$request->product_id,$request->product_code,$request->product_name,$request->product_description,$request->price,$request->status,$request->warranty];
-        // dd($data);
-
-
         dt_products::where('id', $request->product_id)
         ->update(['product_code' => $request->product_code,'product_name'=>$request->product_name,'description'=>$request->product_description,'price'=>$request->price,'status'=>$request->status,'warranty'=>$request->warranty,'updated_at'=>now()]);
-
         products_categories::where('product_id',$request->product_id)
         ->update(['category_id'=>$request->product_categorie]);
         if($request->file('image')){
-
             foreach($request->file('image') as $key=> $image){
-
                 $image_path=new imageupload();
-                $image_path->content_id=$request->product_id;
-                $image_path->path=$image->getClientOriginalName();
-                $image_path->save();
+                $image_path->insert($id,$image->getClientOriginalName());
                 Storage::disk('public')->put($image->getClientOriginalName(),  File::get($image));
             }
         }
-
-
         return redirect()->to('/admin/products');
     }
     public function imageDelete(request $request){
@@ -199,22 +155,15 @@ class AdminController extends Controller
     }
     public function storeInsertCate_1(request $request){
         if($request){
-
             $category=new dt_categories();
-            $category->name=$request->name;
-            $category->level=$request->level;
-            $category->save();
+            $category->insert($request->name,$request->level,$request->parent_id);
             return redirect()->to('/admin/category');
         }
     }
     public function storeInsertCate_2(request $request){
         if($request){
-
             $category=new dt_categories();
-            $category->name=$request->name;
-            $category->level=$request->level;
-            $category->parent_id=$request->parent_id;
-            $category->save();
+            $category->insert($request->name,$request->level,$request->parent_id);
             return redirect()->to('/admin/category');
         }
     }

@@ -40,7 +40,8 @@
                     <th>Phone</th>
                     <th>Gender</th>
                     <th>Address</th>
-                    <th>Action</th>
+                    <th>Delete</th>
+
                   </tr>
                   </thead>
                   <tbody>
@@ -57,7 +58,7 @@
                     @csrf
                     <button class="btn btn-danger" type="submit"><i class="fa fa-trash"></i></button>
                     </form></td>
-                    <td style ="width:20px"><a href="" type='button' class='btn btn-success'><i class="fa fa-edit"></i></a></td>
+
                   </tr>
                   @endforeach
 

@@ -28,10 +28,11 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">List products</h3>
+                <a href="/admin/insert-product" class="btn btn-primary float-right mb-1">insert</a>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <a href="/admin/insert-product" class="btn btn-primary float-right mb-1">insert</a>
+
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
@@ -40,7 +41,8 @@
                     <th>Phone</th>
                     <th>Status</th>
                     <th>Warranty</th>
-                    <th colspan="2">Action</th>
+                    <th>Delete</th>
+                    <th>Edit</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -51,6 +53,7 @@
                     <td>{{$product->price}}</td>
                     <td>{{$product->status}}</td>
                     <td>{{$product->warranty}}</td>
+
                     <td><form action="{{route('deleteProduct',['id'=>$product->id])}}" method="POST">
                     @method('delete')
                     @csrf
@@ -83,4 +86,5 @@
     <!-- Control sidebar content goes here -->
   </aside>
   <!-- /.control-sidebar -->
+
   @endsection('content')

@@ -33,6 +33,8 @@
 
 <!-- Text input-->
 @foreach($products as $product)
+<?php $pt_category=$product->products_categories;
+$image =$product->imageupload;?>
 <input type="text" name="product_id" id="product_id" value="{{$product->id}}" hidden>
 <div class="form-group ">
   <label class="col control-label " for="product_code">Product_code</label>
@@ -56,7 +58,7 @@
   <div class="col">
     <select id="product_categorie" name="product_categorie" class="form-control">
     @foreach($category as $cate)
-    <option value="{{$cate->id}}" <?php echo ($cate->id===$product->category_id) ?  "selected" : "" ;  ?>>{{$cate->name}}</option>
+    <option value="{{$cate->id}}" <?php echo ($cate->id===$pt_category[0]->category_id) ?  "selected" : "" ;  ?>>{{$cate->name}}</option>
     @endforeach
 
     </select>
@@ -99,19 +101,19 @@
 </div>
 <!-- Text input-->
 
-<?php $image=explode(",", $product->path);?>
+
 <div class="form-group ">
 
   <div class="col ">
   <div class="img-small-wrap d-flex overflow-auto">
-                    @for($x=0;$x<count($image);$x++)
-                    <div class="item-gallery border shadow mr-2 imagesp"> <img src="{{URL::asset('images/'.$image[$x])}}">
+                    @foreach($image as $img)
+                    <div class="item-gallery border shadow mr-2 imagesp"> <img src="{{URL::asset('images/'.$img->path)}}">
                     <div class="btn_delete ">
 
-                        <form action="{{route('image.Delete')}}" method="POST">@csrf <input type="text" value="{{$image[$x]}}" hidden id="path" name="path"> <button onclick="$(this).closest('form').submit()" style="border:none; padding:0;"> <span class="fa fa-window-close fa-16px text-red mt-0"></span></button></form>
+                        <form action="{{route('image.Delete')}}" method="POST">@csrf <input type="text" value="{{$img->path}}" hidden id="path" name="path"> <button onclick="$(this).closest('form').submit()" style="border:none; padding:0;"> <span class="fa fa-window-close fa-16px text-red mt-0"></span></button></form>
                     </div>
                      </div>
-                    @endfor
+                    @endforeach
   </div>
 
   </div>
