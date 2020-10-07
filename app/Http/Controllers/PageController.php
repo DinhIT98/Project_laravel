@@ -159,6 +159,25 @@ class PageController extends Controller
         }
 
     }
+    public function search(request $request){
+        if($request->get('query'))
+        {
+            $query = $request->get('query');
+            $data = DB::table('dt_products')
+            ->where('product_name', 'LIKE', "{$query}%")
+            ->get();
+            $output = '<ul class="dropdown-menu" style="display:block; position:relative">';
+            foreach($data as $row)
+            {
+               $output .= '
+               <li><a href="/product/detail/'. $row->id .'">'.$row->product_name.'</a></li>
+               ';
+           }
+           $output .= '</ul>';
+           echo $output;
+       }
+
+    }
 
 
 

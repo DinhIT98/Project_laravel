@@ -1,3 +1,4 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <header id="header">
 		<div class="topbar">
 			<div class="container">
@@ -16,10 +17,14 @@
 				</div>
 				<div class="col-xs-12 col-sm-6 col-md-4">
 					<div id="search">
-						<form action="" method="post">
-							<input type="text" name="txt_search" placeholder="Tìm phụ kiện" />
+						<!-- <form action="{{route('search')}}" method="post"> -->
+
+							<input type="text" name="txt_search" id="txt_search" placeholder="Tìm phụ kiện" autocomplete=off/>
 							<button type="submit" name="btn_search">Tìm kiếm</i></button>
-						</form>
+                            <div id="countryList"><br>
+                            </div>
+                            {{ csrf_field() }}
+						<!-- </form> -->
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-6 col-md-4 ml-5">
@@ -86,4 +91,32 @@
 			</div>
 		</nav>
     </header>
+    <script>
+  $(document).ready(function(){
+
+   $('#txt_search').keyup(function(){ //bắt sự kiện keyup khi người dùng gõ từ khóa tim kiếm
+    var query = $(this).val(); //lấy gía trị ng dùng gõ
+    console.log(query);
+    if(query != '') //kiểm tra khác rỗng thì thực hiện đoạn lệnh bên dưới
+    {
+     var _token = $('input[name="_token"]').val(); // token để mã hóa dữ liệu
+     $.ajax({
+      url:"{{ route('search') }}", // đường dẫn khi gửi dữ liệu đi 'search' là tên route mình đặt bạn mở route lên xem là hiểu nó là cái j.
+      method:"POST", // phương thức gửi dữ liệu.
+      data:{query:query, _token:_token},
+      success:function(data){ //dữ liệu nhận về
+       $('#countryList').fadeIn();
+       $('#countryList').html(data); //nhận dữ liệu dạng html và gán vào cặp thẻ có id là countryList
+     }
+   });
+   }
+ });
+
+   $(document).on('click', 'li', function(){
+    $('#txt_search').val($(this).text());
+    $('#countryList').fadeOut();
+  });
+
+ });
+</script>
 

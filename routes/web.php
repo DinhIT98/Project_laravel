@@ -39,6 +39,8 @@ Route::post('login',[LoginController::class,'authLogin'])->name('login');
 Route::post('register',[RegisterController::class,'handleRegister'])->name('register');
 Route::get('logout',[LoginController::class,'logout'])->name('logout');
 Route::get('/test',[PageController::class,'test']);
+Route::post('/search/name',[PageController::class,'search'])->name('search');
+
 Route::get('/admin',[AdminController::class,'showUser'])->middleware(checkUserAdmin::class)->name('showUser');
 // Route::get('/admin',[AdminController::class,'showUser'])->name('showUser');
 

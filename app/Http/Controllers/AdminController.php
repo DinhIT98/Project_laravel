@@ -28,12 +28,10 @@ class AdminController extends Controller
         return view('admin.category',["category"=>$data]);
     }
     public function showProducts(){
-
         $data=dt_products::with('imageupload','products_categories')->get();
         return view('admin.product',['products'=>$data]);
     }
     public function insertProduct(){
-
         $category=new dt_categories();
         $data=$category->getCategory_1();
         return view('admin.insert_product',["category"=>$data]);
@@ -43,7 +41,6 @@ class AdminController extends Controller
         $product->insert($request->product_code,$request->product_name,$request->product_description,$request->price,$request->status,$request->warranty);
         $product_id=dt_products::selectRaw('max(id)')->get();
         $id=$product_id[0]['max(id)'];
-
         $products_categories= new products_categories();
         $products_categories->insert($id,$request->product_categorie);
 
@@ -52,7 +49,7 @@ class AdminController extends Controller
             $image_path->insert($id,$image->getClientOriginalName());
             Storage::disk('public')->put($image->getClientOriginalName(),  File::get($image));
         }
-        echo "<script>alert('insert product success!')</script>";
+
         return redirect()->to('/admin/products');
     }
     public function deleteProduct($id){
