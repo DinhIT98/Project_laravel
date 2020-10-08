@@ -2,7 +2,7 @@
 @section('content')
         <div class="container checkout">
             <a href="/home">Mua thêm sản phẩm khác</a>
-            <form class="needs-validation" method="POST" action="{{route('checkout.store')}}" >
+            <form class="needs-validation" method="POST" action="{{route('checkoutCartStore')}}" >
 				<div class="row">
 				  <div class="col-md-4 order-md-2 mb-4">
 					<h4 class="d-flex justify-content-between align-items-center mb-3">
@@ -10,25 +10,31 @@
 					  <span class="badge badge-secondary badge-pill">1</span>
 					</h4>
 					<ul class="list-group mb-3">
-                    <?php $total=0;?>
+                    <?php $total=0;$x=0;?>
 
                     @foreach(session('cart') as $key=>$pro)
-                    <?php $total+=$pro['price']*$pro['quantity']?>
+                    <?php $total+=$pro['price']*$quantity[$x];
+                    $x++;?>
 					  <li class="list-group-item d-flex justify-content-between lh-condensed">
 						<div>
 						  <h6 class="my-0">{{$pro['name']}}</h6>
 						  <small class="text-muted text-danger">{{$pro['status']}}</small>
                         </div>
-                        <span class="text-muted">số lượng:{{$pro['quantity']}}</span>
+
+                        <span class="text-muted">Số lượng:{{$quantity[$x-1]}}</span>
+                        <input type="text" name="quantity[]" value="{{$quantity[$x-1]}}" hidden>
+
+
                         <br>
-						<span class="text-muted">{{number_format($pro['price'])}} đ</span>
+						<span class="text-muted">Giá:{{number_format($pro['price'])}} đ</span>
                       </li>
                     @endforeach
 
 					  <li class="list-group-item d-flex justify-content-between">
 
                         <span>Tổng (VND)</span>
-                        <strong>{{$total}}</strong>
+                        <strong>{{number_format($total)}}</strong>
+                        <input type="text" name="total" value="{{$total}}" hidden>
 
 					  </li>
 					</ul>

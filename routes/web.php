@@ -28,17 +28,19 @@ Route::get('/admin/signIn',function(){
 Route::get('/product/detail/{id}',[PageController::class,'show_detail'])->name('product.detail');
 Route::get('/checkout/{id}',[PageController::class,'checkout'])->name('product.checkout');
 Route::get('/checkout-cart',[PageController::class,'checkoutCart']);
+Route::post('/checkout-cart',[PageController::class,'postCheckoutCart'])->name('postCheckoutCart');
 Route::get('/cart',[PageController::class,'cart']);
 Route::post('checkout',[PageController::class,'checkout_store'])->name('checkout.store');
+Route::post('/checkout-cart-store',[PageController::class,'checkoutCartStore'])->name('checkoutCartStore');
 Route::get('/add-to-cart/{id}',[PageController::class, 'addToCart']);
 Route::get('/test-cart',[PageController::class,'testCart']);
-Route::delete('/remove/{id}',[PageController::class,'removeCart'])->name('removeCart');
+Route::post('/remove-cart',[PageController::class,'removeCart'])->name('removeCart');
 Route::get('/login',[LoginController::class,'index']);
 Route::get('/register',[RegisterController::class,'index']);
 Route::post('login',[LoginController::class,'authLogin'])->name('login');
 Route::post('register',[RegisterController::class,'handleRegister'])->name('register');
 Route::get('logout',[LoginController::class,'logout'])->name('logout');
-Route::get('/test',[PageController::class,'test']);
+Route::post('/test',[PageController::class,'deleteAndCheckoutCart'])->name('deleteAndCheckoutCart');
 Route::post('/search/name',[PageController::class,'search'])->name('search');
 
 Route::get('/admin',[AdminController::class,'showUser'])->middleware(checkUserAdmin::class)->name('showUser');

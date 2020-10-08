@@ -95,25 +95,25 @@
   $(document).ready(function(){
 
    $('#txt_search').keyup(function(){ //bắt sự kiện keyup khi người dùng gõ từ khóa tim kiếm
-    var query = $(this).val(); //lấy gía trị ng dùng gõ
-    console.log(query);
-    if(query != '') //kiểm tra khác rỗng thì thực hiện đoạn lệnh bên dưới
-    {
-     var _token = $('input[name="_token"]').val(); // token để mã hóa dữ liệu
-     $.ajax({
-      url:"{{ route('search') }}", // đường dẫn khi gửi dữ liệu đi 'search' là tên route mình đặt bạn mở route lên xem là hiểu nó là cái j.
-      method:"POST", // phương thức gửi dữ liệu.
-      data:{query:query, _token:_token},
-      success:function(data){ //dữ liệu nhận về
-       $('#countryList').fadeIn();
-       $('#countryList').html(data); //nhận dữ liệu dạng html và gán vào cặp thẻ có id là countryList
-     }
-   });
+        var query = $(this).val(); //lấy gía trị ng dùng gõ
+        console.log(query);
+        if(query != '') //kiểm tra khác rỗng thì thực hiện đoạn lệnh bên dưới
+        {
+            var _token = $('input[name="_token"]').val(); // token để mã hóa dữ liệu
+            $.ajax({
+            url:"{{ route('search') }}", // đường dẫn khi gửi dữ liệu đi 'search' là tên route mình đặt bạn mở route lên xem là hiểu nó là cái j.
+            method:"POST", // phương thức gửi dữ liệu.
+            data:{query:query, _token:_token},
+            success:function(data){ //dữ liệu nhận về
+            $('#countryList').fadeIn();
+            $('#countryList').html(data); //nhận dữ liệu dạng html và gán vào cặp thẻ có id là countryList
+        }
+        });
    }
- });
+    });
 
-   $(document).on('click', 'li', function(){
-    $('#txt_search').val($(this).text());
+   $(document).on('click', function(){
+    // $('#txt_search').val($(this).text());
     $('#countryList').fadeOut();
   });
 

@@ -95,6 +95,8 @@ class PageController extends Controller
         if(!$cart){
             $cart=[
                 $id=>[
+                    'product_id'=>$data[0]['id'],
+                    'product_code'=>$data[0]['product_code'],
                     'name'=>$data[0]['product_name'],
                     'price'=>$data[0]['price'],
                     'status'=>$data[0]['status'],
@@ -117,6 +119,8 @@ class PageController extends Controller
 
         }
         $cart[$id] = [
+            'product_id'=>$data[0]['id'],
+            'product_code'=>$data[0]['product_code'],
             'name'=>$data[0]['product_name'],
             'price'=>$data[0]['price'],
             'status'=>$data[0]['status'],
@@ -129,9 +133,9 @@ class PageController extends Controller
         echo "<script>alert('add to cart success!'')</script>";
         return redirect()->back()->with('message', 'Product added to cart successfully!');
     }
-    public function removeCart($id){
+    public function removeCart(request $request){
         $cart=session('cart');
-        unset($cart[$id]);
+        unset($cart[$request->id]);
         session()->put('cart',$cart);
         return redirect()->back()->with('message', 'Remove product successfully!');
     }
@@ -140,6 +144,33 @@ class PageController extends Controller
         $category_1=$category->getCategory_1();
         $category_2=$category->getCategory_2();
         return view('checkoutCart',['category_1'=>$category_1,'category_2'=>$category_2]);
+    }
+    public function checkoutCartStore(request $request){
+        $data=[$request->name,$request->phone,$request->email,$request->address,$request->total];
+
+        // dd($quantity);
+
+        if($request){
+            $quantity=$request->quantity;
+            $order=new orders();
+            $order->insert($request->name,$request->phone,$request->email,$request->address,$request->total);
+
+            $order_id=orders::selectRaw('max(id)')->get();
+            $id=$order_id[0]['max(id)'];
+
+
+            $x=0;
+            foreach(session('cart') as $key=>$val){
+                $order_detail=new order_detail();
+                $order_detail->insert($id,$val['product_code'],$val['name'],$val['image'],$val['price'],$quantity[$x],$val['product_id']);
+                $x++;
+            }
+            session()->flush();
+
+
+            return redirect()->to('/')->with('success','Thank you for your order!');
+        }
+
     }
     public function test(){
         // $datas=dt_products::with('Image')->get();
@@ -176,6 +207,30 @@ class PageController extends Controller
            $output .= '</ul>';
            echo $output;
        }
+
+    }
+    // public function postCheckoutCart(request $request){
+    //     $quantity=$request->quantity;
+    //     $category= new dt_categories();
+    //     $category_1=$category->getCategory_1();
+    //     $category_2=$category->getCategory_2();
+    //     return view('checkoutCart',['category_1'=>$category_1,'category_2'=>$category_2,'quantity'=>$quantity]);
+
+    // }
+    public function deleteAndCheckoutCart(request $request){
+        if($request->button=="delete"){
+            $cart=session('cart');
+            unset($cart[$request->id]);
+            session()->put('cart',$cart);
+            return redirect()->back()->with('message', 'Remove product successfully!');
+        }
+        else{
+            $quantity=$request->quantity;
+            $category= new dt_categories();
+            $category_1=$category->getCategory_1();
+            $category_2=$category->getCategory_2();
+            return view('checkoutCart',['category_1'=>$category_1,'category_2'=>$category_2,'quantity'=>$quantity]);
+        }
 
     }
 

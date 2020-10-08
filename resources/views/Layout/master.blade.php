@@ -93,7 +93,7 @@
 		    });
 		});
     </script>
-     <script type="text/javascript">
+     <!-- <script type="text/javascript">
      	$(document).ready(function () {
    $("input[type=number]").bind('keyup input', function(){
         // alert($("#price").text());
@@ -109,21 +109,10 @@
         Array.from($(".price")).forEach(function(item){
                  total+=parseInt(item.textContent);
         });
-
-        // for(var i=0;i<arr_price.length();i++){
-        //     total+=parseInt(arr_price[i]);
-        // }
-        // // alert(total);
         document.getElementById("total").innerHTML=total;
-
-        // alert(total_price);
-        // alert("xxxxxxx " +id_price);
-        // var data=$("#price").val();
-        // var number=parseInt(data);
-        // alert(number);
     });
          });
 
-    </script>
+    </script> -->
 </body>
 </html>

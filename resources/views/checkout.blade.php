@@ -1,5 +1,6 @@
 @extends('Layout/master')
 @section('content')
+
         <div class="container checkout">
             <a href="/home">Mua thêm sản phẩm khác</a>
             <form class="needs-validation" method="POST" action="{{route('checkout.store')}}" >
@@ -20,22 +21,25 @@
 						  <h6 class="my-0">{{$pro->product_name}}</h6>
                           <input type="text" value="{{$pro->product_name}}" name="product_name" hidden>
                           <input type="text" value="{{$pro->product_code}}" name="product_code" hidden>
-                          <input type="text" value="{{$pro->price}}" name="product_price" hidden>
+                          <input type="text" value="{{$pro->price}}" name="product_price" id="price" hidden>
                           <input type="text" value="{{$image[0]->path}}"  name="product_image" hidden>
 						  <small class="text-muted text-danger">{{$pro->status}}</small>
 						</div>
-						<span class="text-muted">{{number_format($pro->price)}} đ</span>
+						<span class="text-muted" value="{{$pro->price}}">Giá:{{number_format($pro->price)}} đ</span>
 
                       </li>
                     @endforeach
-
-					  <li class="list-group-item d-flex justify-content-between">
-                        <span>Số lượng:<input type="number" min="1" value="1" style="border:none;" class="text-center" name="quantity" id="quantity"></span>
+                        <div class="d-flex justify-content-between">
+					    <!-- <li class="list-group-item d-flex justify-content-between"> -->
+                        <span>Số lượng:</span>
+                        <input type="number" min="1" value="1" style="border:none;" class="text-center" name="quantity" id="quantity">
+                        <br>
                         <br>
                         <span>Total (VND)</span>
-                        <strong>{{$total}}</strong>
+                        <strong id="total">{{number_format($total)}} đ</strong>
+                        <!-- </li> -->
+                        </div>
 
-					  </li>
 					</ul>
 				  </div>
 
@@ -105,5 +109,18 @@
 				  </div>
                 </div>
             </form>
-			  </div>
+		</div>
+
+    <script>
+     	$(document).ready(function () {
+            $("input[type=number]").bind('keyup input', function(){
+                var quantity=$(this).val();
+                var price=$("#price").val();
+                console.log(price);
+                var total_price=price*quantity;
+                total_price=new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'VND' }).format(total_price);
+                document.getElementById('total').innerHTML=total_price;
+            });
+        });
+    </script>
 @endsection('content')
