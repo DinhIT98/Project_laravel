@@ -163,12 +163,18 @@
 				</div>
 
 				<div id="maincontent" class="col-xs-12 col-sm-8 col-md-9">
-                @if(session()->get( 'message' ))
-                <div class="alert alert-success alert-dismissible">
+                <!-- @if(session()->get( 'message' ))
+                <div class="alert alert-success alert-dismissible" >
                     <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                     <strong>{{session()->get( 'message' )}}</strong>
                  </div>
-                @endif
+                @endif -->
+
+                <div id="alert" class="alert alert-success alert-dismissible" style="display:none;">
+                    <!-- <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a> -->
+                    <strong id="message"></strong>
+                 </div>
+
 					<div class="boxmain spmoi">
 						<div class="tit-boxmain">
 							<h3><span>Sản phẩm mới</span></h3>
@@ -196,7 +202,7 @@
 					                		<div class="pricesp">{{number_format($product->price)}} đ</div>
                                             <div class="status_sp">{{$product->status}}</div>
 					                		<div class="button-hd">
-						                		<a href="{{url('/add-to-cart',['id'=>$product->id])}}"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+						                		<a  class="addToCart" id="{{$product->id}}" ><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
 						                		<a href="{{route('product.detail',['id'=>$product->id])}}"><i class="fa fa-eye" aria-hidden="true"></i></a>
 						                	</div>
 					                	</div>
@@ -237,7 +243,7 @@
                                     <div class="pricesp">{{number_format($phone->price)}} đ</div>
                                     <div class="status_sp">{{$phone->status}}</div>
 			                		<div class="button-hd">
-				                		<a href="{{url('/add-to-cart',['id'=>$phone->id])}}"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+				                		<a class="addToCart" id="{{$phone->id}}"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
 				                		<a href="{{route('product.detail',['id'=>$phone->id])}}"><i class="fa fa-eye" aria-hidden="true"></i></a>
 				                	</div>
 			                	</div>
@@ -276,7 +282,7 @@
                                     <div class="pricesp">{{number_format($lap->price)}} đ</div>
                                     <div class="status_sp">{{$lap->status}}</div>
 			                		<div class="button-hd">
-				                		<a href="{{url('/add-to-cart',['id'=>$lap->id])}}"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+				                		<a class="addToCart" id="{{$lap->id}}"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
 				                		<a href="{{route('product.detail',['id'=>$lap->id])}}"><i class="fa fa-eye" aria-hidden="true"></i></a>
 				                	</div>
 			                	</div>
@@ -300,7 +306,7 @@
                         <?php $image_watch=$watch->imageupload;
                         $path='images/'.$image_watch[0]->path;
                         $i++;?>
-
+                        <input type="text " id="" value="{{$watch->id}}" hidden>
 							<div class="col-xs-6 col-sm-4 col-md-3 p5">
 								<div class="boxsp">
 			                		<div class="imgsp">
@@ -315,7 +321,7 @@
                                     <div class="pricesp">{{number_format($watch->price)}} đ</div>
                                     <div class="status_sp">{{$watch->status}}</div>
 			                		<div class="button-hd">
-				                		<a href="{{url('/add-to-cart',['id'=>$watch->id])}}"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+				                		<a class="addToCart" id="{{$watch->id}}" ><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
 				                		<a href="{{route('product.detail',['id'=>$watch->id])}}"><i class="fa fa-eye" aria-hidden="true"></i></a>
 				                	</div>
 			                	</div>
@@ -327,13 +333,53 @@
 				</div>
 			</section>
 		</div>
+        <p id="demo"></p>
 	</div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+  <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
 @if(session()->get( 'success' ))
     <script>
         alert('Thank you for your order!');
     </script>
 @endif
 
+<script>
+$(document).ready(function () {
+    $(".addToCart").click(function(){
+        var id=$(this).attr('id');
+        var _token = $('input[name="_token"]').val();
+    $.ajax({
+        type: "POST",
+        url: "{{route('addToCartAjax')}}",
+        data: {id:id, _token:_token},
+
+        success: function (response) {
+            $('#alert').fadeIn(function(){
+                $("#message").text(response.message);
+                $("html, body").animate({scrollTop: 0});
+
+            });
+            $("#alert").fadeOut(3000);
+
+        }
+        });
+        $.ajax({
+            type: "GET",
+            url: "{{route('getCart')}}",
+            success: function (response) {
+                $.get('{{asset('Layout\header.blade.php')}}', function(result){
+                var obj = $(result).find('body');
+                var PageText = $(result).find('#cart').text();
+                console.log(PageText);
+                });
+            }
+        });
+
+    });
+    $(document).on('click', function(){
+    $('#alert').fadeOut();
+  });
+
+});
+</script>
 @endsection

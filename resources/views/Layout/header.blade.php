@@ -31,14 +31,16 @@
 					<div class="cart">
 						<div class="discart">
 							<a href="/cart"><span class="mycart">Giỏ hàng:</span></a>
-							<span class="count_products_cart">@if(session('cart')){{count(session('cart'))}}@endif sản phẩm</span>
+							<span id="#cart" class="count_products_cart">@if(session('cart')){{count(session('cart'))}}@endif sản phẩm</span>
 						</div>
                     </div>
                     @if(Auth::check() && Auth::user()->admin!=1)
                     <div class="cart" style="padding-right:10px" >
                         <div class="discart ">
                             <!-- <span class="material-icons" style="font-size:36px;">account_circle</span> -->
-                            <a class="login">{{Auth::user()->name}}</a>
+
+                            <i class="fa fa-user"></i>
+                            <a class="">{{Auth::user()->name}}</a>
                             <span>/ <a href="{{route('logout')}}">logout</a> </span>
 
                         </div>
@@ -50,6 +52,7 @@
                     <div class="cart" style="padding-right:10px" >
                         <div class="discart ">
                         <!-- <span class="material-icons" style="font-size:36px;">account_circle</span> -->
+                        <i class="fa fa-user"></i>
                             <a href="/login">Login</a>
                             <span>/ <a href="/register">Register</a> </span>
                         </div>
@@ -119,4 +122,5 @@
 
  });
 </script>
+
 

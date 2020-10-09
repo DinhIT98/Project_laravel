@@ -146,9 +146,6 @@ class PageController extends Controller
         return view('checkoutCart',['category_1'=>$category_1,'category_2'=>$category_2]);
     }
     public function checkoutCartStore(request $request){
-        $data=[$request->name,$request->phone,$request->email,$request->address,$request->total];
-
-        // dd($quantity);
 
         if($request){
             $quantity=$request->quantity;
@@ -217,6 +214,52 @@ class PageController extends Controller
     //     return view('checkoutCart',['category_1'=>$category_1,'category_2'=>$category_2,'quantity'=>$quantity]);
 
     // }
+    public function addToCartAjax(request $request){
+        $id=$request->id;
+        $data=dt_products::with('imageupload')->where('id',$id)->get();
+        $image=$data[0]->imageupload;
+        $path =$image[0]->path;
+        $data=json_decode($data,true);
+        $cart=session()->get('cart');
+        if(!$cart){
+            $cart=[
+                $id=>[
+                    'product_id'=>$data[0]['id'],
+                    'product_code'=>$data[0]['product_code'],
+                    'name'=>$data[0]['product_name'],
+                    'price'=>$data[0]['price'],
+                    'status'=>$data[0]['status'],
+                    'warranty'=>$data[0]['warranty'],
+                    'image'=>$path,
+                    'quantity'=>1
+
+                ]
+                ];
+            session()->put('cart',$cart);
+
+            return response()->json(['message'=>'Product added to cart successfully!']);
+        }
+        if(isset($cart[$id])) {
+
+            $cart[$id]['quantity']++;
+            session()->put('cart', $cart);
+            return response()->json(['message'=>'Product added to cart successfully!']);
+
+        }
+        $cart[$id] = [
+            'product_id'=>$data[0]['id'],
+            'product_code'=>$data[0]['product_code'],
+            'name'=>$data[0]['product_name'],
+            'price'=>$data[0]['price'],
+            'status'=>$data[0]['status'],
+            'warranty'=>$data[0]['warranty'],
+            'image'=>$path,
+            'quantity'=>1
+        ];
+
+        session()->put('cart', $cart);
+        return response()->json(['message'=>'Product added to cart successfully!']);
+    }
     public function deleteAndCheckoutCart(request $request){
         if($request->button=="delete"){
             $cart=session('cart');
@@ -232,6 +275,9 @@ class PageController extends Controller
             return view('checkoutCart',['category_1'=>$category_1,'category_2'=>$category_2,'quantity'=>$quantity]);
         }
 
+    }
+    public function getCart(){
+        return response()->json(['data'=>session('cart')]);
     }
 
 

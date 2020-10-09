@@ -4,6 +4,7 @@
 		<div class="row">
 			<div class="col-lg-12 pb-2">
 				<h4>Giỏ Hàng</h4>
+                <i></i>
                 @if(session()->get( 'message' ))
                 <div class="alert alert-success alert-dismissible">
                     <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -57,7 +58,6 @@
 							<td id="total_price{{$z++}}" class="price">{{($val['price'])}}</td>
 					        <td class="actions" data-th="" style="width:10%;">
                             <form action="{{route('deleteAndCheckoutCart')}}" method="POST">
-
                             @csrf
                             <input type="text" name="id" value="{{$id}}" hidden>
 								<button class="btn btn-danger btn-sm" name="button" value="delete" onclick="$(this).closest('form').submit()"><i class="fa fa-trash-o"></i></button>
@@ -107,5 +107,6 @@
          });
 
     </script>
+
 
 @endsection('content')

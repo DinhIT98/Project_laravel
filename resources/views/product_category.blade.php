@@ -160,6 +160,10 @@
 					</div>
 				</div>
 				<div id="maincontent" class="col-xs-12 col-sm-8 col-md-9">
+                <div id="alert" class="alert alert-success alert-dismissible" style="display:none;">
+                    <!-- <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a> -->
+                    <strong id="message"></strong>
+                 </div>
 					<div class="boxmain">
 						<div class="tit-boxmain">
 							<h3><span>{{$cate_name[0]['name']}}</span></h3>
@@ -183,7 +187,7 @@
 			                		<div class="pricesp">{{number_format($product->price)}} đ</div>
                                     <div class="status_sp">{{$product->status}}</div>
 			                		<div class="button-hd">
-				                		<a href="{{url('/add-to-cart',['id'=>$product->id])}}"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+				                		<a class="addToCart" id="{{$product->id}}"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
 				                		<a href="{{route('product.detail',['id'=>$product->id])}}"><i class="fa fa-eye" aria-hidden="true"></i></a>
 				                	</div>
 			                	</div>
@@ -198,4 +202,39 @@
 			</section>
 		</div>
 	</div>
+    <script>
+$(document).ready(function () {
+    $(".addToCart").click(function(){
+        var id=$(this).attr('id');
+        var _token = $('input[name="_token"]').val();
+    $.ajax({
+        type: "POST",
+        url: "{{route('addToCartAjax')}}",
+        data: {id:id, _token:_token},
+
+        success: function (response) {
+            $('#alert').fadeIn(function(){
+                $("#message").text(response.message);
+                $("html, body").animate({scrollTop: 0});
+
+            });
+            $("#alert").fadeOut(3000);
+
+        }
+        });
+        $.ajax({
+            type: "GET",
+            url: "{{route('getCart')}}",
+            success: function (response) {
+
+            }
+        });
+
+    });
+    $(document).on('click', function(){
+    $('#alert').fadeOut();
+  });
+
+});
+</script>
     @endsection

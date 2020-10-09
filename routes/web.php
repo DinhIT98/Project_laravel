@@ -34,7 +34,7 @@ Route::post('checkout',[PageController::class,'checkout_store'])->name('checkout
 Route::post('/checkout-cart-store',[PageController::class,'checkoutCartStore'])->name('checkoutCartStore');
 Route::get('/add-to-cart/{id}',[PageController::class, 'addToCart']);
 Route::get('/test-cart',[PageController::class,'testCart']);
-Route::post('/remove-cart',[PageController::class,'removeCart'])->name('removeCart');
+// Route::post('/remove-cart',[PageController::class,'removeCart'])->name('removeCart');
 Route::get('/login',[LoginController::class,'index']);
 Route::get('/register',[RegisterController::class,'index']);
 Route::post('login',[LoginController::class,'authLogin'])->name('login');
@@ -42,10 +42,12 @@ Route::post('register',[RegisterController::class,'handleRegister'])->name('regi
 Route::get('logout',[LoginController::class,'logout'])->name('logout');
 Route::post('/test',[PageController::class,'deleteAndCheckoutCart'])->name('deleteAndCheckoutCart');
 Route::post('/search/name',[PageController::class,'search'])->name('search');
+Route::post('/add-to-cart-ajax',[PageController::class,'addToCartAjax'])->name('addToCartAjax');
+Route::get('/get-cart',[PageController::class,'getCart'])->name('getCart');
 
-Route::get('/admin',[AdminController::class,'showUser'])->middleware(checkUserAdmin::class)->name('showUser');
+// Route::get('/admin',[AdminController::class,'showUser'])->middleware(checkUserAdmin::class)->name('showUser');
+
 // Route::get('/admin',[AdminController::class,'showUser'])->name('showUser');
-
 
 Route::group(['middleware' => [checkUserAdmin::class]], function () {
     Route::get('/admin/order',[AdminController::class,'showOrder'])->name('showOrder');

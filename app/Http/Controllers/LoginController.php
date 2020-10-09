@@ -29,7 +29,7 @@ class LoginController extends Controller
        if($request){
            if(isset($checkEmail[0]['email'])){
             if(Hash::check($request->pass, $pass)){
-                return redirect()->to('/home');
+                return redirect()->to('/');
             }else{
                echo "<script>alert('password khong dung!')</script>";
                return redirect()->back();
@@ -55,7 +55,7 @@ class LoginController extends Controller
                     return redirect()->to('/admin');
                 }else {
 
-                    return redirect()->to('/home');
+                    return redirect()->to('/');
                 }
                 // $user=users::where('email',$request->email)->get();
                 // dd(Auth::user()->admin);
