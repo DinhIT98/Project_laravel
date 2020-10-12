@@ -5,17 +5,10 @@
 			<div class="col-lg-12 pb-2">
 				<h4>Giỏ Hàng</h4>
                 <i></i>
-                @if(session()->get( 'message' ))
-                <div class="alert alert-success alert-dismissible">
-                    <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    <strong>{{session()->get( 'message' )}}</strong>
-                 </div>
-                @endif
 			</div>
 			<div class="col-lg-12 pl-3 pt-3">
             <form action="{{route('deleteAndCheckoutCart')}}" method="POST">
             @csrf
-
 				<table class="table table-hover border bg-white">
 				    <thead>
 				      	<tr>
@@ -26,7 +19,7 @@
 					        <th>Xóa</th>
 				      	</tr>
 				    </thead>
-				    <tbody>
+				    <tbody id="cart_product">
 
                     <?php $total=0; $x=0; $y=0; $z=0;$t=0;$check_session=session('cart');?>
                     @if(isset($check_session))
@@ -49,19 +42,19 @@
 									</div>
 								</div>
 					        </td>
-                            <input type="text" id="price{{$x++}}" hidden value="{{$val['price']}}">
-                            <input type="text" id="idCart{{$t++}}" hidden value="{{$id}}">
+                            <input type="text" id="price{{$id}}" hidden value="{{$val['price']}}">
+                            <input type="text" id="idCart{{$id}}" hidden value="{{$id}}">
 					        <td> {{number_format($val['price'])}}đ</td>
 					        <td data-th="Quantity">
-								<input type="number" name="quantity[]" id="{{$y++}}" class="form-control text-center" value="{{$val['quantity']}}" min="1">
+								<input type="number" name="quantity[]" id="{{$id}}" class="quantity form-control text-center" value="{{$val['quantity']}}" min="1">
 							</td>
-							<td id="total_price{{$z++}}" class="price">{{($val['price'])}}</td>
+							<td id="total_price{{$id}}" class="price">{{($val['price']*$val['quantity'])}}</td>
+                            <!-- <td  >{{number_format($val['price']*$val['quantity'])}}đ</td> -->
 					        <td class="actions" data-th="" style="width:10%;">
-                            <form action="{{route('deleteAndCheckoutCart')}}" method="POST">
+                            <!-- <form action="{{route('deleteAndCheckoutCart')}}" method="POST"> -->
                             @csrf
-                            <input type="text" name="id" value="{{$id}}" hidden>
-								<button class="btn btn-danger btn-sm" name="button" value="delete" onclick="$(this).closest('form').submit()"><i class="fa fa-trash-o"></i></button>
-                            </form>
+								<a id="{{$id}}" class="remove btn btn-danger btn-sm" name="button" value="delete" ><i class="fa fa-trash-o"></i></a>
+                            <!-- </form> -->
 							</td>
 				      	</tr>
 				    @endforeach
@@ -82,30 +75,68 @@
 		</div>
 	</div>
     <script type="text/javascript">
-     	$(document).ready(function () {
-   $("input[type=number]").bind('keyup input', function(){
-        // alert($("#price").text());
+    $(document).ready(function () {
+   $(document).on('keyup input','.quantity',function(){
         var id=$(this).attr('id');
+        $('.price').show();
+        console.log(id);
         var id_price='price'+id;
+
         var id_total_price='total_price'+id;
         var quantity=$(this).val();
         var price=$("#"+id_price).val();
         var total_price=price*quantity;
-        // total_price=new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'VND' }).format(total_price);
-        document.getElementById(id_total_price).innerHTML=total_price;
-        var arr_price=$(".price").text();
+        $('#'+id_total_price).html(total_price);
         var total=0;
         Array.from($(".price")).forEach(function(item){
                  total+=parseInt(item.textContent);
-                //  total=new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'VND' }).format(total);
         });
 
+        // total_price_format=new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'VND' }).format(total_price);
 
-        document.getElementById("total").innerHTML=total;
+        total =new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'VND' }).format(total);
+        $('#total').html('<strong>Tổng:'+total+'</strong>');
+        var _token = $('input[name="_token"]').val();
+        var quantity=$('#'+id).val();
+        $.ajax({
+            type: "POST",
+            url: "{{route('updateCart')}}",
+            data:{id:id,quantity:quantity, _token:_token},
+            success: function (response) {
+                console.log(response);
+            }
+        });
 
     });
          });
 
+    </script>
+    <script>
+    $(document).ready(function () {
+        $(document).on('click','.remove',function(){
+            var id=$(this).attr('id');
+            var _token = $('input[name="_token"]').val();
+            $.ajax({
+                type: "POST",
+                url: "{{route('removeCartAjax')}}",
+                data: {id:id, _token:_token},
+                success: function (data) {
+                    $('#cart_product').html(data);
+
+
+                }
+            });
+            $.ajax({
+                type: "GET",
+                url: "{{route('getTotalCart')}}",
+                success: function (response) {
+                    $('#total').html('<strong>Tổng:'+response.total+'</strong>');
+                    console.log(response.total);
+
+                }
+            });
+        });
+    });
     </script>
 
 

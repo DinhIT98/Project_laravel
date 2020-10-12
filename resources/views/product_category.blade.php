@@ -226,7 +226,8 @@ $(document).ready(function () {
             type: "GET",
             url: "{{route('getCart')}}",
             success: function (response) {
-
+               console.log(response.data);
+               $('#cart').html(response.data+" sản phẩm");
             }
         });
 

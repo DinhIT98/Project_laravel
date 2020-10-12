@@ -348,30 +348,27 @@ $(document).ready(function () {
     $(".addToCart").click(function(){
         var id=$(this).attr('id');
         var _token = $('input[name="_token"]').val();
-    $.ajax({
-        type: "POST",
-        url: "{{route('addToCartAjax')}}",
-        data: {id:id, _token:_token},
+        $.ajax({
+            type: "POST",
+            url: "{{route('addToCartAjax')}}",
+            data: {id:id, _token:_token},
 
-        success: function (response) {
-            $('#alert').fadeIn(function(){
-                $("#message").text(response.message);
-                $("html, body").animate({scrollTop: 0});
+            success: function (response) {
+                $('#alert').fadeIn(function(){
+                    $("#message").text(response.message);
+                    $("html, body").animate({scrollTop:0});
 
-            });
-            $("#alert").fadeOut(3000);
+                });
+                $("#alert").fadeOut(3000);
 
-        }
+            }
         });
         $.ajax({
             type: "GET",
             url: "{{route('getCart')}}",
             success: function (response) {
-                $.get('{{asset('Layout\header.blade.php')}}', function(result){
-                var obj = $(result).find('body');
-                var PageText = $(result).find('#cart').text();
-                console.log(PageText);
-                });
+               console.log(response.data);
+               $('#cart').html(response.data+" sản phẩm");
             }
         });
 

@@ -44,7 +44,9 @@ Route::post('/test',[PageController::class,'deleteAndCheckoutCart'])->name('dele
 Route::post('/search/name',[PageController::class,'search'])->name('search');
 Route::post('/add-to-cart-ajax',[PageController::class,'addToCartAjax'])->name('addToCartAjax');
 Route::get('/get-cart',[PageController::class,'getCart'])->name('getCart');
-
+Route::post('/remove-cart-ajax',[PageController::class,'removeCartAjax'])->name('removeCartAjax');
+Route::post('/update-cart',[PageController::class,'updateCart'])->name('updateCart');
+Route::get('/get-total-cart',[PageController::class,'getTotalCart'])->name('getTotalCart');
 // Route::get('/admin',[AdminController::class,'showUser'])->middleware(checkUserAdmin::class)->name('showUser');
 
 // Route::get('/admin',[AdminController::class,'showUser'])->name('showUser');

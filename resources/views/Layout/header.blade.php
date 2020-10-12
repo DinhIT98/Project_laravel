@@ -31,7 +31,7 @@
 					<div class="cart">
 						<div class="discart">
 							<a href="/cart"><span class="mycart">Giỏ hàng:</span></a>
-							<span id="#cart" class="count_products_cart">@if(session('cart')){{count(session('cart'))}}@endif sản phẩm</span>
+							<span id="cart" class="count_products_cart">@if(session('cart')){{count(session('cart'))}}@endif sản phẩm</span>
 						</div>
                     </div>
                     @if(Auth::check() && Auth::user()->admin!=1)

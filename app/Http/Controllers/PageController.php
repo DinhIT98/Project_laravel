@@ -277,8 +277,67 @@ class PageController extends Controller
 
     }
     public function getCart(){
-        return response()->json(['data'=>session('cart')]);
+        $quantity =count(session('cart'));
+        return response()->json(['data'=>$quantity]);
     }
+    public function updateCart(request $request){
+        $cart=session('cart');
+        $cart[$request->id]['quantity']=$request->quantity;
+        session()->put('cart', $cart);
+
+        return response()->json(['data'=>$request->quantity]);
+
+    }
+    public function getTotalCart(){
+        $total=0;
+        foreach (session('cart') as $key=>$val){
+            $total+=($val['price']*$val['quantity']);
+        }
+        return response()->json(['total'=>$total]);
+    }
+    public function removeCartAjax(request $request){
+        $cart=session('cart');
+        unset($cart[$request->id]);
+        session()->put('cart',$cart);
+        $total=0; $x=0;
+        foreach(session('cart') as $id=>$val){
+            $total+=($val["price"]*$val["quantity"]);
+            $path=explode(",", $val["image"]);
+
+
+            echo '
+        <tr>
+          <td>
+              <div class="row">
+                  <div class="col-lg-2 Product-img">
+                      <img src="images/'.$path[0].'" class="img-responsive"/>
+                  </div>
+                  <div class="col-lg-10">
+                      <h4 class="nomargin">'.$val["name"].'</h4>
+                      <p>'.$val["status"].'</p>
+                      <p>'.$val["warranty"].'</p>
+                  </div>
+              </div>
+          </td>
+          <input type="text" id="price '.$id.'" hidden value="'.$val["price"].'">
+          <input type="text" id="idCart '.$id .'" hidden value=" '.$id.'">
+          <td>'.number_format($val["price"]).'đ </td>
+          <td data-th="Quantity">
+              <input type="number" name="quantity[]" id="'.$id.'" class="quantity form-control text-center" value="'.$val["quantity"].'" min="1">
+          </td>
+          <td id="total_price'.$id.'" class="price">'.$val["price"]*$val['quantity'].'</td>
+          <td class="actions" data-th="" style="width:10%;">
+
+
+          <input type="text" name="id" value="'.$id.' " hidden>
+              <a id="'.$id.'" class="remove btn btn-danger btn-sm" name="button" value="delete" ><i class="fa fa-trash-o"></i></a>
+
+          </td>
+        </tr>';
+        }
+
+    }
+
 
 
 

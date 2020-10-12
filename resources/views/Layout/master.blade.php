@@ -93,26 +93,5 @@
 		    });
 		});
     </script>
-     <!-- <script type="text/javascript">
-     	$(document).ready(function () {
-   $("input[type=number]").bind('keyup input', function(){
-        // alert($("#price").text());
-        var id=$(this).attr('id');
-        var id_price='price'+id;
-        var id_total_price='total_price'+id;
-        var quantity=$(this).val();
-        var price=$("#"+id_price).val();
-        var total_price=price*quantity;
-        document.getElementById(id_total_price).innerHTML=total_price;
-        var arr_price=$(".price").text();
-        var total=0;
-        Array.from($(".price")).forEach(function(item){
-                 total+=parseInt(item.textContent);
-        });
-        document.getElementById("total").innerHTML=total;
-    });
-         });
-
-    </script> -->
 </body>
 </html>
