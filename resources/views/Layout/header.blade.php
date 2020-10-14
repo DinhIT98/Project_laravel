@@ -12,7 +12,7 @@
 			<div class="container">
 				<div class="col-xs-12 col-md-4">
 					<div id="logo">
-						<a href=""><img src="{{URL::asset('images/logo.png')}}" alt=""></a>
+						<a href="/"><img src="{{URL::asset('images/logo.png')}}" alt=""></a>
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-6 col-md-4">
