@@ -57,8 +57,6 @@ class LoginController extends Controller
 
                     return redirect()->to('/');
                 }
-                // $user=users::where('email',$request->email)->get();
-                // dd(Auth::user()->admin);
             }else{
                 echo "<script>alert('dang nhap that bai! ')</script>";
                 return redirect()->to('/login');

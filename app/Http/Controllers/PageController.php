@@ -7,21 +7,54 @@ use App\Models\order_detail;
 use App\Models\dt_products;
 use App\Models\dt_categories;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Builder;
 
 class PageController extends Controller
 {
     public function show_product(){
+
+
         $products=dt_products::with('imageupload')->paginate(8);
-        $category= new dt_categories();
-        $category_1=$category->getCategory_1();
-        $category_2=$category->getCategory_2();
         $smartphone=dt_products::with('imageupload','products_categories')->get();
         $laptop=dt_products::with('imageupload','products_categories')->get();
         $watchs=dt_products::with('imageupload','products_categories')->get();
         $order_detail=new order_detail();
         $tops=$order_detail->getTops();
         $hots=$order_detail->getHots();
+        $category= new dt_categories();
+        $category_1=$category->getCategory_1();
+        $category_2=$category->getCategory_2();
+
+        // $products = Cache::remember('products', 1, function () {
+        //     return  dt_products::with('imageupload')->paginate(8);
+        // });
+        // $smartphone=Cache::remember('smartphone', 1, function () {
+        //     return dt_products::with('imageupload','products_categories')->get();
+
+        // });
+
+        // $laptop=Cache::remember('laptop', 1, function () {
+        //     return dt_products::with('imageupload','products_categories')->get();
+
+        // });
+
+        // $watchs=Cache::remember('watch',1, function () {
+        //     return dt_products::with('imageupload','products_categories')->get();
+
+        // });
+
+        // $tops=Cache::remember('tops', 1, function () {
+        //     $order_detail=new order_detail();
+        //     return $order_detail->getTops();
+
+        // });
+        // $hots=Cache::remember('tops', 1, function () {
+        //     $order_detail=new order_detail();
+        //     return $order_detail->getHots();
+
+        // });
+
         return view('home',['hots'=>$hots,'tops'=>$tops,'watchs'=>$watchs,'laptop'=>$laptop,'smartphone'=>$smartphone,'products'=>$products,'category_1'=>$category_1,'category_2'=>$category_2]);
     }
     public function show_detail($id){
@@ -70,13 +103,9 @@ class PageController extends Controller
 
     }
     public function checkout_store(request $request){
-
-
         if($request){
-
             $order=new orders();
             $order->insert($request->name,$request->phone,$request->email,$request->address,$request->quantity*$request->total);
-
             $order_id=orders::selectRaw('max(id)')->get();
             $id=$order_id[0]['max(id)'];
 

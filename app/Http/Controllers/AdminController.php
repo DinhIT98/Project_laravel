@@ -49,7 +49,6 @@ class AdminController extends Controller
             $image_path->insert($id,$image->getClientOriginalName());
             Storage::disk('public')->put($image->getClientOriginalName(),  File::get($image));
         }
-
         return redirect()->to('/admin/products');
     }
     public function deleteProduct($id){

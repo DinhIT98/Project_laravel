@@ -20,7 +20,7 @@ class RegisterController extends Controller
             $user->address=$request->address;
             $user->password= Hash::make($request->password);
             $user->save();
-            $data=[$request->name,$request->email,$request->phone,$request->gender,$request->address,$request->password];
+            // $data=[$request->name,$request->email,$request->phone,$request->gender,$request->address,$request->password];
             return redirect()->to('/login');
 
         }else{
