@@ -2,13 +2,13 @@
 @section('content')
 
         <div class="container checkout">
-            <a href="/home">Mua thêm sản phẩm khác</a>
+            <a href="/">Mua thêm sản phẩm khác</a>
             <form class="needs-validation" method="POST" action="{{route('checkout.store')}}" >
 				<div class="row">
 				  <div class="col-md-4 order-md-2 mb-4">
 					<h4 class="d-flex justify-content-between align-items-center mb-3">
 					  <span class="text-muted">Giỏ hàng</span>
-					  <span class="badge badge-secondary badge-pill">1</span>
+					  <span class="badge badge-secondary badge-pill"></span>
 					</h4>
 					<ul class="list-group mb-3">
                     <?php $total=0;?>

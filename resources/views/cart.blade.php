@@ -23,6 +23,7 @@
 
                     <?php $total=0; $x=0; $y=0; $z=0;$t=0;$check_session=session('cart');?>
                     @if(isset($check_session))
+
                         @foreach(session('cart') as $id=>$val)
 
                         <?php $total+=($val['price']*$val['quantity']);
@@ -86,10 +87,16 @@
         var quantity=$(this).val();
         var price=$("#"+id_price).val();
         var total_price=price*quantity;
+        total_price=new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'VND' }).format(total_price);
         $('#'+id_total_price).html(total_price);
+
         var total=0;
         Array.from($(".price")).forEach(function(item){
-                 total+=parseInt(item.textContent);
+                var totalPrice=item.textContent;
+                // console.log(totalPrice);
+                // console.log(parseInt(totalPrice.replace(/[^0-9-]+/g,"")));
+                //  total+=parseInt(item.textContent);
+                total+=(parseInt(totalPrice.replace(/[^0-9-]+/g,"")));
         });
 
         // total_price_format=new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'VND' }).format(total_price);

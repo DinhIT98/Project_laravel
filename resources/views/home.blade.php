@@ -356,7 +356,7 @@ $(document).ready(function () {
             success: function (response) {
                 $('#alert').fadeIn(function(){
                     $("#message").text(response.message);
-                    $("html, body").animate({scrollTop:0});
+                    $("html, body").animate({scrollTop:0},500);
 
                 });
                 $("#alert").fadeOut(3000);

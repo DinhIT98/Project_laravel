@@ -62,6 +62,7 @@ class PageController extends Controller
 
     }
     public function cart(){
+
         $category= new dt_categories();
         $category_1=$category->getCategory_1();
         $category_2=$category->getCategory_2();
