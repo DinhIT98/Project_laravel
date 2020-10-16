@@ -130,26 +130,14 @@
 						</div>
 						<div class="ctboxleft">
 							<div id="slider-tintuc" class="owl-carousel">
+                            @foreach($news as $data)
 				                <div class="item tintucl">
-				                	<a href=""><img src="{{URL::asset('images/img-tin.jpg')}}"></a>
-				                	<h3><a href="">5 loa di động đáng chú ý có giá dưới 1 triệu đồng</a></h3>
-				                	<p>Không ai muốn nghe nhạc qua chiếc loa nhỏ và rè của smartphone, đó là lý do ngày càng nhiều người bỏ tiền mua loa di động. Loa di...</p>
+				                	<a href=""><img src="{{URL::asset('images/'.$data->image)}}"></a>
+				                	<h3><a href="">{{$data->title}}</a></h3>
+				                	<p>{{$data->summary}}</p>
 				                </div>
-				                <div class="item tintucl">
-				                	<a href=""><img src="{{URL::asset('images/img-tin.jpg')}}"></a>
-				                	<h3><a href="">5 loa di động đáng chú ý có giá dưới 1 triệu đồng</a></h3>
-				                	<p>Không ai muốn nghe nhạc qua chiếc loa nhỏ và rè của smartphone, đó là lý do ngày càng nhiều người bỏ tiền mua loa di động. Loa di...</p>
-				                </div>
-				                <div class="item tintucl">
-				                	<a href=""><img src="{{URL::asset('images/img-tin.jpg')}}"></a>
-				                	<h3><a href="">5 loa di động đáng chú ý có giá dưới 1 triệu đồng</a></h3>
-				                	<p>Không ai muốn nghe nhạc qua chiếc loa nhỏ và rè của smartphone, đó là lý do ngày càng nhiều người bỏ tiền mua loa di động. Loa di...</p>
-				                </div>
-				                <div class="item tintucl">
-				                	<a href=""><img src="{{URL::asset('images/img-tin.jpg')}}"></a>
-				                	<h3><a href="">5 loa di động đáng chú ý có giá dưới 1 triệu đồng</a></h3>
-				                	<p>Không ai muốn nghe nhạc qua chiếc loa nhỏ và rè của smartphone, đó là lý do ngày càng nhiều người bỏ tiền mua loa di động. Loa di...</p>
-				                </div>
+                            @endforeach
+
 				            </div>
 						</div>
 					</div>

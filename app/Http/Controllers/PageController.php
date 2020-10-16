@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use App\Models\orders;
 use App\Models\order_detail;
+use App\Models\news;
 use App\Models\dt_products;
 use App\Models\dt_categories;
 use Illuminate\Http\Request;
@@ -22,6 +23,7 @@ class PageController extends Controller
         $order_detail=new order_detail();
         $tops=$order_detail->getTops();
         $hots=$order_detail->getHots();
+        $news=news::limit(4)->get();
         $category= new dt_categories();
         $category_1=$category->getCategory_1();
         $category_2=$category->getCategory_2();
@@ -55,7 +57,7 @@ class PageController extends Controller
 
         // });
 
-        return view('home',['hots'=>$hots,'tops'=>$tops,'watchs'=>$watchs,'laptop'=>$laptop,'smartphone'=>$smartphone,'products'=>$products,'category_1'=>$category_1,'category_2'=>$category_2]);
+        return view('home',['news'=>$news,'hots'=>$hots,'tops'=>$tops,'watchs'=>$watchs,'laptop'=>$laptop,'smartphone'=>$smartphone,'products'=>$products,'category_1'=>$category_1,'category_2'=>$category_2]);
     }
     public function show_detail($id){
         $category=new dt_categories();
@@ -73,6 +75,7 @@ class PageController extends Controller
         $hots=$order_detail->getHots();
         $dt_products=new dt_products();
         $products=$dt_products->getProductsByCategory($cate);
+        $news=news::limit(4)->get();
         // $products=dt_products::with(['imageupload','products_categories'=>function ( Builder $query) {
         //     return $query->where('category_id ', '=',9);
         // }]) ;
@@ -81,7 +84,7 @@ class PageController extends Controller
         $category=new dt_categories();
         $cate_name=$category->getCategoryById($cate);
         $cate_name=json_decode($cate_name,true);
-        return view('product_category',['cate_name'=>$cate_name,'hots'=>$hots,'tops'=>$tops,'products'=>$products,'category_1'=>$category_1,'category_2'=>$category_2]);
+        return view('product_category',['news'=>$news,'cate_name'=>$cate_name,'hots'=>$hots,'tops'=>$tops,'products'=>$products,'category_1'=>$category_1,'category_2'=>$category_2]);
     }
     public function showProductBySearch(){
         // use ajax
@@ -365,6 +368,14 @@ class PageController extends Controller
           </td>
         </tr>';
         }
+
+    }
+    public function testNews(){
+        $category= new dt_categories();
+        $category_1=$category->getCategory_1();
+        $category_2=$category->getCategory_2();
+        $news=news::all();
+        return view('news',['news'=>$news,'category_1'=>$category_1,'category_2'=>$category_2]);
 
     }
 

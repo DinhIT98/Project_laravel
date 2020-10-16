@@ -6,10 +6,11 @@ use App\Models\orders;
 use Illuminate\Support\Facades\DB;
 use App\Models\dt_categories;
 use App\Models\dt_products;
+use App\Models\news;
 use App\Models\imageupload;
 use App\Models\products_categories;
 use Illuminate\Http\Request;
-
+use Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
@@ -162,5 +163,57 @@ class AdminController extends Controller
             $category->insert($request->name,$request->level,$request->parent_id);
             return redirect()->to('/admin/category');
         }
+    }
+    public function showNews(){
+        $news=news::all();
+        return view('admin.News',['news'=>$news]);
+    }
+    public function insertNew(){
+        return view('admin.insert_new');
+    }
+    public function storeInsertNew(request $request){
+        $author= Auth::user()->id;
+        $image=$request->file('image');
+        $data=[$image,$request->title,$request->content,$author,$request->summary];
+        // dd($data);
+        $news=new news();
+        $news->author=$author;
+        $news->summary=$request->summary;
+        $news->title=$request->title;
+        $news->content=$request->content;
+        $news->image=$image->getClientOriginalName();
+        $news->save();
+        Storage::disk('public')->put($image->getClientOriginalName(),  File::get($image));
+        return redirect()->back();
+
+
+    }
+    public function deleteNew(request $request){
+        news::where('id',$request->id)->delete();
+        return response()->json(['success'=>"remove new success!"]);
+    }
+    public function editNews($id){
+        $data=news::where('id',$id)->get();
+        // dd($data);
+        return view('admin.edit_news',['data'=>$data]);
+    }
+    public function storeEditNews(request $request){
+        $data=[$request->id,$request->title,$request->summary,$request->content,$request->file('image')];
+        $request->validate([
+            'title' => 'required',
+            'summary' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+        ]);
+        $image=$request->file('image');
+        news::where('id',$request->id)
+        ->update(['title'=>$request->title,'summary'=>$request->summary,'content'=>$request->content,'image'=>$image->getClientOriginalName(),'updated_at'=>now()]);
+        Storage::disk('public')->put($image->getClientOriginalName(),  File::get($image));
+        return redirect()->to('/admin/news');
+    }
+    public function deleteImageNews(request $request){
+
+        // dd($request->path);
+        news::where('image',$request->path)->update(['image'=>null]);
+        Storage::disk('public')->delete($request->path);
     }
 }

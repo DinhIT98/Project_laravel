@@ -91,6 +91,12 @@
                   <p>Products</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="/admin/news" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>News</p>
+                </a>
+              </li>
             </ul>
           </li>
 

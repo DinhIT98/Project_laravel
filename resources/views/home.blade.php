@@ -132,26 +132,14 @@
 						</div>
 						<div class="ctboxleft">
 							<div id="slider-tintuc" class="owl-carousel">
+                            @foreach($news as $new)
 				                <div class="item tintucl">
-				                	<a href=""><img src="images/img-tin.jpg"></a>
-				                	<h3><a href="">5 loa di động đáng chú ý có giá dưới 1 triệu đồng</a></h3>
-				                	<p>Không ai muốn nghe nhạc qua chiếc loa nhỏ và rè của smartphone, đó là lý do ngày càng nhiều người bỏ tiền mua loa di động. Loa di...</p>
+				                	<a href=""><img src="images/{{$new->image}}"></a>
+				                	<h3><a href="">{{$new->title}}</a></h3>
+				                	<p>{{$new->summary}}</p>
 				                </div>
-				                <div class="item tintucl">
-				                	<a href=""><img src="images/img-tin.jpg"></a>
-				                	<h3><a href="">5 loa di động đáng chú ý có giá dưới 1 triệu đồng</a></h3>
-				                	<p>Không ai muốn nghe nhạc qua chiếc loa nhỏ và rè của smartphone, đó là lý do ngày càng nhiều người bỏ tiền mua loa di động. Loa di...</p>
-				                </div>
-				                <div class="item tintucl">
-				                	<a href=""><img src="images/img-tin.jpg"></a>
-				                	<h3><a href="">5 loa di động đáng chú ý có giá dưới 1 triệu đồng</a></h3>
-				                	<p>Không ai muốn nghe nhạc qua chiếc loa nhỏ và rè của smartphone, đó là lý do ngày càng nhiều người bỏ tiền mua loa di động. Loa di...</p>
-				                </div>
-				                <div class="item tintucl">
-				                	<a href=""><img src="images/img-tin.jpg"></a>
-				                	<h3><a href="">5 loa di động đáng chú ý có giá dưới 1 triệu đồng</a></h3>
-				                	<p>Không ai muốn nghe nhạc qua chiếc loa nhỏ và rè của smartphone, đó là lý do ngày càng nhiều người bỏ tiền mua loa di động. Loa di...</p>
-				                </div>
+                            @endforeach
+
 				            </div>
 						</div>
 					</div>
