@@ -6,6 +6,8 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\AdminController;
 use App\Http\Middleware\checkUserAdmin;
+use App\Http\Controllers\ImportController;
+use App\Http\Controllers\ExportController;
 
 
 /*
@@ -80,4 +82,7 @@ Route::get('/admin/edit-category/{id}',[AdminController::class,'editCategory'])-
 Route::post('/admin/store-edit-cate',[AdminController::class,'storeEditCate'])->name('storeEditCate');
 Route::post('/admin/store-insert-cate-1',[AdminController::class,'storeInsertCate_1'])->name('storeInsertCate_1');
 Route::post('/admin/store-insert-cate-2',[AdminController::class,'storeInsertCate_2'])->name('storeInsertCate_2');
+Route::get('/admin/file-export',[ExportController::class,'fileExport'])->name('fileExport');
+Route::get('/admin/import',[AdminController::class,'import'])->name('import');
+Route::post('/admin/file-import',[ImportController::class,'fileImport'])->name('fileImport');
 });

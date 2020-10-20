@@ -63,6 +63,14 @@ class ValidateCsvFile implements ToCollection, WithStartRow
                     'required',
                     'string',
                 ],
+                '6' => [
+                    'required',
+                    'string',
+                ],
+                '7' => [
+                    'required',
+                    'string',
+                ],
               ]);
 
               if ($validator->fails()) {

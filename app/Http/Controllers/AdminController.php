@@ -216,4 +216,7 @@ class AdminController extends Controller
         news::where('image',$request->path)->update(['image'=>null]);
         Storage::disk('public')->delete($request->path);
     }
+    public function import(){
+        return view('admin.import');
+    }
 }

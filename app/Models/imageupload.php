@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class imageupload extends Model
 {
     use HasFactory;
+    protected $fillable=['content_id','path'];
     protected $table="imageupload";
     protected $primaryKey = 'id';
 

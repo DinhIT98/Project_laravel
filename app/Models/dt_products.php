@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 class dt_products extends Model
 {
     use HasFactory;
+    protected $fillable = ['product_code','product_name','description','price','status','warranty'];
     protected $table="dt_products";
     protected $primaryKey="id";
     public function imageupload(){

@@ -75,6 +75,12 @@ class ProductsImport implements ToModel,ShouldQueue, WithChunkReading, WithStart
             'string',
 
         ],
+        '6' => [
+            'required',
+            'string',
+
+        ],
+
       ]);
 
       if ($validator->fails()) {
@@ -104,6 +110,7 @@ class ProductsImport implements ToModel,ShouldQueue, WithChunkReading, WithStart
 
           ]);
         $images = explode(",",$row[7]);
+        // dd($images);
         foreach($images as $img){
             imageupload::create([
                 'content_id' =>$id,

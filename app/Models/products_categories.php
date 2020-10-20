@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class products_categories extends Model
 {
     use HasFactory;
+    protected $fillable = ['product_id','category_id'];
     protected $table="products_categories";
     protected $primaryKey = 'product_id,category_id';
     public function insert($product_id,$category_id){
