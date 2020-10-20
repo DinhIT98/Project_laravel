@@ -13,6 +13,9 @@ class orders extends Model
     protected $attributes = [
         'status' =>'Mới đặt hàng'
     ];
+    public function order_detail(){
+        return $this->hasMany('App\Models\order_detail','order_id');
+    }
     public function insert($user_name,$user_phone,$user_email,$user_address,$total_price){
         $this->user_name=$user_name;
         $this->user_phone=$user_phone;

@@ -28,7 +28,7 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">List user</h3>
-                <a href="{{route('fileExport')}}" class="btn btn-primary float-right">Export</a>
+                <a href="{{route('fileExportUsers')}}" class="btn btn-primary float-right">Export</a>
               </div>
               <!-- /.card-header -->
               <div class="card-body">

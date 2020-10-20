@@ -11,6 +11,9 @@ class order_detail extends Model
     use HasFactory;
     protected $table="order_detail";
     protected $primaryKey = 'order_id';
+    public function orders(){
+        return $this->belongsTo('App\Models\order_detail', 'id','order_id');
+    }
     public function dt_products(){
         return $this->hasMany('App\Models\dt_products','product_id');
     }

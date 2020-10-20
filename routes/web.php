@@ -82,7 +82,9 @@ Route::get('/admin/edit-category/{id}',[AdminController::class,'editCategory'])-
 Route::post('/admin/store-edit-cate',[AdminController::class,'storeEditCate'])->name('storeEditCate');
 Route::post('/admin/store-insert-cate-1',[AdminController::class,'storeInsertCate_1'])->name('storeInsertCate_1');
 Route::post('/admin/store-insert-cate-2',[AdminController::class,'storeInsertCate_2'])->name('storeInsertCate_2');
-Route::get('/admin/file-export',[ExportController::class,'fileExport'])->name('fileExport');
+Route::get('/admin/file-export-users',[ExportController::class,'fileExportUsers'])->name('fileExportUsers');
 Route::get('/admin/import',[AdminController::class,'import'])->name('import');
 Route::post('/admin/file-import',[ImportController::class,'fileImport'])->name('fileImport');
+Route::get('/admin/file-export-products',[ExportController::class,'fileExportProducts'])->name('fileExportProducts');
+Route::get('/admin/file-export-order',[ExportController::class,'fileExportOrders'])->name('fileExportOrders');
 });
