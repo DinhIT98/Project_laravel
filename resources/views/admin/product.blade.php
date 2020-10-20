@@ -40,7 +40,8 @@
                   <tr>
                     <th>ID</th>
                     <th>Name</th>
-                    <th>Phone</th>
+                    <th>Image</th>
+                    <th>Price</th>
                     <th>Status</th>
                     <th>Warranty</th>
                     <th>Delete</th>
@@ -49,9 +50,11 @@
                   </thead>
                   <tbody>
                   @foreach($products as $product)
+                  <?php $image=$product->imageupload;?>
                   <tr id ="row{{$product->id}}">
                     <td>{{$product->id}}</td>
                     <td>{{$product->product_name}}</td>
+                    <td><img src="{{URL::asset('images/'.$image[0]->path)}} " alt="" height=100px ></td>
                     <td>{{$product->price}}</td>
                     <td>{{$product->status}}</td>
                     <td>{{$product->warranty}}</td>
