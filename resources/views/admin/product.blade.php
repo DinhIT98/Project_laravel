@@ -3,7 +3,7 @@
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <div class="container-fluid">
+      <!-- <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1>DataTables</h1>
@@ -15,7 +15,7 @@
             </ol>
           </div>
         </div>
-      </div><!-- /.container-fluid -->
+      </div>/.container-fluid -->
     </section>
 
     <!-- Main content -->
@@ -49,18 +49,16 @@
                   </thead>
                   <tbody>
                   @foreach($products as $product)
-                  <tr>
+                  <tr id ="row{{$product->id}}">
                     <td>{{$product->id}}</td>
                     <td>{{$product->product_name}}</td>
                     <td>{{$product->price}}</td>
                     <td>{{$product->status}}</td>
                     <td>{{$product->warranty}}</td>
-
-                    <td><form action="{{route('deleteProduct',['id'=>$product->id])}}" method="POST">
-                    @method('delete')
+                    <td>
                     @csrf
-                    <button class="btn btn-danger" type="submit"> <i class="fa fa-trash"></i></button>
-                    </form></td>
+                    <button id="{{$product->id}}" class="delete btn btn-danger" type="submit"> <i class="fa fa-trash"></i></button>
+                    </td>
                     <td><a href="{{route('editProduct',['id'=>$product->id])}}" type='button' class='btn btn-success'><i class="fa fa-edit"></i></a></td>
                   </tr>
                   @endforeach
@@ -88,5 +86,28 @@
     <!-- Control sidebar content goes here -->
   </aside>
   <!-- /.control-sidebar -->
-
+  @if(session()->has('success'))
+    <script>
+        alert('insert product success!');
+    </script>
+    @endif
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(document).on('click','.delete',function(){
+                var id=$(this).attr('id');
+                var _token = $('input[name="_token"]').val();
+                $.ajax({
+                    type: "POST",
+                    url: "{{route('deleteProduct')}}",
+                    data: {id:id,_token:_token},
+                    success: function (response) {
+                        $('#row'+id).remove();
+                        alert(response.success);
+                    }
+                });
+            });
+        });
+    </script>
   @endsection('content')

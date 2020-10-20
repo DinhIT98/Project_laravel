@@ -106,14 +106,15 @@ $image =$product->imageupload;?>
 
   <div class="col ">
   <div class="img-small-wrap d-flex overflow-auto">
-                    @foreach($image as $img)
-                    <div class="item-gallery border shadow mr-2 imagesp"> <img src="{{URL::asset('images/'.$img->path)}}">
+                @if(isset($image))
+                    @foreach($image as $key=>$img)
+                    <div id="{{$key}}" class="item-gallery border shadow mr-2 imagesp"> <img src="{{URL::asset('images/'.$img->path)}} " height=200px>
                     <div class="btn_delete ">
-
-                        <form action="{{route('image.Delete')}}" method="POST">@csrf <input type="text" value="{{$img->path}}" hidden id="path" name="path"> <button onclick="$(this).closest('form').submit()" style="border:none; padding:0;"> <span class="fa fa-window-close fa-16px text-red mt-0"></span></button></form>
+                         <a class="delete" id="{{$key}}" value="{{$img->path}}" style="border:none; padding:0;"> <span class="fa fa-window-close fa-16px text-red mt-0"></span></a>
                     </div>
                      </div>
                     @endforeach
+                @endif
   </div>
 
   </div>
@@ -131,7 +132,7 @@ $image =$product->imageupload;?>
 <div class="form-group">
   <label class="col-md-6 control-label" for="insert_product"></label>
   <div class="col text-center">
-    <button id="insert_product" name="insert_product" class="btn btn-primary col">Update</button>
+    <button id="insert_product" type="submit" name="insert_product" class="btn btn-primary col">Update</button>
   </div>
   </div>
 @endforeach
@@ -141,4 +142,25 @@ $image =$product->imageupload;?>
   </div>
   </section>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script>
+$(document).ready(function () {
+    $(document).on('click','.delete',function(){
+        var id=$(this).attr('id');
+        var path=$(this).attr('value');
+        // console.log(path)
+        var _token = $('input[name="_token"]').val();
+        $.ajax({
+            type: "POST",
+            url: "{{route('image.Delete')}}",
+            data:{path:path,_token:_token},
+            success: function (response) {
+                $('#'+id).remove();
+                alert(response.success);
+            }
+        });
+    });
+});
+</script>
 @endsection('content')

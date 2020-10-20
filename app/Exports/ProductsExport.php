@@ -4,7 +4,7 @@ namespace App\Exports;
 use App\Models\dt_products;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
-class ProductsExport implements FromCollection
+class ProductsExport implements FromCollection, WithHeadings
 {
     /**
     * @return \Illuminate\Support\Collection

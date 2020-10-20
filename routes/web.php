@@ -68,7 +68,7 @@ Route::post('/admin/store-edit-news',[AdminController::class,'storeEditNews'])->
 Route::post('/admin/delete-image-news',[AdminController::class,'deleteImageNews'])->name('deleteImageNews');
 Route::get('/admin/insert-product',[AdminController::class,'insertProduct']);
 Route::post('admin/store-product',[AdminController::class,'storeProduct'])->name('storeProduct');
-Route::delete('delete-product/{id}',[AdminController::class,'deleteProduct'])->name('deleteProduct');
+Route::post('delete-product',[AdminController::class,'deleteProduct'])->name('deleteProduct');
 Route::get('/admin/insert-category-2',[AdminController::class,'insertCate_2']);
 Route::get('/admin/insert-category-1',[AdminController::class,'insertCate_1']);
 Route::get('/admin/edit-product/{id}',[AdminController::class,'editProduct'])->name('editProduct');

@@ -50,21 +50,22 @@ class AdminController extends Controller
             $image_path->insert($id,$image->getClientOriginalName());
             Storage::disk('public')->put($image->getClientOriginalName(),  File::get($image));
         }
-        return redirect()->to('/admin/products');
+        return redirect()->to('/admin/products')->with('success','insert product success!');
     }
-    public function deleteProduct($id){
-        dt_products::where("id",$id)->delete();
+    public function deleteProduct(request $request){
+        dt_products::where("id",$request->id)->delete();
         $images=imageupload::selectRaw('GROUP_CONCAT(path) as path')
-        ->where('content_id',$id)
+        ->where('content_id',$request->id)
         ->get();
         $images=json_decode($images,true);
         // $path=explode(",", $images[0]['path']);
         // foreach($path as $val){
         //     Storage::disk('public')->delete( $val);
         // }
-        imageupload::where("content_id",$id)->delete();
-        products_categories::where("product_id",$id)->delete();
-        return redirect()->to('/admin/products');
+        imageupload::where("content_id",$request->id)->delete();
+        products_categories::where("product_id",$request->id)->delete();
+        // return redirect()->to('/admin/products');
+        return response()->json(['success'=>'remove product success!']);
 
     }
     public function insertCategory(){
@@ -85,7 +86,7 @@ class AdminController extends Controller
         if($request->file('image')){
             foreach($request->file('image') as $key=> $image){
                 $image_path=new imageupload();
-                $image_path->insert($id,$image->getClientOriginalName());
+                $image_path->insert($request->product_id,$image->getClientOriginalName());
                 Storage::disk('public')->put($image->getClientOriginalName(),  File::get($image));
             }
         }
@@ -95,7 +96,8 @@ class AdminController extends Controller
         $path=$request->path;
         imageupload::where("path",$path)->delete();
         // Storage::disk('public')->delete($path);
-        return redirect()->back();
+        return response()->json(['success'=>"remove image success!"]);
+        // return redirect()->back();
     }
     public function updateStatusOrder($id){
         $order=orders::where('id',$id)
