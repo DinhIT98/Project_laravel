@@ -9,7 +9,9 @@
     z-index: -1;
     border:0 !important;
     padding:0 !important;
-    background-color: aqua;
+    margin:0 !important;
+    /* background-color:white; */
+    opacity: 1;
 }
 .imagesp:hover .btn_delete{
     z-index: 1;

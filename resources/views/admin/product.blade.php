@@ -55,7 +55,7 @@
                     <td>{{$product->id}}</td>
                     <td>{{$product->product_name}}</td>
                     <td><img src="{{URL::asset('images/'.$image[0]->path)}} " alt="" height=100px ></td>
-                    <td>{{$product->price}}</td>
+                    <td>{{number_format($product->price)}}đ</td>
                     <td>{{$product->status}}</td>
                     <td>{{$product->warranty}}</td>
                     <td>

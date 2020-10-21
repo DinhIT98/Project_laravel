@@ -370,12 +370,14 @@ class PageController extends Controller
         }
 
     }
-    public function testNews(){
+    public function News($id){
         $category= new dt_categories();
         $category_1=$category->getCategory_1();
         $category_2=$category->getCategory_2();
         $news=news::all();
-        return view('news',['news'=>$news,'category_1'=>$category_1,'category_2'=>$category_2]);
+        $newsById=news::find($id);
+        // dd($newsById);
+        return view('news',['newsById'=>$newsById,'news'=>$news,'category_1'=>$category_1,'category_2'=>$category_2]);
 
     }
 

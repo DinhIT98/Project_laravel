@@ -2,11 +2,11 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <h1>{{$news[0]->title}}</h1>
+        <h1>{{$newsById->title}}</h1>
     </div>
     <div class="row">
         <div class="col-sm-8">
-            <p>{!!$news[0]->content!!}</p>
+            <p>{!!$newsById->content!!}</p>
         </div>
         <div class="col-sm-4 ">
             <div class="card">

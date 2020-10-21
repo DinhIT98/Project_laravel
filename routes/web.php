@@ -49,7 +49,7 @@ Route::get('/get-cart',[PageController::class,'getCart'])->name('getCart');
 Route::post('/remove-cart-ajax',[PageController::class,'removeCartAjax'])->name('removeCartAjax');
 Route::post('/update-cart',[PageController::class,'updateCart'])->name('updateCart');
 Route::get('/get-total-cart',[PageController::class,'getTotalCart'])->name('getTotalCart');
-Route::get('/test',[PageController::class,'testNews']);
+Route::get('/news/{id}',[PageController::class,'News'])->name('getNews');
 // Route::get('/admin',[AdminController::class,'showUser'])->middleware(checkUserAdmin::class)->name('showUser');
 
 // Route::get('/admin',[AdminController::class,'showUser'])->name('showUser');

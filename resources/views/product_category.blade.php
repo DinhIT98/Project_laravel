@@ -132,8 +132,8 @@
 							<div id="slider-tintuc" class="owl-carousel">
                             @foreach($news as $data)
 				                <div class="item tintucl">
-				                	<a href=""><img src="{{URL::asset('images/'.$data->image)}}"></a>
-				                	<h3><a href="">{{$data->title}}</a></h3>
+				                	<a href="{{route('getNews',['id'=>$data->id])}}"><img src="{{URL::asset('images/'.$data->image)}}"></a>
+				                	<h3><a href="{{route('getNews',['id'=>$data->id])}}">{{$data->title}}</a></h3>
 				                	<p>{{$data->summary}}</p>
 				                </div>
                             @endforeach

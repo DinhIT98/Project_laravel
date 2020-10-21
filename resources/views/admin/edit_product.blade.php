@@ -70,7 +70,7 @@ $image =$product->imageupload;?>
 <div class="form-group">
   <label class="col control-label" for="product_description">Product description</label>
   <div class="col ">
-    <textarea style ="height:350px" class="form-control" id="product_description" name="product_description" value="{{$product->description}}">{{$product->description}}</textarea>
+    <textarea style ="height:500px" class="form-control" id="product_description" name="product_description" value="{{$product->description}}">{{$product->description}}</textarea>
   </div>
 </div>
 
@@ -108,9 +108,9 @@ $image =$product->imageupload;?>
   <div class="img-small-wrap d-flex overflow-auto">
                 @if(isset($image))
                     @foreach($image as $key=>$img)
-                    <div id="{{$key}}" class="item-gallery border shadow mr-2 imagesp"> <img src="{{URL::asset('images/'.$img->path)}} " height=200px>
+                    <div id="{{$key}}" class="item-gallery border shadow mr-2 imagesp"> <img src="{{URL::asset('images/'.$img->path)}} " height=200px min-width=200px>
                     <div class="btn_delete ">
-                         <a class="delete" id="{{$key}}" value="{{$img->path}}" style="border:none; padding:0;"> <span class="fa fa-window-close fa-16px text-red mt-0"></span></a>
+                         <div class="delete" id="{{$key}}" value="{{$img->path}}" ><i class="fa fa-window-close text-red"></i></div>
                     </div>
                      </div>
                     @endforeach

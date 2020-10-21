@@ -134,8 +134,8 @@
 							<div id="slider-tintuc" class="owl-carousel">
                             @foreach($news as $new)
 				                <div class="item tintucl">
-				                	<a href=""><img src="images/{{$new->image}}"></a>
-				                	<h3><a href="">{{$new->title}}</a></h3>
+				                	<a href="{{route('getNews',['id'=>$new->id])}}"><img src="images/{{$new->image}}"></a>
+				                	<h3><a href="{{route('getNews',['id'=>$new->id])}}">{{$new->title}}</a></h3>
 				                	<p>{{$new->summary}}</p>
 				                </div>
                             @endforeach

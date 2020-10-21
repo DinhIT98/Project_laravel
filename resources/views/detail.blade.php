@@ -18,12 +18,12 @@
                     <div class="img-big-wrap">
                     <?php $image=$product[0]->imageupload;
                     $path='images/'.$image[0]->path;?>
-                        <div> <a href="">@if(is_file(public_path($path)))<img src="{{URL::asset('images/'.$image[0]->path)}}">@else <img src="images/image-not-found.png" alt="">@endif </a></div>
+                        <div> @if(is_file(public_path($path)))<img id="bigImage" src="{{URL::asset('images/'.$image[0]->path)}}"  >@else <img src="images/image-not-found.png" alt="">@endif </div>
                     </div> <!-- slider-product.// -->
                     <div class="img-small-wrap">
                     @foreach($image as $img)
                     <?php $path ='images/'.$img->path;?>
-                    <div class="item-gallery">@if(is_file(public_path($path)))<img src="{{URL::asset('images/'.$img->path)}}">@else <img src="images/image-not-found.png" alt=""> @endif</div>
+                    <div class="item-gallery">@if(is_file(public_path($path)))<img class ="image" src="{{URL::asset('images/'.$img->path)}}">@else <img src="images/image-not-found.png" alt=""> @endif</div>
                     @endforeach
 
 
@@ -34,11 +34,11 @@
                     <h3 class="title mb-3">{{$product[0]->product_name}}</h3>
                     <p class="price-detail-wrap">
                         <span class="price h3 text-warning">
-                            <span class="currency"></span><span class="num">{{number_format($product[0]->price)}} đ</span>
+                            <span class="currency"></span><span class="num">Giá: {{number_format($product[0]->price)}} đ</span>
                         </span>
                     </p> <!-- price-detail-wrap .// -->
                     <dl class="item-property">
-                        <dt>Mô tả</dt>
+                        <dt></dt>
                         <dd><p>{!!$product[0]->description!!}</p></dd>
                     </dl>
                     <dl class="param param-feature">
@@ -77,6 +77,14 @@
 @else
 <h3 class="text-center text-red" m-5>Sản phẩm hiện không còn kinh doanh</h3>
 @endif
+<script>
+$(document).ready(function () {
+    $(".image").click(function(){
+        var src =$(this).attr('src');
+        $('#bigImage').attr("src", src);
+    });
+});
+</script>
 @endsection
 
 
