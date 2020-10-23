@@ -39,11 +39,16 @@
                         <div class="discart ">
                             <!-- <span class="material-icons" style="font-size:36px;">account_circle</span> -->
 
-                            <i class="fa fa-user"></i>
-                            <a class="">{{Auth::user()->name}}</a>
+                            <i class="fa fa-user "></i>
+                            <a id="user">{{Auth::user()->name}}</a>
                             <span>/ <a href="{{route('logout')}}">logout</a> </span>
-
+                            <div class="order">
+                            <ul>
+                                <li><a href="{{route('tracking',['user_id'=>Auth::user()->id])}}" >Quản lý đơn hàng</a></li>
+                            </ul>
                         </div>
+                        </div>
+
                     </div>
 
 
@@ -120,7 +125,17 @@
     $('#countryList').fadeOut();
   });
 
+   $("#user").mouseover(function(){
+        $(".order").fadeIn();
+        // $(".order").fadeOut(500);
+   });
+   $("#user").mouseleave(function(){
+        // $(".order").fadeIn();
+        $(".order").fadeOut(3000);
+   });
+
  });
 </script>
+
 
 

@@ -50,6 +50,7 @@ Route::post('/remove-cart-ajax',[PageController::class,'removeCartAjax'])->name(
 Route::post('/update-cart',[PageController::class,'updateCart'])->name('updateCart');
 Route::get('/get-total-cart',[PageController::class,'getTotalCart'])->name('getTotalCart');
 Route::get('/news/{id}',[PageController::class,'News'])->name('getNews');
+Route::get('/tracking/{user_id}',[PageController::class,'tracking'])->name('tracking');
 // Route::get('/admin',[AdminController::class,'showUser'])->middleware(checkUserAdmin::class)->name('showUser');
 
 // Route::get('/admin',[AdminController::class,'showUser'])->name('showUser');

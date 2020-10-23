@@ -31,8 +31,8 @@
 				<div class="col-xs-12 col-sm-8 col-md-9">
 					<div class="slider-wrapper theme-default">
 			            <div id="slider" class="nivoSlider">
-			                <a href=""><img src="images/slide3.png" alt="" /></a>
-			                <a href=""><img src="images/slide4.png" alt="" /></a>
+			                <a href=""><img src="images/slide6.png" alt="" /></a>
+			                <a href=""><img src="images/slide7.png" alt="" /></a>
                             <a href=""><img src="images/slide5.png" alt="" /></a>
 			            </div>
 			        </div>

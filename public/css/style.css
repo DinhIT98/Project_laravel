@@ -684,3 +684,13 @@ ul.ulspmobi ul li a{
 .main_detail{
     margin-top: 16px;
 }
+.order{
+    display: none;
+    /* background-color:gray; */
+}
+.order li{
+    list-style-type: none;
+    border:solid 1px;
+    text-decoration:none;
+
+}

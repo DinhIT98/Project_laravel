@@ -10,6 +10,7 @@ use App\Models\dt_categories;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Builder;
+use Auth;
 
 class PageController extends Controller
 {
@@ -108,7 +109,7 @@ class PageController extends Controller
     public function checkout_store(request $request){
         if($request){
             $order=new orders();
-            $order->insert($request->name,$request->phone,$request->email,$request->address,$request->quantity*$request->total);
+            $order->insert((Auth::check()) ? Auth::user()->id : 0 ,$request->name,$request->phone,$request->email,$request->address,$request->quantity*$request->total);
             $order_id=orders::selectRaw('max(id)')->get();
             $id=$order_id[0]['max(id)'];
 
@@ -183,7 +184,7 @@ class PageController extends Controller
         if($request){
             $quantity=$request->quantity;
             $order=new orders();
-            $order->insert($request->name,$request->phone,$request->email,$request->address,$request->total);
+            $order->insert((Auth::check()) ? Auth::user()->id : 0,$request->name,$request->phone,$request->email,$request->address,$request->total);
 
             $order_id=orders::selectRaw('max(id)')->get();
             $id=$order_id[0]['max(id)'];
@@ -380,8 +381,14 @@ class PageController extends Controller
         return view('news',['newsById'=>$newsById,'news'=>$news,'category_1'=>$category_1,'category_2'=>$category_2]);
 
     }
-
-
-
+    public function tracking($user_id){
+        $category= new dt_categories();
+        $category_1=$category->getCategory_1();
+        $category_2=$category->getCategory_2();
+        $data=orders::with('order_detail')->where('user_id',$user_id)
+        ->orderBy('updated_at', 'desc')->first();
+        // dd($data->order_detail);
+        return view('tracking',['data'=>$data,'category_1'=>$category_1,'category_2'=>$category_2]);
+    }
 
 }

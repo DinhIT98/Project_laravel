@@ -16,7 +16,8 @@ class orders extends Model
     public function order_detail(){
         return $this->hasMany('App\Models\order_detail','order_id');
     }
-    public function insert($user_name,$user_phone,$user_email,$user_address,$total_price){
+    public function insert($user_id,$user_name,$user_phone,$user_email,$user_address,$total_price){
+        $this->user_id=$user_id;
         $this->user_name=$user_name;
         $this->user_phone=$user_phone;
         $this->user_email=$user_email;
