@@ -53,7 +53,7 @@
                     <td>{{$order->user_email}}</td>
                     <td>{{$order->user_phone}}</td>
                     <td>{{$order->user_address}}</td>
-                    <td>{{$order->total_price}}</td>
+                    <td>{{number_format($order->total_price)}} đ</td>
                     <td>{{$order->status}}</td>
                     <td> <a href="{{route('updateStatusOrder',['id'=>$order->id])}}" class="btn btn-success">update</a> </td>
                   </tr>

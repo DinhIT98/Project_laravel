@@ -54,7 +54,7 @@
                     <figure class="itemside mb-3">
                         <div class="aside"><img src="{{asset('images/'.$detail->product_image)}}" class="img-sm border"></div>
                         <figcaption class="info align-self-center">
-                            <p class="title">{{$detail->product_name}} <br></p> <span class="text-muted">{{number_format($detail->product_price)}}</span>
+                            <p class="title">{{$detail->product_name}} <br></p> <span class="text-muted">{{number_format($detail->product_price)}} đ</span>
                         </figcaption>
                     </figure>
                 </li>

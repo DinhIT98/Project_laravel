@@ -198,7 +198,7 @@ class PageController extends Controller
             }
             session()->flush();
 
-
+            // dd(Auth::user()->name);
             return redirect()->to('/')->with('success','Thank you for your order!');
         }
 

@@ -279,7 +279,7 @@ ul.mnboxl ul{
 	z-index: 10000;
 	width: 200px;
 	background: #fff;
-	border: 1px solid #e1e1e1;
+	/* border: 1px solid #e1e1e1; */
 	margin: 0;
 	padding: 0;
 }

@@ -18,7 +18,7 @@ class dt_categories extends Model
     }
     public function getCategory_2(){
         return $this->where('level',2)
-        ->select('id','name')
+        ->select('id','name','parent_id')
         ->get();
     }
     public function insert($name,$level,$parent_id){

@@ -15,10 +15,10 @@
                             @foreach($category_1 as $cate_1)
 								<li>
 									<a href="{{route('show.category',['cate'=>$cate_1->id])}}">{{$cate_1->name}}</a>
-                                    <ul class="mnboxl_1">
+                                    <ul class="mnboxl">
                                     @foreach($category_2 as $cate_2)
                                         @if($cate_1->id == $cate_2->parent_id)
-										<li><a href="">{{$cate_2->name}}</a></li>
+										<li><a href="{{route('show.category',['cate'=>$cate_1->id])}}">{{$cate_2->name}}</a></li>
                                         @endif
                                     @endforeach
                                     </ul>

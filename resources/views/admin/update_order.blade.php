@@ -17,7 +17,7 @@
                     <label for="">Status</label>
                     <select class="custom-select" name="status" id="status">
                         <option value="Mới đặt hàng" <?php echo ($order[0]['status']=="Mới đặt hàng") ?  "selected" : "" ;  ?>>Mới đặt hàng </option>
-                        <option value="Chưa giao hàng" <?php echo ($order[0]['status']=="Chưa giao hàng") ?  "selected" : "" ;  ?>>Chưa giao hàng</option>
+                        <option value="Tiếp nhận đơn hàng" <?php echo ($order[0]['status']=="Tiếp nhận đơn hàng") ?  "selected" : "" ;  ?>>Tiếp nhận đơn hàng</option>
                         <option value="Đang giao hàng" <?php echo ($order[0]['status']=="Đang giao hàng") ?  "selected" : "" ;  ?>>Đang giao hàng</option>
                         <option value="Giao hàng thành công" <?php echo ($order[0]['status']=="Giao hàng thành công") ?  "selected" : "" ;  ?>>Giao hàng thành công</option>
                     </select>
