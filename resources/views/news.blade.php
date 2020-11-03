@@ -5,7 +5,7 @@
         <h1>{{$newsById->title}}</h1>
     </div>
     <div class="row">
-        <div class="col-sm-8">
+        <div class="col-sm-8 text-justify">
             <p>{!!$newsById->content!!}</p>
         </div>
         <div class="col-sm-4 ">
