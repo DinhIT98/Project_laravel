@@ -20,7 +20,7 @@
                     $path='images/'.$image[0]->path;?>
                         <div> @if(is_file(public_path($path)))<img id="bigImage" src="{{URL::asset('images/'.$image[0]->path)}}"  >@else <img src="images/image-not-found.png" alt="">@endif </div>
                     </div> <!-- slider-product.// -->
-                    <div class="img-small-wrap">
+                    <div class="img-small-wrap overflow-auto">
                     @foreach($image as $img)
                     <?php $path ='images/'.$img->path;?>
                     <div class="item-gallery">@if(is_file(public_path($path)))<img class ="image" src="{{URL::asset('images/'.$img->path)}}">@else <img src="images/image-not-found.png" alt=""> @endif</div>
