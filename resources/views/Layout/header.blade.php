@@ -91,7 +91,7 @@
 						</ul>
 					</li>
 					<li><a href="">Giới thiệu</a></li>
-					<li><a href="">Tin tức</a></li>
+					<li><a href="{{route('getNews',['id'=>16])}}">Tin tức</a></li>
 					<li><a href="">Tư vấn</a></li>
 					<li><a href="">Liên hệ</a></li>
 					<li><a href="tel:01649.629.629">HOTLINE: 01649.629.629 (từ 8h-22h cả T7,CN)</a></li>
