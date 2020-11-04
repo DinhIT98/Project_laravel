@@ -23,7 +23,13 @@
     <h3 class="text-center">Edit product</h3>
   </div>
   <div class="card-body ">
-
+  @if(session()->has('errors'))
+    <div class="alert alert-danger">
+        <ul>
+            {{session('errors')}}
+        </ul>
+    </div>
+    @endif
 <form class="form-horizontal" action="{{route('storeEditProduct')}}" method="POST" enctype="multipart/form-data" >
 @csrf
 <fieldset>

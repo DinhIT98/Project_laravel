@@ -50,7 +50,9 @@
                   </thead>
                   <tbody>
                   @foreach($products as $product)
-                  <?php $image=$product->imageupload;?>
+                  <?php $image=$product->imageupload;
+
+                  ?>
                   <tr id ="row{{$product->id}}">
                     <td>{{$product->id}}</td>
                     <td>{{$product->product_name}}</td>

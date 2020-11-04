@@ -80,6 +80,10 @@ class AdminController extends Controller
     }
     public function storeEditProduct(request $request){
         // dd($request->price);
+        $request->validate([
+
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+        ]);
         $data=str_replace(",", "", $request->price);
         $price=str_replace("đ", "", $data);
         // dd($price);
@@ -179,6 +183,11 @@ class AdminController extends Controller
         return view('admin.insert_new');
     }
     public function storeInsertNew(request $request){
+        $request->validate([
+            'title' => 'required',
+            'summary' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+        ]);
         $author= Auth::user()->id;
         $image=$request->file('image');
         $data=[$image,$request->title,$request->content,$author,$request->summary];
