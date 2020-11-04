@@ -49,7 +49,7 @@
 					        <td data-th="Quantity">
 								<input type="number" name="quantity[]" id="{{$id}}" class="quantity form-control text-center" value="{{$val['quantity']}}" min="1">
 							</td>
-							<td id="total_price{{$id}}" class="price">{{number_format($val['price']*$val['quantity'])}}</td>
+							<td id="total_price{{$id}}" class="price">{{number_format($val['price']*$val['quantity'])}}đ</td>
                             <!-- <td  >{{number_format($val['price']*$val['quantity'])}}đ</td> -->
 					        <td class="actions" data-th="" style="width:10%;">
                             <!-- <form action="{{route('deleteAndCheckoutCart')}}" method="POST"> -->

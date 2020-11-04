@@ -79,8 +79,12 @@ class AdminController extends Controller
         return view('admin.edit_product',['products'=>$products,'category'=>$cate]);
     }
     public function storeEditProduct(request $request){
+        // dd($request->price);
+        $data=str_replace(",", "", $request->price);
+        $price=str_replace("đ", "", $data);
+        // dd($price);
         dt_products::where('id', $request->product_id)
-        ->update(['product_code' => $request->product_code,'product_name'=>$request->product_name,'description'=>$request->product_description,'price'=>$request->price,'status'=>$request->status,'warranty'=>$request->warranty,'updated_at'=>now()]);
+        ->update(['product_code' => $request->product_code,'product_name'=>$request->product_name,'description'=>$request->product_description,'price'=>$price,'status'=>$request->status,'warranty'=>$request->warranty,'updated_at'=>now()]);
         products_categories::where('product_id',$request->product_id)
         ->update(['category_id'=>$request->product_categorie]);
         if($request->file('image')){

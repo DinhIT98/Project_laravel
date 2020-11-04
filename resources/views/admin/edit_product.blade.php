@@ -78,7 +78,7 @@ $image =$product->imageupload;?>
 <div class="form-group">
   <label class="col control-label" for="percentage_discount">Price</label>
   <div class="col">
-  <input id="price" name="price" placeholder="Price" class="form-control input-md" required="" type="text" value="{{number_format($product->price)}}">
+  <input id="price" name="price" placeholder="Price" class="form-control input-md" required="" type="text" value="{{number_format($product->price)}}đ">
 
   </div>
 </div>

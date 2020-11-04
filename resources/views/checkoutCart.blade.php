@@ -23,8 +23,6 @@
 
                         <span class="text-muted">Số lượng:{{$quantity[$x-1]}}</span>
                         <input type="text" name="quantity[]" value="{{$quantity[$x-1]}}" hidden>
-
-
                         <br>
 						<span class="text-muted">Giá:{{number_format($pro['price'])}} đ</span>
                       </li>
@@ -33,7 +31,7 @@
 					  <li class="list-group-item d-flex justify-content-between">
 
                         <span>Tổng (VND)</span>
-                        <strong>{{number_format($total)}}</strong>
+                        <strong>{{number_format($total)}}đ</strong>
                         <input type="text" name="total" value="{{$total}}" hidden>
 
 					  </li>
