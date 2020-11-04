@@ -167,6 +167,7 @@ class AdminController extends Controller
         }
     }
     public function showNews(){
+        // dd('nguyen huu dinh');
         $news=news::all();
         return view('admin.News',['news'=>$news]);
     }
