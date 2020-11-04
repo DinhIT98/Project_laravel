@@ -169,7 +169,7 @@ class AdminController extends Controller
     public function showNews(){
         // dd('nguyen huu dinh');
         $news=news::all();
-        return view('admin.News',['news'=>$news]);
+        return view('admin.news',['news'=>$news]);
     }
     public function insertNew(){
         return view('admin.insert_new');
