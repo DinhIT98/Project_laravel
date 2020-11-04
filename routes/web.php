@@ -42,7 +42,7 @@ Route::get('/register',[RegisterController::class,'index']);
 Route::post('login',[LoginController::class,'authLogin'])->name('login');
 Route::post('register',[RegisterController::class,'handleRegister'])->name('register');
 Route::get('logout',[LoginController::class,'logout'])->name('logout');
-Route::post('/test',[PageController::class,'deleteAndCheckoutCart'])->name('deleteAndCheckoutCart');
+Route::post('/checkout-cart',[PageController::class,'deleteAndCheckoutCart'])->name('deleteAndCheckoutCart');
 Route::post('/search/name',[PageController::class,'search'])->name('search');
 Route::post('/add-to-cart-ajax',[PageController::class,'addToCartAjax'])->name('addToCartAjax');
 Route::get('/get-cart',[PageController::class,'getCart'])->name('getCart');
