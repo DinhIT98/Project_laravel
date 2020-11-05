@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Validator;
 class ImportController extends Controller
 {
     public function fileImport(ImportCsvFileRequest $request){
-        // dd($request->file('file'));
         $validator = new ValidateCsvFile();
         // $this->validate($request, array(
         //     'file'   => 'max:10240|required|mimes:csv,xlsx',
