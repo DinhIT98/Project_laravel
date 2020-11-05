@@ -88,4 +88,8 @@ Route::get('/admin/import',[AdminController::class,'import'])->name('import');
 Route::post('/admin/file-import',[ImportController::class,'fileImport'])->name('fileImport');
 Route::get('/admin/file-export-products',[ExportController::class,'fileExportProducts'])->name('fileExportProducts');
 Route::get('/admin/file-export-order',[ExportController::class,'fileExportOrders'])->name('fileExportOrders');
+Route::get('/admin/order-detail/{id}',[AdminController::class,'detailOrder'])->name('orderDetail');
+Route::post('/admin/store-edit-detail-order',[AdminController::class,'storeEditDetailOrder'])->name('storeEditDetailOrder');
+Route::post('/admin/delete-detail-order',[AdminController::class,'deleteDetailOrder'])->name('deleteDetailOrder');
+Route::post('/admin/delete-order',[AdminController::class,'deleteOrder'])->name('deleteOrder');
 });

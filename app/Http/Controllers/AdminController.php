@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\dt_categories;
 use App\Models\dt_products;
 use App\Models\news;
+use App\Models\order_detail;
 use App\Models\imageupload;
 use App\Models\products_categories;
 use Illuminate\Http\Request;
@@ -210,7 +211,6 @@ class AdminController extends Controller
     }
     public function editNews($id){
         $data=news::where('id',$id)->get();
-        // dd($data);
         return view('admin.edit_news',['data'=>$data]);
     }
     public function storeEditNews(request $request){
@@ -234,5 +234,37 @@ class AdminController extends Controller
     }
     public function import(){
         return view('admin.import');
+    }
+    public function detailOrder($id){
+        $user_data=orders::where('id',$id)->get();
+        $detail=order_detail::where('order_id',$id)->get();
+        return view('admin.detail_order',['data'=>$detail,'user_data'=>$user_data]);
+    }
+    public function storeEditDetailOrder(request $request){
+        order_detail::where('product_code',$request->id)
+        ->where('order_id',$request->order_id)
+        ->update(['product_qty'=>$request->quantity]);
+        return response()->json(['message'=>'Modify quantity success!']);
+    }
+    public function deleteDetailOrder(request $request){
+        $count=order_detail::where('order_id',$request->order_id)->count();
+        if($count==1){
+            orders::where('id',$request->order_id)->delete();
+            order_detail::where('product_code',$request->id)
+        ->where('order_id',$request->order_id)
+        ->delete();
+        }else{
+            order_detail::where('product_code',$request->id)
+            ->where('order_id',$request->order_id)
+            ->delete();
+        }
+
+        return response()->json(['message'=>"delete success!"]);
+    }
+    public function deleteOrder(request $request){
+        orders::where('id',$request->id)->delete();
+        order_detail::where('order_id',$request->id)
+        ->delete();
+        return response()->json(['message'=>'Delete order success!']);
     }
 }

@@ -27,8 +27,15 @@
 
             <div class="card">
               <div class="card-header">
+              @if(session()->has('errors'))
+                 <div class="alert alert-danger">
+                     <ul>
+                        {{session('errors')}}
+                     </ul>
+                 </div>
+                @endif
                 <h3 class="card-title">List products</h3>
-                <a href="/admin/insert-product" class="btn btn-primary float-right mb-1">insert</a>
+                <a href="/admin/insert-product" class="btn btn-primary float-right mb-1">Add new</a>
                 <a href="{{route('fileExportProducts')}}" class="btn btn-primary float-right mr-2">export</a>
                 <a href="{{route('import')}}" class="btn btn-primary float-right mr-2">import</a>
               </div>

@@ -104,7 +104,7 @@
 					  </div>
 
 					  <hr class="mb-4">
-					  <button class="btn btn-primary btn-lg btn-block" type="submit">ĐẶT HÀNG</button>
+                      <button class="btn btn-primary btn-lg btn-block" type="submit">ĐẶT HÀNG</button>
 					<!-- </form> -->
 				  </div>
                 </div>
