@@ -7,7 +7,13 @@
    </style>
 <div class="content-wrapper">
     <section class="content-header">
-    
+    @if(session()->has('success'))
+    <div class="alert alert-success">
+        <ul>
+            {{session('success')}}
+        </ul>
+    </div>
+    @endif
     @if(session()->has('errors'))
     <div class="alert alert-danger">
         <ul>

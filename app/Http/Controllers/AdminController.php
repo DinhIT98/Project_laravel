@@ -278,29 +278,34 @@ class AdminController extends Controller
         ]);
         $file=$request->file('file');
         $fileName=$file->getClientOriginalName();
-        $zipFile=storage_path('app\laravel/'.$fileName);
+        $zipFile=storage_path('app/laravel/'.$fileName);
         // dd($zipFile);
         $zip = new ZipArchive;
         $res = $zip->open($zipFile);
         // dd($res);
-        if($res==true){
-            $zip->extractTo(storage_path('app\laravel'));
+        if($res!=9){
+            dd('nguyen huu dinh');
+            $zip->extractTo(storage_path('app/laravel'));
             $zip->close();
-        }
-        $sql= storage_path('app\laravel\db-dumps\mysql-demo.sql');
+            $sql= storage_path('app\laravel\db-dumps\mysql-demo.sql');
 
-        //  DB::statement(file_get_contents($sql));
-         $status=DB::unprepared(file_get_contents($sql));
-        //  Storage::disk('storage')->delete('db-dumps');
-        //  dd($status);
-        // for ($i = 0; $i < $zip->numFiles; $i++) {
-        //     $entry = $zip->getNameIndex($i);
-        //     dd($entry);
-        // }
-        // dd($zip->getFromName());
-        // dd($res);
-        // dd(DB::unprepared(file_get_contents($sql)));
-        // dd(DB::unprepared(file_get_contents($sql)));
-        return response()->json(['success'=>'File Uploaded Successfully']);
+            //  DB::statement(file_get_contents($sql));
+             $status=DB::unprepared(file_get_contents($sql));
+            //  Storage::disk('storage')->delete('db-dumps');
+            //  dd($status);
+            // for ($i = 0; $i < $zip->numFiles; $i++) {
+            //     $entry = $zip->getNameIndex($i);
+            //     dd($entry);
+            // }
+            // dd($zip->getFromName());
+            // dd($res);
+            // dd(DB::unprepared(file_get_contents($sql)));
+            // dd(DB::unprepared(file_get_contents($sql)));
+            return response()->json(['success'=>'File Uploaded Successfully']);
+        }
+        else{
+            return redirect()->back()->with('errors','Invalid file');
+        }
+
     }
 }
