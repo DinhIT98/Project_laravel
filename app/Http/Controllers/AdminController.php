@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use ZipArchive;
 use App\Models\users;
 use App\Models\orders;
 use Illuminate\Support\Facades\DB;
@@ -271,6 +272,10 @@ class AdminController extends Controller
         return view("admin.restore");
     }
     public function handleRestore(request $request){
+        $request->validate([
+
+            'file'  => 'required|mimes:zip|max:2048',
+        ]);
         $file=$request->file('file');
         $fileName=$file->getClientOriginalName();
         $zipFile=storage_path('app\laravel/'.$fileName);
