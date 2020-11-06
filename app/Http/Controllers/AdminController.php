@@ -122,7 +122,7 @@ class AdminController extends Controller
     }
     public function deleteUser($id){
         users::where('id',$id)->delete();
-        return redirect()->back();
+        return redirect()->back()->with("success","Delete user successfully!");
     }
     public function deleteCategory($id){
         $category=dt_categories::where('id',$id)
@@ -266,5 +266,36 @@ class AdminController extends Controller
         order_detail::where('order_id',$request->id)
         ->delete();
         return response()->json(['message'=>'Delete order success!']);
+    }
+    public function restore(){
+        return view("admin.restore");
+    }
+    public function handleRestore(request $request){
+        $file=$request->file('file');
+        $fileName=$file->getClientOriginalName();
+        $zipFile=storage_path('app\laravel/'.$fileName);
+        // dd($zipFile);
+        $zip = new ZipArchive;
+        $res = $zip->open($zipFile);
+        // dd($res);
+        if($res==true){
+            $zip->extractTo(storage_path('app\laravel'));
+            $zip->close();
+        }
+        $sql= storage_path('app\laravel\db-dumps\mysql-demo.sql');
+
+        //  DB::statement(file_get_contents($sql));
+         $status=DB::unprepared(file_get_contents($sql));
+        //  Storage::disk('storage')->delete('db-dumps');
+        //  dd($status);
+        // for ($i = 0; $i < $zip->numFiles; $i++) {
+        //     $entry = $zip->getNameIndex($i);
+        //     dd($entry);
+        // }
+        // dd($zip->getFromName());
+        // dd($res);
+        // dd(DB::unprepared(file_get_contents($sql)));
+        // dd(DB::unprepared(file_get_contents($sql)));
+        return response()->json(['success'=>'File Uploaded Successfully']);
     }
 }

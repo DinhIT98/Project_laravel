@@ -92,4 +92,12 @@ Route::get('/admin/order-detail/{id}',[AdminController::class,'detailOrder'])->n
 Route::post('/admin/store-edit-detail-order',[AdminController::class,'storeEditDetailOrder'])->name('storeEditDetailOrder');
 Route::post('/admin/delete-detail-order',[AdminController::class,'deleteDetailOrder'])->name('deleteDetailOrder');
 Route::post('/admin/delete-order',[AdminController::class,'deleteOrder'])->name('deleteOrder');
+Route::get('/admin/backup',function(){
+    $cmd = 'php '.base_path().'/artisan backup:run --only-db';
+    $output=shell_exec($cmd);
+    return redirect('/admin')->with("success","backup successfully!");
+    })->name('backup');
+Route::get('/admin/restore',[AdminController::class,'restore'])->name('restore');
+Route::post('/admin/restore',[AdminController::class,'handleRestore'])->name('handleRestore');
+
 });

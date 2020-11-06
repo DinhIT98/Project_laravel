@@ -9,13 +9,7 @@
         </ul>
     </div>
     @endif
-    @if(isset($errors) && $errors->any())
-        <div class="alert alert-danger">
-            @foreach($errors->all() as $error)
-                {{$error}}
-            @endforeach
-        </div>
-    @endif
+   
     </section>
     <section class="content">
         <div class="card">

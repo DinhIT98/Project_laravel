@@ -3,6 +3,12 @@
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
+    @if(session()->has('success'))
+    <div id="alert" class="alert alert-success alert-dismissible" style="display:block;">
+                    <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong id="message">{{session('success')}}</strong>
+                 </div>
+    @endif
       <!-- <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">

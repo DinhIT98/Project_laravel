@@ -14,7 +14,10 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\ToModel;
-
+use Maatwebsite\Excel\Concerns\SkipsOnError;
+use Maatwebsite\Excel\Concerns\SkipsErrors;
+use Maatwebsite\Excel\Concerns\WithValidation;
+use Throwable;
 
 class ProductsImport implements ToModel,ShouldQueue, WithChunkReading, WithStartRow
 {
@@ -37,6 +40,9 @@ class ProductsImport implements ToModel,ShouldQueue, WithChunkReading, WithStart
    * UsersImport constructor.
    * @param StoreEntity $store
    */
+    // public function onError(Throwable $error){
+    //     return "nguyen huu dinh";
+    // }
     public function __construct($errors = [])
     {
         $this->errors = $errors;
@@ -145,7 +151,12 @@ class ProductsImport implements ToModel,ShouldQueue, WithChunkReading, WithStart
     {
         return 2;
     }
-
+    public function rules(): array
+    {
+        return [
+            '*.product_code' => ['product_code', 'unique:dt_products,product_code']
+        ];
+    }
 
     /**
 
