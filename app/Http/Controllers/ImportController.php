@@ -41,7 +41,7 @@ class ImportController extends Controller
             $errors = [];
             foreach ($validator->errors as $key => $error) {
 
-                dd($error->getMessage());
+                // dd($error->getMessage());
                 $errors[$key] = $key;
                 // $errors[$key]=$error;
             }
